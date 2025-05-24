@@ -1,113 +1,130 @@
+#!/usr/bin/env python
 from flask import Flask, request, jsonify, send_from_directory
-from flask_cors import CORS
-from flask_limiter import Limiter
-from flask_limiter.util import get_remote_address # To get user's IP address for rate limiting
-import json # For potential future use, though jsonify handles most cases
-import os # For potential future use with environment variables
-import csv
-from datetime import datetime, date as dt_date # Import date for comparison
-import re # For regex-based validation
-import html # For sanitization
+import gspread
+from google.oauth2.service_account import Credentials # Explicitly use Credentials from google-auth
+from datetime import datetime
+import re
+import os # To check for service account file
 
-# Serve static files from the root directory (where index.html, css/, js/ are)
 app = Flask(__name__, static_folder='.', static_url_path='')
 
-# Initialize Limiter
-limiter = Limiter(
-    get_remote_address, # Key function to identify clients (by IP)
-    app=app,
-    default_limits=["200 per day", "50 per hour"], # Default limits for all routes (optional)
-    storage_uri="memory://",  # Storage for rate limit data (memory, redis, memcached, etc.)
-    # For production, consider a persistent storage like Redis if you have multiple server processes
-)
+# --- Google Sheets Configuration ---
+SERVICE_ACCOUNT_FILE = 'service-account.json'
+SPREADSHEET_ID = '1hvWPV9f9bvliF2OpAcSy1dHRkLQF84t_TDAHRa3xTuU'
+SHEET_NAME = 'Sheet1'
 
-# Configure CORS: Allow all origins for /api/* routes for simplicity during development.
-# For production, you should restrict this to your actual frontend domain.
-CORS(app, resources={r"/api/*": {"origins": "http://localhost:5000"}}) # More specific for local dev
+# Define the scope for Google Sheets and Drive API
+SCOPE = ['https://www.googleapis.com/auth/spreadsheets', 'https://www.googleapis.com/auth/drive']
 
-# --- Configuration ---
-CSV_FILE_PATH = 'inquiries.csv'
-CSV_HEADERS = ['Timestamp', 'Name', 'Email', 'Phone', 'Preferred Visit Date', 'Message']
-MAX_MESSAGE_LENGTH = 1000  # Max characters for the message
-PHONE_REGEX = r"^[\d\s\-\+\(\)]{7,20}$" # Simple regex for phone: digits, spaces, hyphens, plus, parens, 7-20 chars
+# Updated SHEET_HEADERS
+SHEET_HEADERS = ['Date', 'Time', 'Name', 'Email', 'Phone', 'VisitDate', 'Message']
 
-# --- Helper Functions ---
-def initialize_csv():
-    """Create the CSV file with headers if it doesn't exist."""
-    if not os.path.exists(CSV_FILE_PATH):
-        with open(CSV_FILE_PATH, mode='w', newline='', encoding='utf-8') as file:
-            writer = csv.writer(file)
-            writer.writerow(CSV_HEADERS)
+# --- Helper Function to Initialize Google Sheet and Add Headers ---
+def initialize_google_sheet(worksheet):
+    """Checks if the sheet is empty and adds headers if it is."""
+    try:
+        first_row_values = worksheet.row_values(1)
+        # Check against new headers
+        if not first_row_values or first_row_values != SHEET_HEADERS:
+            if first_row_values and first_row_values != SHEET_HEADERS:
+                print(f"First row of '{worksheet.title}' exists but doesn't match new headers. Overwriting.")
+            # Update to new headers and range (A1:G1 for 7 columns)
+            if not worksheet.row_values(1) == SHEET_HEADERS:
+                worksheet.update('A1:G1', [SHEET_HEADERS]) # Updated range
+                print(f"Headers set/updated in '{worksheet.title}' to: {SHEET_HEADERS}")
+    except gspread.exceptions.APIError as e:
+        if hasattr(e, 'response') and e.response.status_code == 400:
+            print(f"Sheet '{worksheet.title}' appears empty or unformatted. Writing headers: {SHEET_HEADERS}")
+            worksheet.update('A1:G1', [SHEET_HEADERS]) # Updated range
+        else:
+            print(f"API error during Google Sheet header initialization: {e}")
+    except Exception as e:
+        print(f"Error initializing Google Sheet headers: {e}")
 
-# Initialize CSV on startup
-initialize_csv()
+# --- Authenticate and get worksheet ---
+gc = None
+worksheet = None
+
+if os.path.exists(SERVICE_ACCOUNT_FILE):
+    try:
+        creds = Credentials.from_service_account_file(SERVICE_ACCOUNT_FILE, scopes=SCOPE)
+        gc = gspread.Client(auth=creds)
+        print(f"Type of gc object: {type(gc)}")
+        # print(f"Attributes of gc: {dir(gc)}") # Kept for future debug if needed
+
+        # Using open_by_key as open_by_id is missing in this gspread version
+        print(f"Attempting to open spreadsheet with ID: {SPREADSHEET_ID} using open_by_key...")
+        spreadsheet = gc.open_by_key(SPREADSHEET_ID)
+        print("Spreadsheet opened successfully.")
+
+        try:
+            worksheet = spreadsheet.worksheet(SHEET_NAME)
+        except gspread.exceptions.WorksheetNotFound:
+            print(f"Worksheet '{SHEET_NAME}' not found. Creating it.")
+            worksheet = spreadsheet.add_worksheet(title=SHEET_NAME, rows="100", cols="20")
+        
+        initialize_google_sheet(worksheet)
+        print(f"Successfully connected to Google Sheet: '{spreadsheet.title}' -> Worksheet: '{worksheet.title}'")
+    except Exception as e:
+        print(f"!!! CRITICAL ERROR: Could not connect to Google Sheets. Check credentials, sheet ID, and sharing. Error: {e}")
+        worksheet = None
+else:
+    print(f"!!! CRITICAL ERROR: Service account file '{SERVICE_ACCOUNT_FILE}' not found. Google Sheets integration will not work.")
 
 @app.route('/')
 def index():
-    # Serve index.html from the root (which is now our static_folder)
+    """Serves the index.html file."""
     return send_from_directory(app.static_folder, 'index.html')
 
-@app.route('/api/submit-inquiry', methods=['POST'])
-@limiter.limit("10 per minute")
-def handle_inquiry():
+@app.route('/submit_booking', methods=['POST'])
+def handle_booking_submission():
+    global worksheet # Access the globally initialized worksheet
+    if not worksheet:
+        print("Error: Google Sheet not available. Cannot log inquiry.")
+        return jsonify({"success": False, "message": "Server error: Could not connect to data storage."}), 500
+
     try:
         data = request.get_json()
         if not data:
             return jsonify({"success": False, "message": "No data received."}), 400
 
-        raw_name = data.get('name', '').strip()
-        raw_email = data.get('email', '').strip()
-        raw_message = data.get('message', '').strip()
-        raw_phone = data.get('phone', '').strip()
-        raw_visit_date_str = data.get('visitDate', '').strip()
+        name = data.get('name', '').strip()
+        email = data.get('email', '').strip()
+        phone = data.get('phone', '').strip()
+        visit_date = data.get('visitDate', '') # Optional, no specific validation for now
+        message = data.get('message', '').strip()
 
-        s_name = html.escape(raw_name)
-        s_message = html.escape(raw_message)
-        s_email = raw_email
-        s_phone = html.escape(raw_phone)
-        s_visit_date_str = raw_visit_date_str
+        if not name:
+            return jsonify({"success": False, "message": "Name is required."}), 400
+        if not email:
+            return jsonify({"success": False, "message": "Email is required."}), 400
+        if not message:
+            return jsonify({"success": False, "message": "Message is required."}), 400
+        if not re.match(r"[^@]+@[^@]+\.[^@]+", email):
+            return jsonify({"success": False, "message": "Invalid email format."}), 400
+        if phone and (not phone.isdigit() or not (7 <= len(phone) <= 15)):
+            return jsonify({"success": False, "message": "Invalid phone number. Please use 7-15 digits."}), 400
 
-        if not s_name or not s_email or not s_message:
-            return jsonify({"success": False, "message": "Missing required fields: Name, Email, or Message."}), 400
+        # Generate Date and Time strings
+        current_datetime = datetime.now()
+        date_str = current_datetime.strftime("%d-%m-%Y")
+        time_str = current_datetime.strftime("%I:%M:%S %p") # 12-hour format with AM/PM
+
+        row_data = [date_str, time_str, name, email, phone, visit_date, message]
         
-        if not re.match(r"[^@]+@[^@]+\.[^@]+", s_email):
-             return jsonify({"success": False, "message": "Invalid email format."}), 400
+        worksheet.append_row(row_data, value_input_option='USER_ENTERED')
+        print(f"Inquiry from {name} ({email}) appended to Google Sheet: '{worksheet.spreadsheet.title}' -> '{worksheet.title}'")
+        return jsonify({"success": True, "message": "Inquiry received successfully!"}), 200
 
-        if s_phone and not re.match(PHONE_REGEX, s_phone):
-            return jsonify({"success": False, "message": f"Invalid phone number format. Please use 7-20 digits, spaces, or symbols like +, -, ()."}), 400
-
-        if s_visit_date_str:
-            try:
-                visit_dt = datetime.strptime(s_visit_date_str, '%Y-%m-%d').date()
-                if visit_dt < dt_date.today():
-                    return jsonify({"success": False, "message": "Preferred visit date cannot be in the past."}), 400
-            except ValueError:
-                return jsonify({"success": False, "message": "Invalid date format for preferred visit date. Please use YYYY-MM-DD."}), 400
-
-        if len(s_message) > MAX_MESSAGE_LENGTH:
-            return jsonify({"success": False, "message": f"Message is too long. Maximum length is {MAX_MESSAGE_LENGTH} characters."}), 400
-
-        timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        row_data = [timestamp, s_name, s_email, s_phone, s_visit_date_str, s_message]
-
-        with open(CSV_FILE_PATH, mode='a', newline='', encoding='utf-8') as file:
-            writer = csv.writer(file)
-            writer.writerow(row_data)
-
-        print(f"Inquiry from {s_name} ({s_email}) saved to CSV.")
-        return jsonify({"success": True, "message": "Inquiry received successfully! We will get back to you soon."}), 200
-
+    except gspread.exceptions.APIError as e:
+        print(f"Google Sheets API Error: {e}")
+        error_details = e.args[0] if e.args else {}
+        if isinstance(error_details, dict):
+            print(f"Google API error details: {error_details.get('message')}")
+        return jsonify({"success": False, "message": "Error communicating with Google Sheets. Please try again."}), 503
     except Exception as e:
         print(f"Error processing inquiry: {e}")
-        return jsonify({"success": False, "message": "An internal server error occurred. Please try again later."}), 500
-
-# Custom error handler for rate limit exceeded
-@app.errorhandler(429)
-def ratelimit_handler(e):
-    return jsonify(success=False, message="Rate limit exceeded. Please try again later."), 429
+        return jsonify({"success": False, "message": "An internal server error occurred."}), 500
 
 if __name__ == '__main__':
-    # For development, you can run this with `python server.py`
-    # For production, use a proper WSGI server like Gunicorn or Waitress.
     app.run(debug=True, port=5000)
-    # Ensure debug=False in a production environment.

@@ -10,9 +10,9 @@
     --accent-color: #FDBE4F;  /* BUTTERSCOTCH */
     --text-color: #333333;
     --light-text-color: #f8f9fa;
-    --bg-color: #FFF9F5;      /* Very Pale BLUSH/Off-white */
-    --bg-light: #E0F2F1;     /* Very Pale DUCK EGG */
-    --bg-dark: #4A5560;       /* Dark Desaturated SMOKE */
+    --bg-color: #FEFBF9;      /* Very Pale BLUSH inspired */
+    --bg-light: #C0DEDC;     /* DUCK EGG */
+    --bg-dark: #6F7C85;       /* SMOKE inspired */
     --font-heading: 'Montserrat', sans-serif;
     --font-body: 'Open Sans', sans-serif;
     --container-width: 1140px;
@@ -276,10 +276,10 @@ img {
 .nav-links a {
     font-size: 1rem;
     font-weight: 500;
-    color: var(--text-color); /* Change to dark text for better visibility on glassy bg */
-    /* Was var(--light-text-color) */
+    color: var(--text-color);
     position: relative;
     padding-bottom: 5px;
+    transition: color var(--transition-speed), transform var(--transition-speed);
 }
 
 .nav-links a::after {
@@ -300,6 +300,11 @@ img {
 .nav-links a:hover::after,
 .nav-links a.active::after {
     width: 100%;
+}
+
+.nav-links a:hover {
+    color: var(--primary-color);
+    transform: translateY(-2px);
 }
 
 .nav-cta .btn {
@@ -505,6 +510,11 @@ img {
     width: 100%;
     height: 220px;
     object-fit: cover;
+    transition: transform var(--transition-speed);
+}
+
+.experience-item:hover img {
+    transform: scale(1.05);
 }
 
 .experience-item h3 {
@@ -578,11 +588,17 @@ img {
     box-shadow: 0 10px 20px rgba(0,0,0,0.15);
 }
 
+.amenity-card:hover i {
+    transform: scale(1.1);
+    color: var(--accent-color); /* Optional: Change icon color on hover */
+}
+
 .amenity-card i {
     font-size: 2.5rem;
     color: var(--primary-color);
     margin-bottom: 20px;
     display: inline-block;
+    transition: transform var(--transition-speed), color var(--transition-speed);
 }
 
 .amenity-card h3 {
@@ -920,6 +936,11 @@ img {
     color: var(--secondary-color);
     width: 20px;
     text-align: center;
+    transition: transform var(--transition-speed), color var(--transition-speed);
+}
+.contact-details p:hover i {
+    transform: scale(1.15);
+    color: var(--accent-color);
 }
 .contact-details a {
     color: var(--light-text-color); /* Links should be light on dark bg */
@@ -1003,4 +1024,59 @@ img {
 
 #main-footer a:hover {
     color: var(--secondary-color);
+}
+
+/* Footer contact icons and social icons hover */
+.footer-col p i, 
+.social-links a i {
+    transition: transform var(--transition-speed), color var(--transition-speed);
+}
+
+.footer-col p:hover i, /* For phone, email, address icons */
+.social-links a:hover i { /* For social media icons */
+    transform: scale(1.2);
+    color: var(--accent-color);
+}
+
+/* Ensure specific styling for social link icons if needed */
+.social-links li {
+    display: inline-block;
+    margin-right: 10px;
+}
+.social-links a {
+    color: rgba(255, 255, 255, 0.7); /* Default social icon color */
+    font-size: 1.2rem;
+}
+.social-links a:hover {
+    color: var(--accent-color); /* Social icon hover - link color changes, icon also gets accent */
+}
+
+/* New styles for the header CTA button with animated gradient background */
+.btn-cta-header {
+    padding: 10px 20px;
+    color: var(--light-text-color); 
+    border: none; 
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--bg-light) 50%, var(--primary-color) 100%); /* EMERALD SEA -> DUCK EGG -> EMERALD SEA */
+    background-size: 300% 300%; 
+    animation: animatedGradient 8s ease infinite;
+    text-decoration: none;
+    border-radius: var(--border-radius); 
+    transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
+}
+
+@keyframes animatedGradient {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+.btn-cta-header:hover {
+    transform: scale(1.05); /* Slight zoom on hover */
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
 }

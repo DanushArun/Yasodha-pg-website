@@ -54,15 +54,20 @@ document.addEventListener('DOMContentLoaded', () => {
             console.log('Booking form data to be sent:', data);
             // Replace with actual fetch() or XMLHttpRequest to your Python backend
             // Example using fetch:
-            /*
-            fetch('/submit_form', { // Endpoint in your server.py
+            
+            fetch('/submit_booking', { // Endpoint in your server.py
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify(data),
             })
-            .then(response => response.json()) // Or response.text() depending on what server.py returns
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok: ' + response.statusText);
+                }
+                return response.json(); 
+            })
             .then(result => {
                 console.log('Success:', result);
                 formStatus.textContent = result.message || 'Thank you! Your inquiry has been submitted successfully.';
@@ -71,19 +76,19 @@ document.addEventListener('DOMContentLoaded', () => {
             })
             .catch(error => {
                 console.error('Error:', error);
-                formStatus.textContent = 'An error occurred. Please try again later.';
+                formStatus.textContent = 'An error occurred while submitting your inquiry. Please try again later.';
                 formStatus.className = 'form-status error';
             });
-            */
-
+            
             // **Remove this setTimeout block when implementing actual AJAX**
             // This is just to simulate a server response for now
+            /*
             setTimeout(() => {
                 formStatus.textContent = 'Thank you! Your inquiry has been submitted successfully. (Simulated)';
                 formStatus.className = 'form-status success';
                 bookingForm.reset();
             }, 1500);
-
+            */
         });
     }
 
@@ -119,12 +124,40 @@ document.addEventListener('DOMContentLoaded', () => {
             subscriptionFormStatus.className = 'form-status info';
             const subData = { email: email };
             console.log('Subscription form data to be sent:', subData);
+            
+            fetch('/subscribe_email', { // Endpoint in your server.py
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(subData),
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok: ' + response.statusText);
+                }
+                return response.json();
+            })
+            .then(result => {
+                console.log('Success:', result);
+                subscriptionFormStatus.textContent = result.message || 'Thank you for subscribing!';
+                subscriptionFormStatus.className = 'form-status success';
+                subscriptionForm.reset(); // Reset form fields
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                subscriptionFormStatus.textContent = 'An error occurred during subscription. Please try again later.';
+                subscriptionFormStatus.className = 'form-status error';
+            });
+
             // Actual AJAX submission commented out for now
+            /*
             setTimeout(() => {
                 subscriptionFormStatus.textContent = 'Thank you for subscribing! (Simulated)';
                 subscriptionFormStatus.className = 'form-status success';
                 subscriptionForm.reset();
             }, 1500);
+            */
         });
     }
 }); 
