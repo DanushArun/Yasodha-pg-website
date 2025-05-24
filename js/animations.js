@@ -155,7 +155,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Animate Gallery & Testimonials Section Titles
     const animatedSectionTitles = gsap.utils.toArray(
-        galleryTitle,
+        // galleryTitle, // Removed galleryTitle from this array as it has its own animation above
         testimonialsTitle
     );
     if (animatedSectionTitles.length > 0) {
