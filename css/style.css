@@ -221,7 +221,7 @@ img {
     color: var(--text-color);
 }
 #main-header.scrolled .nav-links a:hover {
-    color: var(--primary-color);
+    color: var(--accent-color);
 }
 
 /* Ensure hamburger is dark on scrolled (light) background */
@@ -250,7 +250,7 @@ img {
 .logo a {
     font-size: 1.8rem;
     font-weight: 700;
-    color: var(--text-color);
+    color: var(--light-text-color);
     white-space: nowrap; /* Ensure logo text stays on one line */
 }
 
@@ -276,7 +276,7 @@ img {
 .nav-links a {
     font-size: 1rem;
     font-weight: 500;
-    color: var(--text-color);
+    color: var(--light-text-color);
     position: relative;
     padding-bottom: 5px;
     transition: color var(--transition-speed), transform var(--transition-speed);
@@ -292,19 +292,45 @@ img {
     background-color: var(--primary-color);
     transition: width var(--transition-speed);
 }
-#main-header.scrolled .nav-links a::after {
-    background-color: var(--primary-color);
+
+/* Ensure the active link's underline is accent color by default */
+.nav-links a.active::after {
+    background-color: var(--accent-color);
+    width: 100%; /* Ensure active link underline is always full width */
 }
 
+#main-header.scrolled .nav-links a::after {
+    background-color: var(--primary-color); /* Default underline for scrolled links */
+}
+
+/* Ensure active link underline remains accent color even when scrolled */
+#main-header.scrolled .nav-links a.active::after {
+    background-color: var(--accent-color);
+}
 
 .nav-links a:hover::after,
-.nav-links a.active::after {
+.nav-links a.active::after { /* This rule can now just manage width for active, hover handles its own color */
     width: 100%;
 }
 
+/* Add this new rule for the hover underline color */
+.nav-links a:hover::after {
+    background-color: var(--accent-color);
+}
+
 .nav-links a:hover {
-    color: var(--primary-color);
+    color: var(--accent-color); 
     transform: translateY(-2px);
+}
+
+/* Style for the active link text color */
+.nav-links a.active {
+    color: var(--accent-color);
+}
+
+/* Ensure active link text remains accent color even when scrolled */
+#main-header.scrolled .nav-links a.active {
+    color: var(--accent-color);
 }
 
 .nav-cta .btn {
