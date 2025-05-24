@@ -1,0 +1,35 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environment
+venv/
+.venv/
+ENV/
+env/
+ENV/
+
+# IDEs and editors
+.idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace
+
+# Operating System files
+.DS_Store
+Thumbs.db
+
+# Sensitive files
+service-account.json
+
+# Log files (if any created locally)
+*.log
+
+# Local configuration (if any)
+# .env
+
+# Other build artifacts or local files
+# dist/
+# build/
+# *.egg-info/ 
