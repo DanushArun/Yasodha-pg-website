@@ -478,18 +478,18 @@ img {
     padding: 15px 35px;
     font-size: 1.1rem;
     /* Animation will be handled by GSAP */
-    position: absolute; /* Added for independent positioning */
+    position: absolute; 
     bottom: 100px; /* Position from bottom, adjust as needed */
-    left: 50%;
+    left: 49.4%; /* Adjusted from 50% for precise centering */
     transform: translateX(-50%);
-    z-index: 3; /* Ensure it's above overlay */
+    z-index: 3; 
     /* margin-bottom: 1em; No longer needed as arrow is positioned independently */
 }
 
 .scroll-indicator {
     position: absolute; /* Added for independent positioning */
     bottom: 10px; /* Position from bottom, below button, adjust as needed */
-    left: 49.4%;
+    left: 48.7%;
     transform: translateX(-50%);
     z-index: 3; /* Ensure it's above overlay */
     animation: bounce 2s infinite;
