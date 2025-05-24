@@ -6,18 +6,17 @@
     <title>Yasodha Residency - Premium PG Accommodation</title>
     <meta name="description" content="Welcome to Yasodha Residency, your ideal home away from home. Offering premium PG facilities for ladies in Bangalore.">
     
-    <!-- Google Fonts (Example: Montserrat for headings, Open Sans for body) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
     
-    <!-- Font Awesome (for icons) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
-    <!-- Main Stylesheet -->
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
     
-    <!-- Favicon (You can update this path later) -->
     <link rel="icon" href="assets/favicon.ico" type="image/x-icon">
 </head>
 <body>
@@ -26,16 +25,20 @@
             <div class="logo">
                 <a href="#hero">Yasodha Residency</a>
             </div>
-            <ul class="nav-links">
-                <li><a href="#about">About Us</a></li>
-                <li><a href="#amenities">Amenities</a></li>
-                <li><a href="#gallery">Gallery</a></li>
-                <li><a href="#location">Location</a></li>
-                <li><a href="#testimonials">Testimonials</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-            <div class="nav-cta">
-                <a href="#contact" class="btn btn-primary">Book a Visit</a>
+            <div class="header-right-content">
+                <ul class="nav-links">
+                    <li><a href="#home" class="nav-link active">Home</a></li>
+                    <li><a href="#about" class="nav-link">The Experience</a></li>
+                    <li><a href="#amenities" class="nav-link">Amenities</a></li>
+                    <li><a href="#gallery" class="nav-link">Gallery</a></li>
+                    <li><a href="#location" class="nav-link">Location</a></li>
+                    <li><a href="#testimonials" class="nav-link">Testimonials</a></li>
+                    <li><a href="#contact" class="nav-link">Contact</a></li>
+                    <li><a href="#subscribe" class="nav-link">Subscribe</a></li>
+                </ul>
+                <div class="nav-cta">
+                    <a href="#contact" class="btn btn-primary">Book a Visit</a>
+                </div>
             </div>
             <button class="nav-toggle" aria-label="Toggle navigation">
                 <span class="hamburger"></span>
@@ -45,72 +48,279 @@
 
     <main>
         <section id="hero" class="hero-section">
+            <div class="hero-background">
+
+            </div>
+            <div class="hero-overlay"></div>
             <div class="container hero-content">
-                <h1>Welcome to Your New Home</h1>
-                <p>Discover comfort, safety, and community at Yasodha Residency.</p>
-                <a href="#contact" class="btn btn-primary">Inquire Now</a>
+                <h1 class="hero-headline">Yasodha Residency Ladies PG</h1>
+                <p class="hero-subheadline">Discover comfort, safety, and community at Yasodha Residency.</p>
+                <a href="#contact" class="btn btn-primary hero-cta">Inquire Now</a>
+                <div class="scroll-indicator">
+                    <a href="#about"><i class="fas fa-chevron-down"></i></a>
+                </div>
             </div>
         </section>
 
-        <section id="about" class="about-section section-padding">
+        <section id="about" class="about-section section-padding"> 
             <div class="container">
-                <h2>About Yasodha Residency</h2>
-                <p>Details about the PG, its mission, and what makes it special.</p>
-                <!-- More content will go here -->
+                <h2 class="section-title">The Yasodha Experience</h2>
+                <p class="section-subtitle">More than just a place to stay, Yasodha Residency is a nurturing environment where you can thrive personally and academically. We are committed to providing a seamless and enriching living experience.</p>
+                
+                <div class="experience-details-grid">
+                    <div class="experience-detail-item">
+                        <i class="fas fa-heartbeat"></i>
+                        <h3>Our Philosophy</h3>
+                        <p>We believe in creating a supportive and inclusive atmosphere that feels like a home away from home. Our core values are safety, comfort, hygiene, and fostering a strong sense of community among our residents.</p>
+                    </div>
+                    <div class="experience-detail-item">
+                        <i class="fas fa-home"></i>
+                        <h3>A True Home Vibe</h3>
+                        <p>From carefully designed living spaces to nutritious meals and engaging common areas, every aspect of Yasodha Residency is crafted to make you feel comfortable, secure, and part of a larger family.</p>
+                    </div>
+                    <div class="experience-detail-item">
+                        <i class="fas fa-users-cog"></i>
+                        <h3>Dedicated Management</h3>
+                        <p>Our experienced and caring management team is always available to address your needs, ensure your well-being, and maintain the high standards that Yasodha Residency is known for. Your peace of mind is our priority.</p>
+                    </div>
+                </div>
+
+                <div class="experience-grid">
+                    <div class="experience-item">
+                        <img src="pg-photos/WhatsApp Image 2025-05-04 at 10.35.12.jpeg" alt="Bright and airy room at Yasodha Residency">
+                        <h3>Comfortable Living</h3>
+                        <p>Spacious, well-lit rooms designed for study and relaxation.</p>
+                    </div>
+                    <div class="experience-item">
+                        <img src="pg-photos/WhatsApp Image 2025-05-04 at 10.35.11 (1).jpeg" alt="Cozy common area for residents">
+                        <h3>Supportive Community</h3>
+                        <p>Connect with fellow residents in a friendly and encouraging environment.</p>
+                    </div>
+                    <div class="experience-item">
+                        <img src="pg-photos/WhatsApp Image 2025-05-04 at 10.37.33.jpeg" alt="Exterior view highlighting safety features">
+                        <h3>Safe & Secure</h3>
+                        <p>24/7 security and staff ensuring your peace of mind.</p>
+                    </div>
+                </div>
             </div>
         </section>
 
         <section id="amenities" class="amenities-section section-padding bg-light">
             <div class="container">
-                <h2>Our Amenities</h2>
-                <p>Highlighting the key facilities offered.</p>
-                <!-- Amenity cards will go here -->
+                <h2 class="section-title">Our Amenities</h2>
+                <p class="section-subtitle">Everything you need for a comfortable and convenient stay, designed with your needs in mind.</p>
+                <div class="amenities-grid">
+                    <div class="amenity-card">
+                        <i class="fas fa-wifi"></i><h3>High-Speed Wi-Fi</h3>
+                        <p>Stay connected with reliable, high-speed internet crucial for studies, research, and entertainment. Uninterrupted browsing and streaming across the premises.</p>
+                    </div>
+                    <div class="amenity-card">
+                        <i class="fas fa-utensils"></i><h3>Delicious & Hygienic Meals</h3>
+                        <p>Enjoy homely, nutritious, and freshly prepared meals served daily. Our menu is curated to offer variety and cater to healthy eating habits.</p>
+                    </div>
+                    <div class="amenity-card">
+                        <i class="fas fa-bolt"></i><h3>24/7 Power Backup</h3>
+                        <p>Never worry about power cuts. We provide uninterrupted power supply to ensure your studies and daily activities continue without any disruption.</p>
+                    </div>
+                     <div class="amenity-card">
+                        <i class="fas fa-shield-alt"></i><h3>Round-the-Clock Security</h3>
+                        <p>Your safety is our utmost priority. Our PG is equipped with 24/7 security personnel and CCTV surveillance for a secure living environment.</p>
+                    </div>
+                    <div class="amenity-card">
+                        <i class="fas fa-water"></i><h3>Hot Water Facility</h3>
+                        <p>Access to hot water is available around the clock, ensuring your comfort regardless of the time or season.</p>
+                    </div>
+                    <div class="amenity-card">
+                        <i class="fas fa-parking"></i><h3>Secure Parking Space</h3>
+                        <p>Convenient and secure parking facilities are available for residents with two-wheelers, offering peace of mind.</p>
+                    </div>
+                </div>
             </div>
         </section>
 
         <section id="gallery" class="gallery-section section-padding">
             <div class="container">
-                <h2>Photo Gallery</h2>
-                <p>A visual tour of Yasodha Residency.</p>
-                <!-- Gallery (e.g., slider or grid) will go here -->
+                <h2 class="section-title">Photo Gallery</h2>
+                <p class="section-subtitle">A visual tour of Yasodha Residency.</p>
+                <div class="swiper-container gallery-swiper">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide"><img src="pg-photos/WhatsApp Image 2025-05-04 at 12.24.33 (1).jpeg" alt="Gallery Image: Spacious Common Area"><div class="swiper-caption">Spacious Common Area</div></div>
+                        <div class="swiper-slide"><img src="pg-photos/WhatsApp Image 2025-05-04 at 12.24.33.jpeg" alt="Gallery Image: Comfortable Seating"><div class="swiper-caption">Comfortable Seating</div></div>
+                        <div class="swiper-slide"><img src="pg-photos/WhatsApp Image 2025-05-04 at 10.37.33 (1).jpeg" alt="Gallery Image: Well-Lit Room"><div class="swiper-caption">Well-Lit Room</div></div>
+                        <div class="swiper-slide"><img src="pg-photos/WhatsApp Image 2025-05-04 at 10.35.31.jpeg" alt="Gallery Image: Modern Amenities"><div class="swiper-caption">Modern Amenities</div></div>
+                        <div class="swiper-slide"><img src="pg-photos/WhatsApp Image 2025-05-04 at 10.35.30.jpeg" alt="Gallery Image: Relaxation Zone"><div class="swiper-caption">Relaxation Zone</div></div>
+                        <div class="swiper-slide"><img src="pg-photos/WhatsApp Image 2025-05-04 at 10.35.16 (1).jpeg" alt="Gallery Image: Study Friendly Environment"><div class="swiper-caption">Study Friendly Environment</div></div>
+                        <div class="swiper-slide"><img src="pg-photos/WhatsApp Image 2025-05-04 at 10.35.14 (2).jpeg" alt="Gallery Image: Clean and Tidy Spaces"><div class="swiper-caption">Clean and Tidy Spaces</div></div>
+                        <div class="swiper-slide"><img src="pg-photos/WhatsApp Image 2025-05-04 at 10.35.12 (1).jpeg" alt="Gallery Image: Welcoming Atmosphere"><div class="swiper-caption">Welcoming Atmosphere</div></div>
+                    </div>
+                    <div class="swiper-pagination gallery-pagination"></div>
+                    <div class="swiper-button-next gallery-button-next"></div>
+                    <div class="swiper-button-prev gallery-button-prev"></div>
+                </div>
             </div>
         </section>
 
         <section id="location" class="location-section section-padding bg-light">
             <div class="container">
-                <h2>Our Location</h2>
-                <p>Map and information about the neighborhood.</p>
-                <!-- Map and address details will go here -->
+                <h2 class="section-title">Our Location</h2>
+                <p class="section-subtitle">Conveniently located with easy access to everything you need.</p>
+                <div class="location-grid">
+                    <div class="map-container">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3888.020000000000!2d77.00000000000000!3d12.00000000000000!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTPCsDAwJzAwLjAiTiA3N8KwMDAnMDAuMCJF!5e0!3m2!1sen!2sin!4v1678886400000!5m2!1sen!2sin" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    </div>
+                    <div class="location-info">
+                        <h3>Prime Connectivity</h3>
+                        <p>Located in a well-connected area of Bangalore, Yasodha Residency offers easy access to tech parks, colleges, shopping malls, and public transport.</p>
+                        <ul>
+                            <li><i class="fas fa-map-marker-alt"></i> Near XYZ Tech Park</li>
+                            <li><i class="fas fa-graduation-cap"></i> Close to ABC College</li>
+                            <li><i class="fas fa-shopping-cart"></i> Walking distance to DEF Mall</li>
+                        </ul>
+                        <address>
+                            <strong>Yasodha Residency</strong><br>
+                            123, Main Road, Jayanagar<br>
+                            Bangalore, Karnataka 560041<br>
+                            India
+                        </address>
+                    </div>
+                </div>
             </div>
         </section>
 
         <section id="testimonials" class="testimonials-section section-padding">
             <div class="container">
-                <h2>What Our Residents Say</h2>
-                <p>Feedback from happy residents.</p>
-                <!-- Testimonials will go here -->
+                <h2 class="section-title">What Our Residents Say</h2>
+                <p class="section-subtitle">Feedback from happy residents who have made Yasodha their home.</p>
+                <div class="swiper-container testimonials-swiper">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide testimonial-card">
+                            <div class="testimonial-quote-icon"><i class="fas fa-quote-left"></i></div>
+                            <p class="testimonial-text">"A fantastic place to live! Safe, clean, and friendly. The food is great too!"</p>
+                            <p class="testimonial-author">- Priya S.</p>
+                        </div>
+                        <div class="swiper-slide testimonial-card">
+                            <div class="testimonial-quote-icon"><i class="fas fa-quote-left"></i></div>
+                            <p class="testimonial-text">"I loved my stay at Yasodha Residency. The management is very helpful and responsive."</p>
+                            <p class="testimonial-author">- Ananya K.</p>
+                        </div>
+                        <div class="swiper-slide testimonial-card">
+                            <div class="testimonial-quote-icon"><i class="fas fa-quote-left"></i></div>
+                            <p class="testimonial-text">"Highly recommend for students and working professionals. It truly feels like a home away from home."</p>
+                            <p class="testimonial-author">- Meera V.</p>
+                        </div>
+                    </div>
+                    <div class="swiper-pagination testimonials-pagination"></div>
+                </div>
             </div>
         </section>
 
         <section id="contact" class="contact-section section-padding bg-dark">
             <div class="container">
-                <h2>Contact Us & Book an Inquiry</h2>
-                <p>Form to get in touch and schedule a visit.</p>
-                <!-- Contact form and details will go here -->
+                <h2 class="section-title">Contact Us & Book a Visit</h2>
+                <p class="section-subtitle">We'd love to hear from you! Reach out to schedule a visit or for any inquiries.</p>
+                <div class="contact-grid">
+                    <div class="contact-form-container">
+                        <form id="booking-form" class="contact-form">
+                            <div class="form-group">
+                                <label for="name">Full Name</label>
+                                <input type="text" id="name" name="name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email Address</label>
+                                <input type="email" id="email" name="email" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="phone">Phone Number</label>
+                                <input type="tel" id="phone" name="phone" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="visitDate">Preferred Visit Date (Optional)</label>
+                                <input type="date" id="visitDate" name="visitDate">
+                            </div>
+                            <div class="form-group">
+                                <label for="message">Message</label>
+                                <textarea id="message" name="message" rows="5" required></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Send Inquiry</button>
+                        </form>
+                        <div id="form-status"></div>
+                    </div>
+                    <div class="contact-details">
+                        <h3>Direct Contact</h3>
+                        <p><i class="fas fa-phone"></i> <a href="tel:+919876543210">+91 98765 43210</a></p>
+                        <p><i class="fas fa-envelope"></i> <a href="mailto:info@yasodharesidency.com">info@yasodharesidency.com</a></p>
+                        <p><i class="fas fa-map-marker-alt"></i> Yasodha Residency, 123, Main Road, Jayanagar, Bangalore - 560041</p>
+                        <h3>Office Hours</h3>
+                        <p>Monday - Saturday: 9:00 AM - 7:00 PM</p>
+                        <p>Sunday: Closed (Visits by appointment only)</p>
+                    </div>
+                </div>
             </div>
         </section>
     </main>
 
+    <section id="subscribe" class="subscribe-section section-padding bg-light">
+        <div class="container text-center">
+            <h2 class="section-title">Stay Updated with Yasodha Residency</h2>
+            <p class="section-subtitle">Be the first to know about future vacancies, special offers, or important PG news. Subscribe to our mailing list!</p>
+            <form id="subscription-form" class="subscription-form">
+                <div class="form-group-inline">
+                    <input type="email" id="sub-email" name="sub-email" placeholder="Enter your email address" required>
+                    <button type="submit" class="btn btn-primary">Subscribe</button>
+                </div>
+                <div id="subscription-form-status" class="form-status"></div>
+            </form>
+        </div>
+    </section>
+
     <footer id="main-footer" class="section-padding">
         <div class="container">
-            <p>&copy; <span id="current-year"></span> Yasodha Residency. All Rights Reserved.</p>
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#about">The Experience</a></li>
+                        <li><a href="#amenities">Amenities</a></li>
+                        <li><a href="#gallery">Gallery</a></li>
+                        <li><a href="#location">Location</a></li>
+                        <li><a href="#testimonials">Testimonials</a></li>
+                        <li><a href="#contact">Contact & Booking</a></li>
+                        <li><a href="#subscribe">Stay Updated</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Contact Us</h4>
+                    <p><i class="fas fa-phone"></i> <a href="tel:+919876543210">+91 98765 43210</a></p>
+                    <p><i class="fas fa-envelope"></i> <a href="mailto:info@yasodharesidency.com">info@yasodharesidency.com</a></p>
+                    <p><i class="fas fa-map-marker-alt"></i> Yasodha Residency, 123, Main Road, Jayanagar, Bangalore - 560041</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Follow Us</h4>
+                    <ul class="social-links">
+                        <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+                        <li><a href="#"><i class="fab fa-twitter"></i></a></li>
+                        <li><a href="#"><i class="fab fa-instagram"></i></a></li>
+                        <li><a href="#"><i class="fab fa-linkedin-in"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+            <p>&copy; <span id="current-year">2024</span> Yasodha Residency. All Rights Reserved.</p>
             <p>
                 <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a>
             </p>
         </div>
     </footer>
 
-    <!-- Main JavaScript File -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+
     <script src="js/main.js" defer></script>
+    <script src="js/animations.js" defer></script>
+    <script src="js/gallery-slider.js" defer></script>
+    <script src="js/testimonials-slider.js" defer></script>
+    <script src="js/form-handler.js" defer></script>
 </body>
 </html>

@@ -304,205 +304,309 @@
     }
 }
 
-/* Responsive Styles for Yasodha Residency Website V3 */
+/* === RESPONSIVE STYLES === */
 
-/* --- Tablet (Medium devices, <= 992px) --- */
-@media (max-width: 991.98px) {
-    html {
-        font-size: 9.5px; /* Adjust base font size */
+/* --- TABLET & LARGER MOBILE DEVICES (e.g., iPads, large Android phones) --- */
+@media (max-width: 992px) {
+    /* --- General Adjustments --- */
+    .section-padding {
+        padding: 60px 0;
     }
 
-    .container {
-        width: 90%; /* Adjusted from 95% for a bit more internal padding */
-        padding: 0 20px; /* Ensure consistent padding */
-    }
+    h1 { font-size: 2.5rem; }
+    h2 { font-size: 2rem; } /* Section titles */
+    .section-title { font-size: 2rem; }
+    .section-subtitle { font-size: 1rem; margin-bottom: 2em; }
 
-    .main-header {
-        padding: 15px 0; 
-        background-color: var(--color-white); 
-    }
-
-    .main-header.scrolled {
-        padding: 15px 0; /* Keep padding consistent on scroll for tablets */
-        box-shadow: 0 2px 10px rgba(0,0,0,0.07); /* Slightly softer shadow */
-    }
-
-    .nav-logo a,
-    .main-header.scrolled .nav-logo a {
-        color: var(--color-primary); /* Logo always primary color on tablet/mobile */
-        font-size: 2.4rem; /* Adjusted logo size for tablet */
-    }
-
-    .nav-toggle {
-        display: flex; 
-        flex-direction: column;
-        justify-content: space-around;
-        width: 30px;
-        height: 25px;
-        /* position: relative; */ /* If needed for absolute positioning of bars within */
-    }
-    
-    .nav-toggle span,
-    .main-header.scrolled .nav-toggle span {
-        background-color: var(--color-dark); 
-    }
-
-    .nav-menu {
+    /* --- Header & Navigation --- */
+    .nav-links {
         position: fixed;
-        top: var(--header-height); 
-        left: 0;
-        width: 100%;
-        height: calc(100vh - var(--header-height));
-        background-color: var(--color-white);
+        top: 0;
+        left: -100%; /* Start off-screen */
+        width: 70%;
+        max-width: 320px;
+        height: 100vh;
+        background-color: #333; /* Dark background for mobile menu */
         flex-direction: column;
+        justify-content: center;
         align-items: center;
-        justify-content: center; /* Center links vertically */
-        padding: 3rem 0;
-        transform: translateX(-100%);
-        transition: transform var(--transition-smooth);
-        overflow-y: auto; 
-        box-shadow: inset 0px 5px 10px -5px rgba(0,0,0,0.1); /* Inner shadow at the top */
-        z-index: 999; /* Ensure it's below the header but above content */
+        transition: left 0.35s ease-in-out;
+        box-shadow: 2px 0 10px rgba(0,0,0,0.2);
+        padding-top: 80px; /* Space for header */
     }
 
-    .nav-menu.active {
-        transform: translateX(0);
+    .nav-links.active {
+        left: 0; /* Slide in */
     }
 
-    .nav-menu li {
-        margin: 2rem 0; /* Increased vertical spacing for tap targets */
+    .nav-links li {
+        margin: 20px 0;
     }
 
-    .nav-link,
-    .main-header.scrolled .nav-link {
-        color: var(--color-dark);
-        font-size: 2rem; /* Larger for easier tapping */
-        font-weight: 600;
+    .nav-links a {
+        font-size: 1.2rem;
+        color: var(--light-text-color); /* Links are white on dark mobile nav */
     }
-    
-    .nav-link::after,
-    .main-header.scrolled .nav-link::after {
-        background-color: var(--color-primary);
+    #main-header.scrolled .nav-links a {
+        color: var(--light-text-color); /* Keep links white even when header is scrolled */
     }
-
-    .nav-link:hover,
-    .main-header.scrolled .nav-link:hover {
-        color: var(--color-primary);
+    .nav-links a::after {
+        background-color: var(--secondary-color); /* Use secondary for underline in mobile nav */
     }
 
     .nav-cta {
-        /* Display CTA in mobile menu for consistency, or hide if preferred */
-        margin-top: 2.5rem;
-    }
-    .nav-cta .btn {
-        padding: 1.2rem 2.5rem;
-        font-size: 1.6rem;
-        background-color: var(--color-primary);
-        color: var(--color-white);
-        border-color: var(--color-primary);
-    }
-    .nav-cta .btn:hover {
-        background-color: var(--color-secondary);
-        border-color: var(--color-secondary);
+        display: none; /* Hide main CTA button, can be integrated into mobile menu if needed */
     }
 
-    .section-title h2 {
-        font-size: clamp(2.6rem, 3.5vw, 3.5rem);
+    .nav-toggle {
+        display: block; /* Show hamburger icon */
+    }
+    /* Ensure hamburger icon color is correct on scrolled header */
+    #main-header.scrolled .nav-toggle .hamburger,
+    #main-header.scrolled .nav-toggle .hamburger::before,
+    #main-header.scrolled .nav-toggle .hamburger::after {
+        background-color: var(--text-color); /* Dark on white background */
+    }
+    #main-header:not(.scrolled) .nav-toggle .hamburger,
+    #main-header:not(.scrolled) .nav-toggle .hamburger::before,
+    #main-header:not(.scrolled) .nav-toggle .hamburger::after {
+        background-color: var(--light-text-color); /* Light on transparent hero background */
+    }
+    /* Active state (X icon) color should generally be consistent, often light */
+    .nav-toggle.active .hamburger,
+    .nav-toggle.active .hamburger::before,
+    .nav-toggle.active .hamburger::after {
+        background-color: var(--light-text-color);
     }
 
+
+    /* --- Hero Section --- */
+    .hero-headline {
+        font-size: 2.8rem;
+    }
+    .hero-subheadline {
+        font-size: 1.1rem;
+    }
+
+    /* --- About / Experience Section --- */
     .experience-grid {
         grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     }
+
+    /* --- Amenities Section --- */
+    .amenities-grid {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    }
+
+    /* --- Location Section --- */
+    .location-grid {
+        grid-template-columns: 1fr; /* Stack map and info */
+    }
+    .location-info {
+        margin-top: 30px;
+    }
+
+    /* --- Contact Section --- */
+    .contact-grid {
+        grid-template-columns: 1fr; /* Stack form and details */
+    }
+    .contact-details {
+        margin-top: 30px;
+        text-align: center; /* Center details on smaller screens */
+    }
+    .contact-details p i {
+        display: block; /* Stack icon above text */
+        margin: 0 auto 10px; /* Center icon and add space below */
+    }
+    .contact-details p a {
+        display: block; /* Ensure links take full width if needed */
+    }
 }
 
-/* --- Mobile (Small devices, <= 768px) --- */
-@media (max-width: 767.98px) {
-    html {
-        font-size: 9px;
+/* --- SMALLER MOBILE DEVICES --- */
+@media (max-width: 576px) {
+    /* --- General Adjustments --- */
+    body {
+        font-size: 15px; /* Slightly smaller base font */
     }
-    
-    :root {
-        --header-height: 65px; /* Adjusted header height for mobile */
-        --section-padding-medium: 70px 0; /* Adjusted padding for mobile */
-    }
-
-    .hero-section {
-        min-height: 500px; /* Adjust hero height */
+    .section-padding {
+        padding: 50px 0;
     }
 
-    .hero-headline {
-        font-size: clamp(2.8rem, 6vw, 4rem);
-    }
+    h1 { font-size: 2rem; }
+    .section-title { font-size: 1.8rem; padding-bottom: 10px;}
+    .section-title::after { width: 60px; height: 3px; }
+    .section-subtitle { font-size: 0.9rem; margin-bottom: 1.5em; }
 
-    .hero-subheadline {
-        font-size: clamp(1.6rem, 3vw, 1.9rem);
-        max-width: 90%;
-    }
-    
     .btn {
-        padding: 1rem 2.2rem;
+        padding: 10px 20px;
+        font-size: 0.9rem;
+    }
+
+    /* --- Header & Navigation --- */
+    #main-header {
+        padding: 15px 0;
+    }
+    #main-header.scrolled {
+        padding: 10px 0;
+    }
+    .logo a {
         font-size: 1.5rem;
     }
-
-    .section-title {
-        margin-bottom: 4rem;
+    .nav-links {
+        width: 80%; /* Wider mobile menu */
+        max-width: 280px;
     }
 
-    .experience-grid,
-    .amenities-grid {
-        grid-template-columns: 1fr; /* Single column for most grids */
-        gap: 2.5rem;
+    /* --- Hero Section --- */
+    .hero-section {
+        min-height: 90vh; /* Allow slightly less than full viewport if content is tight */
     }
-
-    .experience-image img {
-        height: 220px;
-    }
-
-    .nav-menu li {
-        margin: 1.8rem 0; /* Fine-tune spacing */
-    }
-
-    .nav-link,
-    .main-header.scrolled .nav-link {
-        font-size: 1.8rem; /* Slightly smaller for smaller screens if needed */
-    }
-}
-
-/* --- Extra Small devices (<= 576px) --- */
-@media (max-width: 575.98px) {
-    html {
-        font-size: 8.5px;
-    }
-
     .hero-headline {
-        font-size: clamp(2.4rem, 7vw, 3.2rem);
+        font-size: 2.2rem;
     }
-
     .hero-subheadline {
-        font-size: clamp(1.5rem, 3.5vw, 1.8rem);
-    }
-
-    .btn {
-        width: 100%; /* Make buttons full width for easier tapping */
-        max-width: 300px; /* But not too wide */
-        margin-left: auto;
-        margin-right: auto;
+        font-size: 1rem;
+        margin-bottom: 1em;
     }
     .hero-cta {
-        display: block; /* Ensure it takes full width if set */
+        padding: 12px 25px;
+        font-size: 1rem;
+    }
+    .scroll-indicator {
+        bottom: 20px;
+        font-size: 1.2rem;
     }
 
-    .footer .container p {
+    /* --- About / Experience Section --- */
+    .experience-grid {
+        grid-template-columns: 1fr; /* Single column */
+    }
+    .experience-item h3 {
         font-size: 1.3rem;
+    }
+    .experience-item p {
+        font-size: 0.9rem;
+    }
+
+    /* --- Amenities Section --- */
+    .amenities-grid {
+        grid-template-columns: 1fr; /* Single column */
+    }
+    .amenity-card {
+        padding: 25px;
+    }
+    .amenity-card i {
+        font-size: 2.2rem;
+        margin-bottom: 15px;
+    }
+    .amenity-card h3 {
+        font-size: 1.2rem;
+    }
+
+    /* --- Gallery Section --- */
+    .gallery-section .swiper-container {
+        height: 350px; /* Adjust height for smaller screens */
+    }
+    .gallery-section .swiper-button-next,
+    .gallery-section .swiper-button-prev {
+        width: 36px;
+        height: 36px;
+    }
+    .gallery-section .swiper-button-next::after,
+    .gallery-section .swiper-button-prev::after {
+        font-size: 1rem;
+    }
+    .swiper-caption {
+        padding: 8px;
+        font-size: 0.8rem;
+    }
+
+    /* --- Location Section --- */
+    .map-container {
+        height: 300px;
+    }
+    .location-info h3 {
+        font-size: 1.4rem;
+    }
+    .location-info ul li i {
+        font-size: 1rem;
+    }
+    .location-info address {
+        padding: 15px;
+    }
+
+    /* --- Testimonials Section --- */
+    .testimonials-section .swiper-container {
+        padding-bottom: 40px; /* Adjust space for smaller pagination */
+    }
+    .testimonial-card {
+        padding: 25px;
+        border-left-width: 4px;
+    }
+    .testimonial-quote-icon {
+        font-size: 2rem;
+        top: 15px;
+        left: 15px;
+    }
+    .testimonial-text {
+        font-size: 1rem;
+    }
+    .testimonial-author {
+        font-size: 0.9rem;
+    }
+    .testimonials-section .swiper-pagination-bullet {
+        width: 10px;
+        height: 10px;
+    }
+
+    /* --- Contact Section --- */
+    .contact-form-container,
+    .contact-details-container {
+        padding: 0 10px; /* Add some padding for very small screens */
+    }
+    .contact-form label {
+        font-size: 0.85rem;
+    }
+    .contact-form input[type="text"],
+    .contact-form input[type="email"],
+    .contact-form input[type="tel"],
+    .contact-form input[type="date"],
+    .contact-form textarea {
+        padding: 10px;
+        font-size: 0.9rem;
+    }
+    .contact-form button[type="submit"] {
+        padding: 12px;
+        font-size: 1rem;
+    }
+    .contact-details h3 {
+        font-size: 1.4rem;
+    }
+    .contact-details p {
+        font-size: 0.9rem;
+    }
+
+    /* --- Footer --- */
+    #main-footer {
+        padding: 30px 0;
+    }
+    #main-footer p {
+        font-size: 0.85rem;
     }
 }
 
-/* --- Specific adjustments for very small screens (e.g. iPhone SE) --- */
-@media (max-width: 380px) {
-    html {
-        font-size: 8px;
+/* === SUBSCRIBE SECTION RESPONSIVE === */
+@media (max-width: 576px) {
+    .subscription-form .form-group-inline {
+        flex-direction: column;
     }
-    .nav-logo a {
-        font-size: 2rem;
+    .subscription-form button[type="submit"] {
+        width: 100%; /* Make button full width on small screens */
     }
+}
+
+/* === FOOTER RESPONSIVE === */
+@media (max-width: 992px) {
+    /* ... existing code ... */
 }

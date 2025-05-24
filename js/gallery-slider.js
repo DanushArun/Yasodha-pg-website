@@ -1,81 +1,75 @@
 // js/gallery-slider.js - Initializes Swiper.js for the gallery carousel
 
 document.addEventListener('DOMContentLoaded', () => {
-    console.log('Gallery Slider script loaded.');
-
-    // Check if Swiper is loaded
+    // Ensure Swiper is loaded
     if (typeof Swiper === 'undefined') {
-        console.error('Swiper.js is not loaded. Gallery will not function.');
+        console.error('Swiper is not loaded!');
         return;
     }
 
-    const gallerySwiper = new Swiper('.gallery-swiper', {
-        // Optional parameters
-        loop: true, // Enables continuous loop mode
-        grabCursor: true,
-        centeredSlides: true,
-        slidesPerView: 1,
-        spaceBetween: 0,
+    const gallerySwiperContainer = document.querySelector('.gallery-swiper');
 
-        // Effect (Default is 'slide', can be 'fade', 'cube', 'coverflow', 'flip')
-        effect: 'slide', // You can experiment with 'fade' for a different feel
-        // fadeEffect: {
-        // crossFade: true
-        // },
-
-        // Autoplay
-        // autoplay: {
-        // delay: 5000, // 5 seconds
-        // disableOnInteraction: false, // Continue autoplay after user interaction
-        // },
-
-        // Pagination (Dots)
-        pagination: {
-            el: '.swiper-pagination',
-            clickable: true, // Allows clicking on dots to navigate
-            dynamicBullets: true, // If you have many slides, this makes pagination nicer
-        },
-
-        // Navigation Arrows
-        navigation: {
-            nextEl: '.swiper-button-next',
-            prevEl: '.swiper-button-prev',
-        },
-
-        // Keyboard navigation
-        keyboard: {
-            enabled: true,
-            onlyInViewport: false,
-        },
-        
-        // Accessibility - Swiper generally has good defaults
-        a11y: {
-            prevSlideMessage: 'Previous slide',
-            nextSlideMessage: 'Next slide',
-            paginationBulletMessage: 'Go to slide {{index}}',
-        },
-
-        // Responsive breakpoints (example)
-        /*
-        breakpoints: {
-            // when window width is >= 640px
-            640: {
-                slidesPerView: 1,
-                spaceBetween: 20
+    if (gallerySwiperContainer) {
+        const gallerySwiper = new Swiper(gallerySwiperContainer, {
+            // Optional parameters
+            loop: true,
+            grabCursor: true,
+            centeredSlides: false, // Set to true if you want the active slide centered, good for slidesPerView: 'auto' or > 1
+            slidesPerView: 'auto', // Show as many slides as fit, or set a number like 1, 2, 3
+            spaceBetween: 20, // Space between slides
+            
+            autoplay: {
+                delay: 4000,
+                disableOnInteraction: false,
             },
-            // when window width is >= 768px
-            768: {
-                slidesPerView: 1, // Or adjust to show partial next/prev slides
-                spaceBetween: 30
+
+            // If we need pagination
+            pagination: {
+                el: '.gallery-pagination',
+                clickable: true,
+                dynamicBullets: true,
             },
-            // when window width is >= 1024px
-            1024: {
-                slidesPerView: 1, 
-                spaceBetween: 40
+
+            // Navigation arrows
+            navigation: {
+                nextEl: '.gallery-button-next',
+                prevEl: '.gallery-button-prev',
+            },
+
+            // Keyboard navigation
+            keyboard: {
+                enabled: true,
+                onlyInViewport: true,
+            },
+
+            // Accessibility
+            a11y: {
+                prevSlideMessage: 'Previous image',
+                nextSlideMessage: 'Next image',
+                paginationBulletMessage: 'Go to image {{index}}',
+            },
+
+            // Responsive breakpoints
+            breakpoints: {
+                // when window width is >= 320px
+                320: {
+                    slidesPerView: 1,
+                    spaceBetween: 10
+                },
+                // when window width is >= 768px
+                768: {
+                    slidesPerView: 2,
+                    spaceBetween: 20
+                },
+                // when window width is >= 1024px
+                1024: {
+                    slidesPerView: 3, // Or 'auto' if you want variable widths and number of slides
+                    spaceBetween: 30
+                }
             }
-        }
-        */
-    });
-
-    console.log('Gallery Swiper initialized.', gallerySwiper);
+        });
+        console.log('Gallery Swiper initialized.');
+    } else {
+        console.warn('Gallery Swiper container (.gallery-swiper) not found.');
+    }
 }); 

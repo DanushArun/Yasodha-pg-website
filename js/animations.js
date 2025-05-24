@@ -7,91 +7,190 @@
 document.addEventListener('DOMContentLoaded', () => {
     // Ensure GSAP and ScrollTrigger are loaded
     if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') {
-        console.error('GSAP or ScrollTrigger is not loaded for V3 animations!');
+        console.error('GSAP or ScrollTrigger is not loaded!');
         return;
     }
 
     gsap.registerPlugin(ScrollTrigger);
 
-    console.log('GSAP and ScrollTrigger registered for V3 animations.');
-
-    // --- V3 Global Animations ---
-
-    // Example: Generic fade-in for sections as they scroll into view
-    gsap.utils.toArray('.section-padding').forEach((section, i) => {
+    // --- Generic Section Fade-In Animation ---
+    const sections = document.querySelectorAll('.section-padding');
+    sections.forEach(section => {
         gsap.from(section, {
-            opacity: 0,
-            y: 60, // Slightly more pronounced slide up
-            duration: 1,
-            ease: 'power3.out',
-            scrollTrigger: {
-                trigger: section,
-                start: 'top 90%', // Trigger a bit earlier
-                end: 'bottom 20%',
-                toggleActions: 'play none none none',
-                // markers: true, // Uncomment for debugging specific section triggers
-            }
-        });
-    });
-
-    // --- V3 Hero Section Animations ---
-    const heroHeadline = document.querySelector('.hero-headline');
-    const heroSubheadline = document.querySelector('.hero-subheadline');
-    const heroCta = document.querySelector('.hero-cta');
-    const scrollIndicator = document.querySelector('.scroll-down-indicator');
-
-    if (heroHeadline && heroSubheadline && heroCta) {
-        const heroTl = gsap.timeline({ delay: 0.5 }); // Slightly longer delay for impact
-        heroTl
-            .from(heroHeadline, { opacity: 0, y: 40, duration: 1, ease: 'power4.out' })
-            .from(heroSubheadline, { opacity: 0, y: 30, duration: 0.8, ease: 'power3.out' }, "-=0.6") // Overlap more
-            .from(heroCta, { opacity: 0, y: 20, duration: 0.7, ease: 'power2.out' }, "-=0.5");
-        
-        if(scrollIndicator){
-            heroTl.from(scrollIndicator, { opacity: 0, y: -20, duration: 0.5, ease: 'power1.out' }, "-=0.2");
-        }
-    }
-    
-    // --- V3 Experience Section Animations ---
-    const experienceGrid = document.querySelector('.experience-grid');
-    const experienceItems = document.querySelectorAll('.experience-item');
-
-    if(experienceGrid && experienceItems.length > 0){
-        gsap.from(experienceItems, { // Target all items directly
             opacity: 0,
             y: 50,
             duration: 0.8,
             ease: 'power3.out',
-            stagger: 0.2, // Add a 0.2s stagger between each item animation
             scrollTrigger: {
-                trigger: experienceGrid, // Trigger when the grid container comes into view
-                start: 'top 80%', // Start animation when 80% of the grid top is visible
-                toggleActions: 'play none none none',
-                 // markers: true, // For debugging this specific trigger
+                trigger: section,
+                start: 'top 80%', // Trigger when 80% of the section is visible
+                toggleActions: 'play none none none', // Play animation once
+                // markers: true, // For debugging
+            }
+        });
+    });
+
+    // --- Hero Section Animations ---
+    const heroHeadline = document.querySelector('.hero-headline');
+    const heroSubheadline = document.querySelector('.hero-subheadline');
+    const heroCTA = document.querySelector('.hero-cta');
+    const scrollIndicator = document.querySelector('.scroll-indicator');
+    const heroBackground = document.querySelector('.hero-background');
+
+    if (heroHeadline && heroSubheadline && heroCTA) {
+        const tlHero = gsap.timeline({ defaults: { duration: 0.8, ease: 'power3.out' } });
+        tlHero
+            .from(heroHeadline, { opacity: 0, y: 30, delay: 0.3 })
+            .from(heroSubheadline, { opacity: 0, y: 30 }, '-=0.6')
+            .from(heroCTA, { opacity: 0, y: 30 }, '-=0.6');
+        
+        if (scrollIndicator) {
+            tlHero.from(scrollIndicator, { opacity: 0, y: 20 }, '-=0.4');
+        }
+    }
+
+    // Hero background parallax effect
+    if (heroBackground) {
+        gsap.to(heroBackground, {
+            yPercent: 10,
+            scale: 1.1,
+            ease: 'none',
+            scrollTrigger: {
+                trigger: '.hero-section',
+                start: 'top top',
+                end: 'bottom top',
+                scrub: true
             }
         });
     }
 
-    // --- V3 Amenities Section Animations ---
-    const amenityCards = document.querySelectorAll('.amenity-card');
-    if(amenityCards.length > 0){
-        gsap.from(amenityCards, {
+    // --- Experience Section: Staggered Item Fade-In ---
+    const experienceItems = document.querySelectorAll('.experience-item');
+    if (experienceItems.length > 0) {
+        gsap.from(experienceItems, {
             opacity: 0,
-            y: 50,
+            y: 40,
             duration: 0.7,
-            stagger: 0.2, // Stagger the animation of each card
+            stagger: 0.2, // Stagger the start of each item's animation
             ease: 'power3.out',
             scrollTrigger: {
-                trigger: '.amenities-grid', // Trigger when the grid itself is in view
-                start: 'top 80%',
+                trigger: '.experience-grid', // Trigger when the grid comes into view
+                start: 'top 85%',
                 toggleActions: 'play none none none',
             }
         });
     }
 
-    // Add more V3 specific animations for other sections (Gallery, Location, etc.) as they are styled.
+    // --- Amenities Section: Staggered Card Fade-In ---
+    const amenityCards = document.querySelectorAll('.amenity-card');
+    if (amenityCards.length > 0) {
+        gsap.from(amenityCards, {
+            opacity: 0,
+            y: 40,
+            duration: 0.7,
+            stagger: 0.15,
+            ease: 'power3.out',
+            scrollTrigger: {
+                trigger: '.amenities-grid',
+                start: 'top 85%',
+                toggleActions: 'play none none none',
+            }
+        });
+    }
+    
+    // --- Add more specific animations for other sections as needed ---
+    // Example: Gallery title animation
+    const galleryTitle = document.querySelector('#gallery .section-title');
+    if (galleryTitle) {
+        gsap.from(galleryTitle, {
+            opacity: 0,
+            x: -50,
+            duration: 0.8,
+            scrollTrigger: {
+                trigger: galleryTitle,
+                start: 'top 85%',
+                toggleActions: 'play none none none'
+            }
+        });
+    }
 
-    console.log('V3 animations initialized.');
+    // Example: Testimonials title animation
+    const testimonialsTitle = document.querySelector('#testimonials .section-title');
+    if (testimonialsTitle) {
+        gsap.from(testimonialsTitle, {
+            opacity: 0,
+            x: 50,
+            duration: 0.8,
+            scrollTrigger: {
+                trigger: testimonialsTitle,
+                start: 'top 85%',
+                toggleActions: 'play none none none'
+            }
+        });
+    }
+
+    // Animate Experience Details Items (New)
+    const experienceDetailItems = gsap.utils.toArray('.experience-detail-item');
+    if (experienceDetailItems.length > 0) {
+        experienceDetailItems.forEach(item => {
+            gsap.from(item, {
+                scrollTrigger: {
+                    trigger: item,
+                    start: "top 90%", 
+                    toggleActions: "play none none none"
+                },
+                opacity: 0,
+                y: 50,
+                duration: 0.6,
+                ease: "power1.out"
+            });
+        });
+    }
+
+    // Animate Amenity Cards
+    // const amenityCards = gsap.utils.toArray('.amenity-card'); // This was already declared above, removing duplicate
+    // Original amenityCards animation logic is assumed to be present earlier in the file and correct.
+    // If it wasn't, it should be reinstated here, ensuring no redeclaration.
+    // For now, assuming the existing amenity card animation is sufficient and correctly placed elsewhere.
+
+    // Animate Gallery & Testimonials Section Titles
+    const animatedSectionTitles = gsap.utils.toArray(
+        galleryTitle,
+        testimonialsTitle
+    );
+    if (animatedSectionTitles.length > 0) {
+        animatedSectionTitles.forEach(title => {
+            gsap.from(title, {
+                opacity: 0,
+                x: 50,
+                duration: 0.8,
+                scrollTrigger: {
+                    trigger: title,
+                    start: 'top 85%',
+                    toggleActions: 'play none none none'
+                }
+            });
+        });
+    }
+
+    // Animate Subscribe Section (New)
+    const subscribeSection = document.querySelector('.subscribe-section');
+    if (subscribeSection) {
+        gsap.from(subscribeSection.querySelectorAll('.section-title, .section-subtitle, .subscription-form'), {
+            scrollTrigger: {
+                trigger: subscribeSection,
+                start: "top 85%",
+                toggleActions: "play none none none"
+            },
+            opacity: 0,
+            y: 50,
+            duration: 0.8,
+            stagger: 0.2,
+            ease: "power2.out"
+        });
+    }
+
+    console.log('V3 animations initialized with hero parallax and new section animations.');
 });
 
 /**
