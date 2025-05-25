@@ -32,4 +32,4 @@ service-account.json
 # Other build artifacts or local files
 # dist/
 # build/
-# *.egg-info/
+*.egg-info/service-account.json
