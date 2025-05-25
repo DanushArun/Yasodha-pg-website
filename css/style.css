@@ -475,15 +475,14 @@ img {
 }
 
 .hero-cta {
-    padding: 15px 35px;
-    font-size: 1.1rem;
+    /* padding: 15px 35px; Removed to inherit padding from .btn-cta-header */
+    font-size: 1.1rem; /* This can remain if a slightly larger font is desired for the hero CTA, or be removed to match header CTA font */
     /* Animation will be handled by GSAP */
     position: absolute; 
-    bottom: 100px; /* Position from bottom, adjust as needed */
-    left: 49.4%; /* Adjusted from 50% for precise centering */
+    bottom: 100px; 
+    left: 49.4%; 
     transform: translateX(-50%);
     z-index: 3; 
-    /* margin-bottom: 1em; No longer needed as arrow is positioned independently */
 }
 
 .scroll-indicator {
@@ -525,11 +524,33 @@ img {
 }
 
 .experience-item {
-    background-color: var(--bg-color);
+    /* background-color: var(--bg-color); Replaced for glass effect */
+    background-color: rgba(254, 251, 249, 0.3); /* Glassy pale blush */
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
     border-radius: var(--border-radius);
     box-shadow: var(--box-shadow);
-    overflow: hidden;
+    overflow: hidden; /* Added for pseudo-element clipping */
     transition: transform var(--transition-speed), box-shadow var(--transition-speed);
+    position: relative; /* Added for pseudo-element positioning */
+}
+
+.experience-item::before {
+    content: '';
+    position: absolute;
+    z-index: -1;
+    top: -2px; left: -2px; right: -2px; bottom: -2px;
+    border-radius: inherit;
+    background: linear-gradient(0deg, var(--secondary-color), var(--bg-color), var(--secondary-color)); /* Coral, Blush - Horizontal wave */
+    background-size: 200% 100%; /* Adjusted for horizontal wave effect */
+    opacity: 0;
+    transition: opacity 0.4s ease-in-out;
+    animation: gradientFlow 5s linear infinite; /* Slightly adjusted speed */
+}
+
+.experience-item:hover::before {
+    opacity: 1;
 }
 
 .experience-item:hover {
@@ -548,16 +569,33 @@ img {
     transform: scale(1.05);
 }
 
+/* New styles for the content area within experience-item */
+.experience-item-content {
+    padding: 20px; /* Overall padding for the content area */
+    /* background: linear-gradient(135deg, #E6E6FA, #D8BFD8); Moved to hover state */
+    background: transparent; /* Default transparent background */
+    transition: background 0.4s ease-in-out; /* For smooth gradient appearance */
+    border-radius: 0 0 var(--border-radius) var(--border-radius); /* Match bottom corners of parent if image is flush top */
+    position: relative; /* Ensure stacking context */
+    z-index: 1;         /* Ensure it's above parent's ::before pseudo-element */
+}
+
+.experience-item:hover .experience-item-content {
+    background: linear-gradient(135deg, #E6E6FA, #D8BFD8); /* Lavender gradient on hover */
+}
+
 .experience-item h3 {
-    padding: 20px 20px 10px 20px;
+    /* padding: 20px 20px 10px 20px; Adjusted */
+    padding: 0 0 10px 0; /* Remove side padding, adjust bottom padding */
     font-size: 1.4rem;
-    color: var(--primary-color);
+    color: var(--primary-color); /* Or change to a color that contrasts well with lavender */
 }
 
 .experience-item p {
-    padding: 0 20px 20px 20px;
+    /* padding: 0 20px 20px 20px; Adjusted */
+    padding: 0 0 0 0; /* Remove side padding */
     font-size: 0.95rem;
-    color: #555;
+    color: #555; /* Or change to a color that contrasts well with lavender */
 }
 
 /* New styles for Experience Details Grid */
@@ -571,10 +609,33 @@ img {
 }
 
 .experience-detail-item {
-    background-color: var(--bg-light); /* Or var(--bg-color) if section is not bg-light */
+    /* background-color: var(--bg-light); Replaced for glass effect */
+    background-color: rgba(192, 222, 220, 0.3); /* Glassy duck egg */
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
     padding: 30px;
     border-radius: var(--border-radius);
     box-shadow: 0 5px 15px rgba(0,0,0,0.07);
+    position: relative; /* Added for pseudo-element positioning */
+    overflow: hidden; /* Added for pseudo-element clipping */
+}
+
+.experience-detail-item::before {
+    content: '';
+    position: absolute;
+    z-index: -1;
+    top: -2px; left: -2px; right: -2px; bottom: -2px;
+    border-radius: inherit;
+    background: linear-gradient(0deg, var(--secondary-color), var(--bg-color), var(--secondary-color)); /* Coral, Blush - Horizontal wave */
+    background-size: 200% 100%; /* Adjusted for horizontal wave effect */
+    opacity: 0;
+    transition: opacity 0.4s ease-in-out;
+    animation: gradientFlow 5s linear infinite; /* Slightly adjusted speed */
+}
+
+.experience-detail-item:hover::before {
+    opacity: 1;
 }
 
 .experience-detail-item i {
@@ -606,12 +667,35 @@ img {
 }
 
 .amenity-card {
-    background-color: #fff;
+    /* background-color: #fff; Replaced for glass effect */
+    background-color: rgba(255, 255, 255, 0.3); /* Glassy white */
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
     padding: 30px;
     border-radius: var(--border-radius);
     text-align: center;
     box-shadow: var(--box-shadow);
     transition: transform var(--transition-speed), box-shadow var(--transition-speed);
+    position: relative; /* Added for pseudo-element positioning */
+    overflow: hidden; /* Added for pseudo-element clipping */
+}
+
+.amenity-card::before {
+    content: '';
+    position: absolute;
+    z-index: -1;
+    top: -2px; left: -2px; right: -2px; bottom: -2px;
+    border-radius: inherit;
+    background: linear-gradient(120deg, var(--bg-dark), var(--bg-light), var(--primary-color), var(--bg-dark)); /* Smoke, Duck Egg, Emerald Sea */
+    background-size: 300% 300%; /* Adjusted for 3 colors */
+    opacity: 0;
+    transition: opacity 0.4s ease-in-out;
+    animation: gradientFlow 6s linear infinite;
+}
+
+.amenity-card:hover::before {
+    opacity: 1;
 }
 
 .amenity-card:hover {
@@ -1108,7 +1192,15 @@ img {
     }
 }
 
-.btn-cta-header:hover {
-    transform: scale(1.05); /* Slight zoom on hover */
-    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+/* New keyframes for the flowing perimeter glow */
+@keyframes gradientFlow {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
 }
