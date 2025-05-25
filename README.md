@@ -8,7 +8,7 @@ There are two ways to run this website locally:
 
 ### 1. Standard Python HTTP Server
 
-This is the simplest method but may occasionally show broken pipe errors with large video files:
+This is the simplest method but may occasionally show broken pipe errors with large video files. Open your browser and go to `http://localhost:3000`.
 
 ```bash
 python3 -m http.server 3000
@@ -16,7 +16,7 @@ python3 -m http.server 3000
 
 ### 2. Optimized Custom Server (Recommended)
 
-This custom server handles large file transfers better and prevents broken pipe errors:
+This custom server handles large file transfers better and prevents broken pipe errors. The server will start, and you can access the website, typically at `http://localhost:8000` (or the port specified in `server.py`).
 
 ```bash
 python3 server.py
@@ -32,11 +32,41 @@ python3 server.py
 
 ## File Structure
 
-- `index.html` - Main website content
-- `css/` - Stylesheets including the new video.css for video styling
-- `js/` - JavaScript files including video-handler.js for optimized video loading
-- `pg-photos/` - Images and videos of the PG
-- `server.py` - Custom optimized server for handling large file transfers
+Here's an overview of the project's directory structure:
+
+```
+.
+├── .git/                   # Git version control files
+├── .gitignore              # Specifies intentionally untracked files that Git should ignore
+├── README.md               # This file, providing an overview and instructions
+├── assets/                 # General static assets (e.g., icons, fonts)
+│   └── ...                 # (Contents of assets directory)
+├── css/                    # Stylesheets
+│   ├── animations.css
+│   ├── responsive.css
+│   ├── style.css
+│   └── video.css
+├── index.html              # Main HTML file for the website
+├── inquiries.csv           # CSV file for storing inquiries (if used by the backend)
+├── js/                     # JavaScript files
+│   ├── form-handler.js
+│   ├── gallery-slider.js
+│   └── video-handler.js    # (Assuming this was from previous context, adjust if not present)
+├── manifest.json           # Web app manifest for PWA features
+├── offline.html            # Page to display when the user is offline (for PWA)
+├── pg-photos/              # Images and videos for the PG
+│   └── ...                 # (Contents of pg-photos directory)
+├── robots.txt              # Instructions for web crawlers
+├── sitemap.xml             # Sitemap for search engines
+├── server.py               # Custom Python server for serving the website
+├── service-account.json    # Google service account credentials (should be in .gitignore and not committed)
+├── service-worker.js       # Service worker for PWA features (caching, offline support)
+└── yasodha-colour-pallete.jpg # Image file for the color palette
+```
+
+**Note:**
+- The contents of `assets/` and `pg-photos/` are not fully listed above but contain relevant media files.
+- `service-account.json` should be in your `.gitignore` file and **never** committed to the repository.
 
 ## Troubleshooting
 
