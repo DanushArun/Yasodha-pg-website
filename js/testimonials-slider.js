@@ -11,28 +11,44 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (testimonialsSwiperContainer) {
         const testimonialsSwiper = new Swiper(testimonialsSwiperContainer, {
-            // Optional parameters
+            // Core functionality
             loop: true,
             grabCursor: true,
-            slidesPerView: 1, // Usually show one testimonial at a time
-            spaceBetween: 30, // Space if you ever have more than one slide visible
+            centeredSlides: true,
+            slidesPerView: 3,
+            spaceBetween: 30,
             
             autoplay: {
-                delay: 5000,
+                delay: 4000,
                 disableOnInteraction: false,
+                pauseOnMouseEnter: true,
+            },
+
+            // Speed
+            speed: 600,
+
+            // Effect
+            effect: 'coverflow',
+            coverflowEffect: {
+                rotate: 50,
+                stretch: 0,
+                depth: 100,
+                modifier: 1,
+                slideShadows: true,
             },
 
             // Pagination
             pagination: {
                 el: '.testimonials-pagination',
                 clickable: true,
+                dynamicBullets: true,
             },
 
-            // No navigation arrows for testimonials by default, but can be added if needed
-            // navigation: {
-            //     nextEl: '.testimonial-button-next',
-            //     prevEl: '.testimonial-button-prev',
-            // },
+            // Navigation arrows
+            navigation: {
+                nextEl: '.testimonials-section .swiper-button-next',
+                prevEl: '.testimonials-section .swiper-button-prev',
+            },
 
             keyboard: {
                 enabled: true,
@@ -45,17 +61,34 @@ document.addEventListener('DOMContentLoaded', () => {
                 paginationBulletMessage: 'Go to testimonial {{index}}',
             },
 
-            // Responsive breakpoints (mostly to adjust spaceBetween or if more slides are shown)
+            // Responsive breakpoints
             breakpoints: {
-                // when window width is >= 768px
-                768: {
-                    slidesPerView: 1,
-                    spaceBetween: 40
+                // Mobile
+                320: {
+                    slidesPerView: 1.2,
+                    spaceBetween: 20,
+                    coverflowEffect: {
+                        rotate: 30,
+                        depth: 60,
+                    }
                 },
-                // when window width is >= 1024px
+                // Tablet
+                768: {
+                    slidesPerView: 2,
+                    spaceBetween: 20,
+                    coverflowEffect: {
+                        rotate: 40,
+                        depth: 80,
+                    }
+                },
+                // Desktop
                 1024: {
-                    slidesPerView: 1, // Still 1, but maybe adjust space or other params
-                    spaceBetween: 50
+                    slidesPerView: 3,
+                    spaceBetween: 30,
+                    coverflowEffect: {
+                        rotate: 50,
+                        depth: 100,
+                    }
                 }
             }
         });

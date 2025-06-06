@@ -1,326 +1,237 @@
 /**
- * Yasodha Residency - Interactive JavaScript
- * Handles interactive elements like gallery, testimonials, etc.
+ * Interactive Features and Micro-interactions
+ * Enhances user experience with smooth animations and interactions
  */
 
-// Wait for the DOM to be fully loaded
 document.addEventListener('DOMContentLoaded', () => {
-    // Initialize all interactive elements
-    initGallery();
-    initTestimonialSlider();
-    initSmoothScroll();
+    // Smooth reveal animations for elements
+    initScrollRevealAnimations();
+
+    // Interactive card tilting
+    initCardTiltEffect();
+
+    // Ripple effect on buttons
+    initRippleEffect();
+
+    // Enhanced form interactions
+    initFormEnhancements();
+
+    // Magnetic buttons
+    initMagneticButtons();
+
+    // Smooth counter animations
+    initCounterAnimations();
 });
 
 /**
- * Initialize gallery functionality
+ * Initialize scroll reveal animations
  */
-function initGallery() {
-    const galleryGrid = document.querySelector('.gallery-grid');
-    const galleryItems = document.querySelectorAll('.gallery-item');
-    const galleryModal = document.querySelector('.gallery-modal');
-    const modalImage = document.getElementById('modal-image');
-    const modalCaption = document.querySelector('.modal-caption');
-    const closeModal = document.querySelector('.close-modal');
-    const prevBtn = document.querySelector('.prev-btn');
-    const nextBtn = document.querySelector('.next-btn');
-    const tabBtns = document.querySelectorAll('.tab-btn');
-    const fullscreenBtn = document.querySelector('.fullscreen-btn');
+function initScrollRevealAnimations() {
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('revealed');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, observerOptions);
+
+    // Add reveal class to elements
+    const revealElements = document.querySelectorAll('.amenity-card, .experience-item, .contact-info-card, .testimonial-card, .section-title');
+    revealElements.forEach(el => {
+        el.classList.add('reveal-on-scroll');
+        observer.observe(el);
+    });
+}
+
+/**
+ * Initialize card tilt effect
+ */
+function initCardTiltEffect() {
+    const cards = document.querySelectorAll('.amenity-card, .experience-item, .stat-item, .contact-info-card');
     
-    let currentIndex = 0;
-    let filteredItems = [...galleryItems];
+    cards.forEach(card => {
+        // Ensure initial state
+        card.style.transform = 'translateY(0)';
+        card.style.transition = 'all 0.3s ease';
+        
+        card.addEventListener('mouseenter', () => {
+            card.style.transform = 'translateY(-10px)';
+        });
+        
+        card.addEventListener('mouseleave', () => {
+            card.style.transform = 'translateY(0)';
+        });
+    });
+}
+
+/**
+ * Initialize ripple effect on buttons
+ */
+function initRippleEffect() {
+    const buttons = document.querySelectorAll('.btn, .phone-link');
     
-    // Filter gallery items based on category
-    tabBtns.forEach(btn => {
-        btn.addEventListener('click', () => {
-            // Update active tab
-            tabBtns.forEach(tab => tab.classList.remove('active'));
-            btn.classList.add('active');
+    buttons.forEach(button => {
+        button.style.position = 'relative';
+        button.style.overflow = 'hidden';
+        
+        button.addEventListener('click', function(e) {
+            const ripple = document.createElement('span');
+            ripple.className = 'ripple';
             
-            const category = btn.dataset.category;
+            const rect = this.getBoundingClientRect();
+            const size = Math.max(rect.width, rect.height);
+            const x = e.clientX - rect.left - size / 2;
+            const y = e.clientY - rect.top - size / 2;
             
-            // Filter items
-            galleryItems.forEach(item => {
-                if (category === 'all' || item.dataset.category === category) {
-                    item.style.display = 'block';
-                } else {
-                    item.style.display = 'none';
-                }
+            ripple.style.width = ripple.style.height = size + 'px';
+            ripple.style.left = x + 'px';
+            ripple.style.top = y + 'px';
+            
+            this.appendChild(ripple);
+            
+            setTimeout(() => ripple.remove(), 600);
+        });
+    });
+}
+
+/**
+ * Initialize form enhancements
+ */
+function initFormEnhancements() {
+    const formInputs = document.querySelectorAll('.contact-form input, .contact-form textarea');
+    
+    formInputs.forEach(input => {
+        // Enhanced focus effects without floating labels
+        input.addEventListener('focus', () => {
+            input.parentElement.classList.add('focused');
+            input.style.borderColor = 'var(--primary-color)';
+            input.style.boxShadow = '0 0 0 0.2rem rgba(244, 181, 193, 0.25)';
+        });
+        
+        input.addEventListener('blur', () => {
+            input.parentElement.classList.remove('focused');
+            input.style.borderColor = '#ccc';
+            input.style.boxShadow = 'none';
+        });
+        
+        // Enhanced input styling
+        input.addEventListener('input', () => {
+            if (input.value.length > 0) {
+                input.style.backgroundColor = '#f8f9fa';
+            } else {
+                input.style.backgroundColor = '#fff';
+            }
+        });
+    });
+
+    // Add character counter for textarea
+    const textarea = document.querySelector('.contact-form textarea');
+    if (textarea) {
+        const maxLength = 500;
+        const counter = document.createElement('div');
+        counter.className = 'char-counter';
+        counter.textContent = `0 / ${maxLength}`;
+        textarea.parentElement.appendChild(counter);
+        
+        textarea.addEventListener('input', () => {
+            const length = textarea.value.length;
+            counter.textContent = `${length} / ${maxLength}`;
+            
+            if (length > maxLength * 0.8) {
+                counter.style.color = 'var(--accent-color)';
+            } else {
+                counter.style.color = '#999';
+            }
+        });
+    }
+}
+
+/**
+ * Initialize magnetic button effect
+ */
+function initMagneticButtons() {
+    const magneticButtons = document.querySelectorAll('.btn-primary, .phone-link');
+    
+    if (window.innerWidth > 768) { // Only on desktop
+        magneticButtons.forEach(button => {
+            button.addEventListener('mousemove', (e) => {
+                const rect = button.getBoundingClientRect();
+                const x = e.clientX - rect.left - rect.width / 2;
+                const y = e.clientY - rect.top - rect.height / 2;
+                
+                button.style.transform = `scale(1.05) translate(${x * 0.1}px, ${y * 0.1}px)`;
             });
             
-            // Update filtered items array
-            filteredItems = [...galleryItems].filter(item => 
-                category === 'all' || item.dataset.category === category
-            );
-            
-            // Trigger layout recalculation for animations
-            setTimeout(() => {
-                window.dispatchEvent(new Event('resize'));
-            }, 100);
+            button.addEventListener('mouseleave', () => {
+                button.style.transform = 'translate(0, 0)';
+            });
         });
-    });
-    
-    // Open modal when clicking on gallery item (full screen view)
-    galleryItems.forEach((item, index) => {
-        item.addEventListener('click', () => {
-            showImageInModal(item, filteredItems.indexOf(item));
-        });
-    });
-    
-    // Function to show an image in the modal
-    function showImageInModal(item, index) {
-        const imgSrc = item.querySelector('img').src;
-        const imgAlt = item.querySelector('img').alt;
-        const itemTitle = item.dataset.title;
-        const itemDescription = item.dataset.description;
-        
-        // Preload image to ensure smooth transition
-        const preloadImg = new Image();
-        preloadImg.src = imgSrc;
-        
-        preloadImg.onload = () => {
-            modalImage.src = imgSrc;
-            modalImage.alt = imgAlt;
-            modalCaption.innerHTML = `<h3>${itemTitle}</h3><p>${itemDescription}</p>`;
-            
-            galleryModal.style.display = 'block';
-            // Add a small delay before adding the active class for smooth transition
-            setTimeout(() => {
-                galleryModal.classList.add('active');
-            }, 10);
-            document.body.style.overflow = 'hidden';
-            
-            // Set current index
-            currentIndex = index;
-            
-            // Focus on modal for keyboard navigation
-            galleryModal.focus();
-        };
-    }
-    
-    // Close modal with smooth transition
-    function closeGalleryModal() {
-        galleryModal.classList.remove('active');
-        setTimeout(() => {
-            galleryModal.style.display = 'none';
-            document.body.style.overflow = '';
-        }, 300); // Match the transition duration in CSS
-    }
-    
-    // Close modal when clicking the close button
-    closeModal.addEventListener('click', closeGalleryModal);
-    
-    // Close modal when clicking outside the image
-    galleryModal.addEventListener('click', (e) => {
-        if (e.target === galleryModal) {
-            closeGalleryModal();
-        }
-    });
-    
-    // Navigate to previous image
-    prevBtn.addEventListener('click', () => {
-        navigate(-1);
-    });
-    
-    // Navigate to next image
-    nextBtn.addEventListener('click', () => {
-        navigate(1);
-    });
-    
-    // Navigation function
-    function navigate(direction) {
-        currentIndex = (currentIndex + direction + filteredItems.length) % filteredItems.length;
-        const newItem = filteredItems[currentIndex];
-        
-        if (newItem) {
-            // Fade out
-            modalImage.style.opacity = 0;
-            modalCaption.style.opacity = 0;
-            
-            setTimeout(() => {
-                showImageInModal(newItem, currentIndex);
-                // Fade in
-                modalImage.style.opacity = 1;
-                modalCaption.style.opacity = 1;
-            }, 300);
-        }
-    }
-    
-    // Keyboard navigation
-    document.addEventListener('keydown', (e) => {
-        if (galleryModal.style.display === 'block') {
-            if (e.key === 'ArrowLeft') {
-                navigate(-1);
-            } else if (e.key === 'ArrowRight') {
-                navigate(1);
-            } else if (e.key === 'Escape') {
-                closeGalleryModal();
-            } else if (e.key === 'f' || e.key === 'F') {
-                toggleFullscreen();
-            }
-        }
-    });
-    
-    // Toggle fullscreen mode
-    function toggleFullscreen() {
-        if (!document.fullscreenElement) {
-            if (galleryModal.requestFullscreen) {
-                galleryModal.requestFullscreen();
-            } else if (galleryModal.webkitRequestFullscreen) { /* Safari */
-                galleryModal.webkitRequestFullscreen();
-            } else if (galleryModal.msRequestFullscreen) { /* IE11 */
-                galleryModal.msRequestFullscreen();
-            }
-        } else {
-            if (document.exitFullscreen) {
-                document.exitFullscreen();
-            } else if (document.webkitExitFullscreen) { /* Safari */
-                document.webkitExitFullscreen();
-            } else if (document.msExitFullscreen) { /* IE11 */
-                document.msExitFullscreen();
-            }
-        }
-    }
-    
-    // Fullscreen button event listener
-    if (fullscreenBtn) {
-        fullscreenBtn.addEventListener('click', toggleFullscreen);
     }
 }
 
 /**
- * Initialize testimonial slider
+ * Initialize counter animations for statistics
  */
-function initTestimonialSlider() {
-    const testimonialContainer = document.querySelector('.testimonial-container');
-    const testimonialCards = document.querySelectorAll('.testimonial-card');
-    const prevButton = document.querySelector('.prev-slide');
-    const nextButton = document.querySelector('.next-slide');
-    const dotsContainer = document.querySelector('.slider-dots');
-    const dots = document.querySelectorAll('.dot');
+function initCounterAnimations() {
+    // Add some statistics to the about section
+    const statsHTML = `
+        <div class="stats-section">
+            <div class="stat-item">
+                <span class="stat-number" data-target="1000">0</span>
+                <span class="stat-label">Happy Residents</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number" data-target="15">0</span>
+                <span class="stat-label">Years of Service</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number" data-target="24">0</span>
+                <span class="stat-label">Hour Security</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number" data-target="100">0</span>
+                <span class="stat-label">% Satisfaction</span>
+            </div>
+        </div>
+    `;
     
-    if (!testimonialContainer || testimonialCards.length === 0) return;
+    // Insert stats after experience details
+    const experienceSection = document.querySelector('.experience-details-grid');
+    if (experienceSection && !document.querySelector('.stats-section')) {
+        experienceSection.insertAdjacentHTML('afterend', statsHTML);
+    }
     
-    let currentIndex = 0;
-    const cardWidth = 100; // 100% width
+    // Animate counters
+    const counters = document.querySelectorAll('.stat-number');
+    const speed = 200;
     
-    // Set initial position
-    updateSliderPosition();
-    
-    // Create click handlers for dots
-    dots.forEach((dot, index) => {
-        dot.addEventListener('click', () => {
-            currentIndex = index;
-            updateSliderPosition();
-        });
-    });
-    
-    // Create click handlers for buttons
-    prevButton.addEventListener('click', () => {
-        if (currentIndex > 0) {
-            currentIndex--;
-        } else {
-            currentIndex = testimonialCards.length - 1;
-        }
-        updateSliderPosition();
-    });
-    
-    nextButton.addEventListener('click', () => {
-        if (currentIndex < testimonialCards.length - 1) {
-            currentIndex++;
-        } else {
-            currentIndex = 0;
-        }
-        updateSliderPosition();
-    });
-    
-    // Auto slide functionality
-    let slideInterval = setInterval(autoSlide, 5000);
-    
-    // Pause auto-slide on hover
-    testimonialContainer.addEventListener('mouseenter', () => {
-        clearInterval(slideInterval);
-    });
-    
-    testimonialContainer.addEventListener('mouseleave', () => {
-        slideInterval = setInterval(autoSlide, 5000);
-    });
-    
-    // Update slider position based on current index
-    function updateSliderPosition() {
-        testimonialContainer.style.transform = `translateX(-${currentIndex * cardWidth}%)`;
+    const animateCounter = (counter) => {
+        const target = +counter.getAttribute('data-target');
+        const count = +counter.innerText;
+        const increment = target / speed;
         
-        // Update active dot
-        dots.forEach((dot, index) => {
-            if (index === currentIndex) {
-                dot.classList.add('active');
-            } else {
-                dot.classList.remove('active');
+        if (count < target) {
+            counter.innerText = Math.ceil(count + increment);
+            setTimeout(() => animateCounter(counter), 10);
+        } else {
+            counter.innerText = target;
+        }
+    };
+    
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                animateCounter(entry.target);
+                observer.unobserve(entry.target);
             }
         });
-    }
+    }, { threshold: 0.5 });
     
-    // Auto slide function
-    function autoSlide() {
-        if (currentIndex < testimonialCards.length - 1) {
-            currentIndex++;
-        } else {
-            currentIndex = 0;
-        }
-        updateSliderPosition();
-    }
-}
-
-/**
- * Initialize smooth scroll functionality
- */
-function initSmoothScroll() {
-    // Check if Locomotive Scroll is available
-    if (typeof LocomotiveScroll !== 'undefined') {
-        const scroll = new LocomotiveScroll({
-            el: document.querySelector('[data-scroll-container]') || document.body,
-            smooth: true,
-            smoothMobile: false,
-            inertia: 0.8
-        });
-        
-        // Update scroll animations when the page changes
-        scroll.on('scroll', () => {
-            ScrollTrigger.update();
-        });
-        
-        // Set up ScrollTrigger to work with Locomotive Scroll
-        ScrollTrigger.scrollerProxy(document.body, {
-            scrollTop(value) {
-                return arguments.length ? scroll.scrollTo(value, 0, 0) : scroll.scroll.instance.scroll.y;
-            },
-            getBoundingClientRect() {
-                return {top: 0, left: 0, width: window.innerWidth, height: window.innerHeight};
-            },
-            pinType: document.body.style.transform ? "transform" : "fixed"
-        });
-        
-        // Update ScrollTrigger when Locomotive Scroll updates
-        ScrollTrigger.addEventListener('refresh', () => scroll.update());
-        
-        // Refresh ScrollTrigger after setup
-        ScrollTrigger.refresh();
-    }
-}
-
-/**
- * Initialize virtual tour modal
- */
-function initVirtualTour() {
-    const tourVideo = document.querySelector('.tour-video video');
-    
-    if (tourVideo) {
-        tourVideo.addEventListener('click', () => {
-            // Play/pause video on click
-            if (tourVideo.paused) {
-                tourVideo.play();
-            } else {
-                tourVideo.pause();
-            }
-        });
-    }
+    counters.forEach(counter => observer.observe(counter));
 }

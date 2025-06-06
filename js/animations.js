@@ -365,7 +365,7 @@ function initStaggeredAnimations() {
         stagger: 0.15,
         ease: 'power3.out',
         scrollTrigger: {
-            trigger: '.amenities-container',
+            trigger: '.amenities-grid',
             start: 'top 80%',
             toggleActions: 'play none none none'
         }

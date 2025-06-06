@@ -17,7 +17,7 @@
         font-size: 4rem;
     }
     
-    .amenities-container {
+    .amenities-grid {
         grid-template-columns: repeat(2, 1fr);
     }
     
@@ -46,7 +46,7 @@
 /* Mobile Styles (up to 767px) */
 @media screen and (max-width: 767px) {
     html {
-        font-size: 50%; /* 1rem = 8px */
+        font-size: 62.5%; /* 1rem = 10px - Better readability */
     }
     
     h1 {
@@ -57,45 +57,21 @@
         font-size: 3.2rem;
     }
     
-    .navbar {
-        height: 70px;
-    }
-    
-    .navbar-container {
-        padding: 0 1rem;
+    /* Header adjustments for mobile */
+    #main-header {
+        padding: 15px 0;
     }
     
     .logo a {
-        font-size: 2rem;
+        font-size: 1.8rem;
     }
     
-    .menu-toggle {
-        display: flex;
-    }
-    
-    .nav-menu {
-        position: fixed;
-        top: 70px;
-        left: 0;
-        width: 100%;
-        background-color: var(--dark-color);
-        flex-direction: column;
-        align-items: center;
-        padding: 3rem 0;
-        transform: translateY(-150%);
-        transition: transform var(--transition-medium);
-        z-index: 999;
-    }
-    
-    .nav-menu.active {
-        transform: translateY(0);
-    }
-    
-    .nav-menu li {
+    /* Mobile navigation is already handled in main style.css */
+    .nav-links li {
         margin: 1.5rem 0;
     }
     
-    .amenities-container {
+    .amenities-grid {
         grid-template-columns: 1fr;
     }
     
@@ -326,12 +302,12 @@
         width: 70%;
         max-width: 320px;
         height: 100vh;
-        background-color: #333; /* Dark background for mobile menu */
+        background-color: var(--bg-light); /* Light peach background for mobile menu */
         flex-direction: column;
         justify-content: center;
         align-items: center;
         transition: left 0.35s ease-in-out;
-        box-shadow: 2px 0 10px rgba(0,0,0,0.2);
+        box-shadow: 2px 0 10px rgba(0,0,0,0.1);
         padding-top: 80px; /* Space for header */
     }
 
@@ -344,14 +320,14 @@
     }
 
     .nav-links a {
-        font-size: 1.2rem;
-        color: var(--light-text-color); /* Links are white on dark mobile nav */
+        font-size: 1.1rem;
+        color: var(--text-color); /* Dark text on light mobile nav */
     }
     #main-header.scrolled .nav-links a {
-        color: var(--light-text-color); /* Keep links white even when header is scrolled */
+        color: var(--text-color); /* Keep text dark even when header is scrolled */
     }
     .nav-links a::after {
-        background-color: var(--secondary-color); /* Use secondary for underline in mobile nav */
+        background-color: var(--primary-color); /* Use primary for underline in mobile nav */
     }
 
     .nav-cta {
@@ -395,7 +371,35 @@
 
     /* --- Amenities Section --- */
     .amenities-grid {
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+    }
+    
+    .amenity-card {
+        padding: 30px 20px;
+    }
+    
+    .amenity-card i {
+        font-size: 2.3rem;
+        margin-bottom: 15px;
+    }
+    
+    .amenity-card h3 {
+        font-size: 1.3rem;
+        margin-bottom: 10px;
+    }
+    
+    .amenity-card p {
+        font-size: 0.95rem;
+        line-height: 1.6;
+    }
+    
+    /* --- Stats Section --- */
+    .stats-section {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+        margin: 2rem 0;
+        padding: 30px 0;
     }
 
     /* --- Location Section --- */
@@ -428,9 +432,20 @@
     /* --- General Adjustments --- */
     body {
         font-size: 15px; /* Slightly smaller base font */
+        line-height: 1.6;
     }
+    
     .section-padding {
         padding: 50px 0;
+    }
+    
+    /* Ensure touch targets are large enough */
+    .btn, .nav-link, .phone-link {
+        min-height: 44px;
+        min-width: 44px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
 
     h1 { font-size: 2rem; }
@@ -491,17 +506,39 @@
 
     /* --- Amenities Section --- */
     .amenities-grid {
-        grid-template-columns: 1fr; /* Single column */
+        grid-template-columns: 1fr;
+        gap: 20px;
     }
+    
+    /* --- Stats Section --- */
+    .stats-section {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+        margin: 1.5rem 0;
+        padding: 25px 0;
+    }
+    
+    /* --- Enhanced Amenities for Small Mobile --- */
     .amenity-card {
-        padding: 25px;
+        padding: 25px 20px;
+        margin-bottom: 15px;
     }
+    
     .amenity-card i {
         font-size: 2.2rem;
         margin-bottom: 15px;
+        width: 60px;
+        height: 60px;
     }
+    
     .amenity-card h3 {
         font-size: 1.2rem;
+        margin-bottom: 8px;
+    }
+    
+    .amenity-card p {
+        font-size: 0.9rem;
+        line-height: 1.5;
     }
 
     /* --- Gallery Section --- */

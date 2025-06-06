@@ -1,35 +1,62 @@
+# Service account credentials - NEVER commit this!
+service-account.json
+
 # Python
 __pycache__/
 *.py[cod]
 *$py.class
-
-# Virtual environment
-venv/
-.venv/
-ENV/
+*.so
+.Python
 env/
+venv/
 ENV/
+.venv
+pip-log.txt
+pip-delete-this-directory.txt
 
-# IDEs and editors
-.idea/
-.vscode/
-*.sublime-project
-*.sublime-workspace
-
-# Operating System files
+# OS generated files
 .DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
 Thumbs.db
 
-# Sensitive files
-service-account.json
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
 
-# Log files (if any created locally)
+# Logs
 *.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
 
-# Local configuration (if any)
-# .env
+# Dependencies
+node_modules/
 
-# Other build artifacts or local files
-# dist/
-# build/
-*.egg-info/service-account.json
+# Production build
+/build
+/dist
+
+# Environment variables
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Temporary files
+*.tmp
+*.temp
+.cache/
+
+# CSV data files (if sensitive)
+*.csv
+
+# Backup files
+*.bak
+*~

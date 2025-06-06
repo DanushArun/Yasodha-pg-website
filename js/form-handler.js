@@ -1,6 +1,18 @@
 // js/form-handler.js - Handles the submission of the contact/booking inquiry form
 
 document.addEventListener('DOMContentLoaded', () => {
+    // Set min date for visit date field to today
+    const visitDateInput = document.getElementById('visitDate');
+    if (visitDateInput) {
+        const today = new Date().toISOString().split('T')[0];
+        visitDateInput.setAttribute('min', today);
+        
+        // Set max date to 90 days from now
+        const maxDate = new Date();
+        maxDate.setDate(maxDate.getDate() + 90);
+        visitDateInput.setAttribute('max', maxDate.toISOString().split('T')[0]);
+    }
+    
     // --- Contact Form Handling ---
     const bookingForm = document.getElementById('booking-form');
     const formStatus = document.getElementById('form-status');
@@ -44,6 +56,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
             formStatus.textContent = 'Submitting your inquiry...';
             formStatus.className = 'form-status info'; // Or a 'pending' class
+            
+            // Disable form elements during submission
+            const submitButton = bookingForm.querySelector('button[type="submit"]');
+            const formInputs = bookingForm.querySelectorAll('input, textarea');
+            submitButton.disabled = true;
+            submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+            formInputs.forEach(input => input.disabled = true);
 
             // Prepare form data for submission
             const formData = new FormData(bookingForm);
@@ -78,6 +97,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 console.error('Error:', error);
                 formStatus.textContent = 'An error occurred while submitting your inquiry. Please try again later.';
                 formStatus.className = 'form-status error';
+            })
+            .finally(() => {
+                // Re-enable form elements
+                submitButton.disabled = false;
+                submitButton.innerHTML = 'Send Inquiry';
+                formInputs.forEach(input => input.disabled = false);
             });
             
             // **Remove this setTimeout block when implementing actual AJAX**

@@ -8,7 +8,7 @@
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Lato:wght@300;400;700&family=Dancing+Script:wght@600&display=swap" rel="stylesheet">
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
@@ -20,7 +20,16 @@
     <link rel="icon" href="assets/favicon.ico" type="image/x-icon">
 </head>
 <body>
-    <div class="loader"></div>
+    <div class="loader">
+        <div class="loader-content">
+            <div class="loader-logo">Yasodha Residency</div>
+            <div class="loader-dots">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </div>
     <header id="main-header">
         <nav class="container">
             <div class="logo">
@@ -35,9 +44,11 @@
                     <li><a href="#location" class="nav-link">Location</a></li>
                     <li><a href="#testimonials" class="nav-link">Testimonials</a></li>
                     <li><a href="#contact" class="nav-link">Contact</a></li>
-                    <li><a href="#subscribe" class="nav-link">Subscribe</a></li>
                 </ul>
                 <div class="nav-cta">
+                    <button class="search-icon" aria-label="Search">
+                        <i class="fas fa-search"></i>
+                    </button>
                     <a href="#contact" class="btn btn-primary btn-cta-header">Book a Visit</a>
                 </div>
             </div>
@@ -52,8 +63,8 @@
             <div class="hero-background"></div>
             <div class="hero-overlay"></div>
             <div class="container hero-content">
-                <h1 class="hero-headline">Yasodha Residency Ladies PG</h1>
-                <p class="hero-subheadline">Discover comfort, safety, and community at Yasodha Residency.</p>
+                <h1 class="hero-headline"><centre>Yasodha Residency Ladies PG</centre></h1>
+                <p class="hero-subheadline"><centre>Discover comfort, safety, and community at Yasodha Residency.</centre></p>
             </div>
             <a href="#contact" class="btn btn-primary hero-cta btn-cta-header">Inquire Now</a>
             <div class="scroll-indicator">
@@ -61,7 +72,7 @@
             </div>
         </section>
 
-        <section id="about" class="about-section section-padding"> 
+        <section id="about" class="about-section section-padding">
             <div class="container">
                 <h2 class="section-title">The Yasodha Experience</h2>
                 <p class="section-subtitle">More than just a place to stay, Yasodha Residency is a nurturing environment where you can thrive personally and academically. We are committed to providing a seamless and enriching living experience.</p>
@@ -86,21 +97,21 @@
 
                 <div class="experience-grid">
                     <div class="experience-item">
-                        <img src="pg-photos/WhatsApp Image 2025-05-04 at 10.35.12.jpeg" alt="Bright and airy room at Yasodha Residency">
+                        <img src="pg-photos/WhatsApp Image 2025-05-04 at 10.35.12.jpeg" alt="Bright and airy room at Yasodha Residency" loading="lazy">
                         <div class="experience-item-content">
                             <h3>Comfortable Living</h3>
                             <p>Spacious, well-lit rooms designed for study and relaxation.</p>
                         </div>
                     </div>
                     <div class="experience-item">
-                        <img src="pg-photos/WhatsApp Image 2025-05-04 at 10.35.11 (1).jpeg" alt="Cozy common area for residents">
+                        <img src="pg-photos/WhatsApp Image 2025-05-04 at 10.35.11 (1).jpeg" alt="Cozy common area for residents" loading="lazy">
                         <div class="experience-item-content">
                             <h3>Supportive Community</h3>
                             <p>Connect with fellow residents in a friendly and encouraging environment.</p>
                         </div>
                     </div>
                     <div class="experience-item">
-                        <img src="pg-photos/WhatsApp Image 2025-05-04 at 10.37.33.jpeg" alt="Exterior view highlighting safety features">
+                        <img src="pg-photos/WhatsApp Image 2025-05-04 at 10.37.33.jpeg" alt="Exterior view highlighting safety features" loading="lazy">
                         <div class="experience-item-content">
                             <h3>Safe & Secure</h3>
                             <p>24/7 security and staff ensuring your peace of mind.</p>
@@ -116,27 +127,33 @@
                 <p class="section-subtitle">Everything you need for a comfortable and convenient stay, designed with your needs in mind.</p>
                 <div class="amenities-grid">
                     <div class="amenity-card">
-                        <i class="fas fa-wifi"></i><h3>High-Speed Wi-Fi</h3>
+                        <i class="fas fa-wifi"></i>
+                        <h3>High-Speed Wi-Fi</h3>
                         <p>Stay connected with reliable, high-speed internet crucial for studies, research, and entertainment. Uninterrupted browsing and streaming across the premises.</p>
                     </div>
                     <div class="amenity-card">
-                        <i class="fas fa-utensils"></i><h3>Delicious & Hygienic Meals</h3>
+                        <i class="fas fa-utensils"></i>
+                        <h3>Delicious & Hygienic Meals</h3>
                         <p>Enjoy homely, nutritious, and freshly prepared meals served daily. Our menu is curated to offer variety and cater to healthy eating habits.</p>
                     </div>
                     <div class="amenity-card">
-                        <i class="fas fa-bolt"></i><h3>24/7 Power Backup</h3>
+                        <i class="fas fa-bolt"></i>
+                        <h3>24/7 Power Backup</h3>
                         <p>Never worry about power cuts. We provide uninterrupted power supply to ensure your studies and daily activities continue without any disruption.</p>
                     </div>
                      <div class="amenity-card">
-                        <i class="fas fa-shield-alt"></i><h3>Round-the-Clock Security</h3>
+                        <i class="fas fa-shield-alt"></i>
+                        <h3>Round-the-Clock Security</h3>
                         <p>Your safety is our utmost priority. Our PG is equipped with 24/7 security personnel and CCTV surveillance for a secure living environment.</p>
                     </div>
                     <div class="amenity-card">
-                        <i class="fas fa-water"></i><h3>Hot Water Facility</h3>
+                        <i class="fas fa-water"></i>
+                        <h3>Hot Water Facility</h3>
                         <p>Access to hot water is available around the clock, ensuring your comfort regardless of the time or season.</p>
                     </div>
                     <div class="amenity-card">
-                        <i class="fas fa-parking"></i><h3>Secure Parking Space</h3>
+                        <i class="fas fa-parking"></i>
+                        <h3>Secure Parking Space</h3>
                         <p>Convenient and secure parking facilities are available for residents with two-wheelers, offering peace of mind.</p>
                     </div>
                 </div>
@@ -149,14 +166,14 @@
                 <p class="section-subtitle">A visual tour of Yasodha Residency.</p>
                 <div class="swiper-container gallery-swiper">
                     <div class="swiper-wrapper">
-                        <div class="swiper-slide"><img src="pg-photos/WhatsApp Image 2025-05-04 at 12.24.33 (1).jpeg" alt="Gallery Image: Spacious Common Area"><div class="swiper-caption">Spacious Common Area</div></div>
-                        <div class="swiper-slide"><img src="pg-photos/WhatsApp Image 2025-05-04 at 12.24.33.jpeg" alt="Gallery Image: Comfortable Seating"><div class="swiper-caption">Comfortable Seating</div></div>
-                        <div class="swiper-slide"><img src="pg-photos/WhatsApp Image 2025-05-04 at 10.37.33 (1).jpeg" alt="Gallery Image: Well-Lit Room"><div class="swiper-caption">Well-Lit Room</div></div>
-                        <div class="swiper-slide"><img src="pg-photos/WhatsApp Image 2025-05-04 at 10.35.31.jpeg" alt="Gallery Image: Modern Amenities"><div class="swiper-caption">Modern Amenities</div></div>
-                        <div class="swiper-slide"><img src="pg-photos/WhatsApp Image 2025-05-04 at 10.35.30.jpeg" alt="Gallery Image: Relaxation Zone"><div class="swiper-caption">Relaxation Zone</div></div>
-                        <div class="swiper-slide"><img src="pg-photos/WhatsApp Image 2025-05-04 at 10.35.16 (1).jpeg" alt="Gallery Image: Study Friendly Environment"><div class="swiper-caption">Study Friendly Environment</div></div>
-                        <div class="swiper-slide"><img src="pg-photos/WhatsApp Image 2025-05-04 at 10.35.14 (2).jpeg" alt="Gallery Image: Clean and Tidy Spaces"><div class="swiper-caption">Clean and Tidy Spaces</div></div>
-                        <div class="swiper-slide"><img src="pg-photos/WhatsApp Image 2025-05-04 at 10.35.12 (1).jpeg" alt="Gallery Image: Welcoming Atmosphere"><div class="swiper-caption">Welcoming Atmosphere</div></div>
+                        <div class="swiper-slide"><img src="pg-photos/WhatsApp Image 2025-05-04 at 12.24.33 (1).jpeg" alt="Gallery Image: Spacious Common Area" loading="lazy"></div>
+                        <div class="swiper-slide"><img src="pg-photos/WhatsApp Image 2025-05-04 at 12.24.33.jpeg" alt="Gallery Image: Comfortable Seating" loading="lazy"></div>
+                        <div class="swiper-slide"><img src="pg-photos/WhatsApp Image 2025-05-04 at 10.37.33 (1).jpeg" alt="Gallery Image: Well-Lit Room" loading="lazy"></div>
+                        <div class="swiper-slide"><img src="pg-photos/WhatsApp Image 2025-05-04 at 10.35.31.jpeg" alt="Gallery Image: Modern Amenities" loading="lazy"></div>
+                        <div class="swiper-slide"><img src="pg-photos/WhatsApp Image 2025-05-04 at 10.35.30.jpeg" alt="Gallery Image: Relaxation Zone" loading="lazy"></div>
+                        <div class="swiper-slide"><img src="pg-photos/WhatsApp Image 2025-05-04 at 10.35.16 (1).jpeg" alt="Gallery Image: Study Friendly Environment" loading="lazy"></div>
+                        <div class="swiper-slide"><img src="pg-photos/WhatsApp Image 2025-05-04 at 10.35.14 (2).jpeg" alt="Gallery Image: Clean and Tidy Spaces" loading="lazy"></div>
+                        <div class="swiper-slide"><img src="pg-photos/WhatsApp Image 2025-05-04 at 10.35.12 (1).jpeg" alt="Gallery Image: Welcoming Atmosphere" loading="lazy"></div>
                     </div>
                     <div class="swiper-pagination gallery-pagination"></div>
                     <div class="swiper-button-next gallery-button-next"></div>
@@ -182,8 +199,9 @@
                             <li><i class="fas fa-shopping-cart"></i> Nearby Shopping & Dining Areas</li>
                         </ul>
                         <address>
-                            <strong>Yasodha Residency</strong><br>
-                            25, 5th C Main Road Tata Silk Farm,<br>
+                            <h4 style="color: var(--primary-color); margin-bottom: 10px;">Yasodha Residency</h4>
+                            <strong>Address:</strong><br>
+                            25, 5th C Main Road, Tata Silk Farm,<br>
                             Yediyur, Jayanagar, Bengaluru,<br>
                             Karnataka 560070<br>
                             India
@@ -199,23 +217,136 @@
                 <p class="section-subtitle">Feedback from happy residents who have made Yasodha their home.</p>
                 <div class="swiper-container testimonials-swiper">
                     <div class="swiper-wrapper">
-                        <div class="swiper-slide testimonial-card">
-                            <div class="testimonial-quote-icon"><i class="fas fa-quote-left"></i></div>
-                            <p class="testimonial-text">"A fantastic place to live! Safe, clean, and friendly. The food is great too!"</p>
-                            <p class="testimonial-author">- Priya S.</p>
+                        <div class="swiper-slide">
+                            <div class="testimonial-card">
+                                <div class="testimonial-quote-icon"><i class="fas fa-quote-left"></i></div>
+                                <div class="testimonial-content">
+                                    <p class="testimonial-text">"A fantastic place to live! Safe, clean, and friendly. The food is great too!"</p>
+                                    <div class="testimonial-footer">
+                                        <div class="testimonial-author">
+                                            <h5>Priya S.</h5>
+                                            <p class="testimonial-role">Software Engineer</p>
+                                        </div>
+                                        <div class="testimonial-rating">
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="swiper-slide testimonial-card">
-                            <div class="testimonial-quote-icon"><i class="fas fa-quote-left"></i></div>
-                            <p class="testimonial-text">"I loved my stay at Yasodha Residency. The management is very helpful and responsive."</p>
-                            <p class="testimonial-author">- Ananya K.</p>
+                        <div class="swiper-slide">
+                            <div class="testimonial-card">
+                                <div class="testimonial-quote-icon"><i class="fas fa-quote-left"></i></div>
+                                <div class="testimonial-content">
+                                    <p class="testimonial-text">"I loved my stay at Yasodha Residency. The management is very helpful and responsive."</p>
+                                    <div class="testimonial-footer">
+                                        <div class="testimonial-author">
+                                            <h5>Ananya K.</h5>
+                                            <p class="testimonial-role">Medical Student</p>
+                                        </div>
+                                        <div class="testimonial-rating">
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="swiper-slide testimonial-card">
-                            <div class="testimonial-quote-icon"><i class="fas fa-quote-left"></i></div>
-                            <p class="testimonial-text">"Highly recommend for students and working professionals. It truly feels like a home away from home."</p>
-                            <p class="testimonial-author">- Meera V.</p>
+                        <div class="swiper-slide">
+                            <div class="testimonial-card">
+                                <div class="testimonial-quote-icon"><i class="fas fa-quote-left"></i></div>
+                                <div class="testimonial-content">
+                                    <p class="testimonial-text">"Highly recommend for students and working professionals. It truly feels like a home away from home."</p>
+                                    <div class="testimonial-footer">
+                                        <div class="testimonial-author">
+                                            <h5>Meera V.</h5>
+                                            <p class="testimonial-role">MBA Student</p>
+                                        </div>
+                                        <div class="testimonial-rating">
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star-half-alt"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="testimonial-card">
+                                <div class="testimonial-quote-icon"><i class="fas fa-quote-left"></i></div>
+                                <div class="testimonial-content">
+                                    <p class="testimonial-text">"The facilities are excellent and well-maintained. Perfect location with easy access to my workplace."</p>
+                                    <div class="testimonial-footer">
+                                        <div class="testimonial-author">
+                                            <h5>Sneha R.</h5>
+                                            <p class="testimonial-role">Marketing Manager</p>
+                                        </div>
+                                        <div class="testimonial-rating">
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="testimonial-card">
+                                <div class="testimonial-quote-icon"><i class="fas fa-quote-left"></i></div>
+                                <div class="testimonial-content">
+                                    <p class="testimonial-text">"Living here for 2 years now! The homely atmosphere and caring staff make all the difference."</p>
+                                    <div class="testimonial-footer">
+                                        <div class="testimonial-author">
+                                            <h5>Divya M.</h5>
+                                            <p class="testimonial-role">Data Analyst</p>
+                                        </div>
+                                        <div class="testimonial-rating">
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="testimonial-card">
+                                <div class="testimonial-quote-icon"><i class="fas fa-quote-left"></i></div>
+                                <div class="testimonial-content">
+                                    <p class="testimonial-text">"Best PG accommodation in Bangalore! The security measures give me peace of mind."</p>
+                                    <div class="testimonial-footer">
+                                        <div class="testimonial-author">
+                                            <h5>Rashmi P.</h5>
+                                            <p class="testimonial-role">Business Analyst</p>
+                                        </div>
+                                        <div class="testimonial-rating">
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="swiper-pagination testimonials-pagination"></div>
+                    <div class="swiper-button-next"></div>
+                    <div class="swiper-button-prev"></div>
                 </div>
             </div>
         </section>
@@ -226,62 +357,75 @@
                 <p class="section-subtitle">We'd love to hear from you! Reach out to schedule a visit or for any inquiries.</p>
                 <div class="contact-grid">
                     <div class="contact-form-container">
-                        <form id="booking-form" class="contact-form">
+                        <form id="booking-form" class="contact-form" autocomplete="off">
                             <div class="form-group">
                                 <label for="name">Full Name</label>
-                                <input type="text" id="name" name="name" required>
+                                <input type="text" id="name" name="name" autocomplete="name" required>
                             </div>
                             <div class="form-group">
                                 <label for="email">Email Address</label>
-                                <input type="email" id="email" name="email" required>
+                                <input type="email" id="email" name="email" autocomplete="email" required>
                             </div>
                             <div class="form-group">
                                 <label for="phone">Phone Number</label>
-                                <input type="tel" id="phone" name="phone" required>
+                                <input type="tel" id="phone" name="phone" autocomplete="tel" pattern="[0-9]{10,15}" title="Please enter a valid phone number (10-15 digits)" required>
                             </div>
                             <div class="form-group">
                                 <label for="visitDate">Preferred Visit Date (Optional)</label>
-                                <input type="date" id="visitDate" name="visitDate">
+                                <input type="date" id="visitDate" name="visitDate" min="" max="">
                             </div>
                             <div class="form-group">
                                 <label for="message">Message</label>
-                                <textarea id="message" name="message" rows="5" required></textarea>
+                                <textarea id="message" name="message" rows="5" placeholder="Tell us about your requirements..." required></textarea>
                             </div>
                             <button type="submit" class="btn btn-primary">Send Inquiry</button>
                         </form>
                         <div id="form-status"></div>
                     </div>
                     <div class="contact-details">
-                        <h3>Direct Contact</h3>
-                        <p><i class="fas fa-phone"></i> <a href="tel:+919900096736">+91 99000 96736</a></p>
-                        <p><i class="fas fa-envelope"></i> <a href="mailto:info@yasodharesidency.com">info@yasodharesidency.com</a></p>
-                        <p><i class="fas fa-map-marker-alt"></i> 25, 5th C Main Road Tata Silk Farm, Yediyur, Jayanagar, Bengaluru, Karnataka 560070</p>
-                        <h3>Office Hours</h3>
-                        <p>Monday - Saturday: 9:00 AM - 7:00 PM</p>
-                        <p>Sunday: Closed (Visits by appointment only)</p>
+                        <div class="contact-info-card">
+                            <h3><i class="fas fa-phone-alt"></i> Direct Contact</h3>
+                            <div class="contact-item">
+                                <a href="tel:+919900096736" class="phone-link">
+                                    <span class="phone-number">+91 99000 96736</span>
+                                </a>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-info-card">
+                            <h3><i class="fas fa-map-marked-alt"></i> Our Location</h3>
+                            <div class="contact-item">
+                                <address>
+                                    25, 5th C Main Road<br>
+                                    Tata Silk Farm, Yediyur<br>
+                                    Jayanagar, Bengaluru<br>
+                                    Karnataka 560070
+                                </address>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-info-card">
+                            <h3><i class="fas fa-clock"></i> Office Hours</h3>
+                            <div class="hours-grid">
+                                <div class="hours-item">
+                                    <span class="day">Monday - Saturday</span>
+                                    <span class="time">9:00 AM - 7:00 PM</span>
+                                </div>
+                                <div class="hours-item">
+                                    <span class="day">Sunday</span>
+                                    <span class="time">By Appointment Only</span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
     </main>
 
-    <!-- <section id="subscribe" class="subscribe-section section-padding bg-light">
-        <div class="container text-center">
-            <h2 class="section-title">Stay Updated with Yasodha Residency</h2>
-            <p class="section-subtitle">Be the first to know about future vacancies, special offers, or important PG news. Subscribe to our mailing list!</p>
-            <form id="subscription-form" class="subscription-form">
-                <div class="form-group-inline">
-                    <input type="email" id="sub-email" name="sub-email" placeholder="Enter your email address" required>
-                    <button type="submit" class="btn btn-primary">Subscribe</button>
-                </div>
-                <div id="subscription-form-status" class="form-status"></div>
-            </form>
-        </div>
-    </section> -->
-
     <footer id="main-footer" class="section-padding">
         <div class="container">
-            <!-- <div class="footer-grid">
+            <div class="footer-grid">
                 <div class="footer-col">
                     <h4>Quick Links</h4>
                     <ul>
@@ -292,29 +436,20 @@
                         <li><a href="#location">Location</a></li>
                         <li><a href="#testimonials">Testimonials</a></li>
                         <li><a href="#contact">Contact & Booking</a></li>
-                        <li><a href="#subscribe">Stay Updated</a></li>
                     </ul>
                 </div>
                 <div class="footer-col">
                     <h4>Contact Us</h4>
-                    <p><i class="fas fa-phone"></i> <a href="tel:+919876543210">+91 98765 43210</a></p>
-                    <p><i class="fas fa-envelope"></i> <a href="mailto:info@yasodharesidency.com">info@yasodharesidency.com</a></p>
+                    <p><i class="fas fa-phone"></i> <a href="tel:+919900096736">+91 99000 96736</a></p>
                     <p><i class="fas fa-map-marker-alt"></i> 25, 5th C Main Road Tata Silk Farm, Yediyur, Jayanagar, Bengaluru, Karnataka 560070</p>
                 </div>
-                <div class="footer-col">
-                    <h4>Follow Us</h4>
-                    <ul class="social-links">
-                        <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
-                        <li><a href="#"><i class="fab fa-twitter"></i></a></li>
-                        <li><a href="#"><i class="fab fa-instagram"></i></a></li>
-                        <li><a href="#"><i class="fab fa-linkedin-in"></i></a></li>
-                    </ul>
-                </div>
-            </div> -->
-            <p>&copy; <span id="current-year">2024</span> Yasodha Residency. All Rights Reserved.</p>
-            <!-- <p>
-                <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a>
-            </p> -->
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; <span id="current-year">2024</span> Yasodha Residency. All Rights Reserved.</p>
+                <p>
+                    <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a>
+                </p>
+            </div>
         </div>
     </footer>
 
@@ -328,6 +463,8 @@
     <script src="js/gallery-slider.js" defer></script>
     <script src="js/testimonials-slider.js" defer></script>
     <script src="js/form-handler.js" defer></script>
+    <script src="js/interactive.js" defer></script>
+    <script src="js/sw-register.js" defer></script>
 
     <script src="https://unpkg.com/@dotlottie/player-component@2.7.12/dist/dotlottie-player.mjs" type="module"></script>
 </body>
