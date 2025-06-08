@@ -41,10 +41,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 isValid = false;
             }
             
-            // Basic phone validation (e.g., at least 10 digits)
-            const phoneRegex = /^\d{10,}$/;
-            if (phone !== '' && !phoneRegex.test(phone)) {
-                statusMessage = 'Please enter a valid phone number (at least 10 digits).';
+            // Basic phone validation - extract digits and check count
+            const phoneDigits = phone.replace(/[^\d]/g, ''); // Remove non-digits
+            if (phone !== '' && (phoneDigits.length < 7 || phoneDigits.length > 15)) {
+                statusMessage = 'Please enter a valid phone number (7-15 digits).';
                 isValid = false;
             }
 
@@ -67,17 +67,41 @@ document.addEventListener('DOMContentLoaded', () => {
             // Prepare form data for submission
             const formData = new FormData(bookingForm);
             const data = {};
-            formData.forEach((value, key) => (data[key] = value));
+            formData.forEach((value, key) => {
+                data[key] = value;
+            });
+            
+            // Ensure we have the data we expect
+            console.log('Form data object:', data);
+            console.log('Form data keys:', Object.keys(data));
+            
+            // Double-check that we have data
+            if (Object.keys(data).length === 0) {
+                console.error('FormData conversion resulted in empty object');
+                // Manually get form values as fallback
+                data.name = document.getElementById('name').value.trim();
+                data.email = document.getElementById('email').value.trim();
+                data.phone = document.getElementById('phone').value.trim();
+                data.visitDate = document.getElementById('visitDate').value || '';
+                data.message = document.getElementById('message').value.trim();
+                console.log('Manually collected data:', data);
+            }
 
             // --- AJAX Submission to server.py (Placeholder) ---
             console.log('Booking form data to be sent:', data);
             // Replace with actual fetch() or XMLHttpRequest to your Python backend
             // Example using fetch:
             
-            fetch('/submit_booking', { // Endpoint in your server.py
+            // Determine the correct URL based on current location
+            const baseUrl = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' 
+                ? 'http://127.0.0.1:5000' 
+                : ''; // Use relative URL in production
+            
+            fetch(`${baseUrl}/submit_booking`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
+                    'Accept': 'application/json',
                 },
                 body: JSON.stringify(data),
             })

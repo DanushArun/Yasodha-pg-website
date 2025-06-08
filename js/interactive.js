@@ -187,7 +187,7 @@ function initCounterAnimations() {
                 <span class="stat-label">Happy Residents</span>
             </div>
             <div class="stat-item">
-                <span class="stat-number" data-target="15">0</span>
+                <span class="stat-number" data-target="16">0</span>
                 <span class="stat-label">Years of Service</span>
             </div>
             <div class="stat-item">

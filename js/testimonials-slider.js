@@ -14,9 +14,10 @@ document.addEventListener('DOMContentLoaded', () => {
             // Core functionality
             loop: true,
             grabCursor: true,
-            centeredSlides: true,
+            centeredSlides: false,
             slidesPerView: 3,
             spaceBetween: 30,
+            slideToClickedSlide: true,
             
             autoplay: {
                 delay: 4000,
@@ -28,14 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
             speed: 600,
 
             // Effect
-            effect: 'coverflow',
-            coverflowEffect: {
-                rotate: 50,
-                stretch: 0,
-                depth: 100,
-                modifier: 1,
-                slideShadows: true,
-            },
+            effect: 'slide',
 
             // Pagination
             pagination: {
@@ -65,30 +59,21 @@ document.addEventListener('DOMContentLoaded', () => {
             breakpoints: {
                 // Mobile
                 320: {
-                    slidesPerView: 1.2,
+                    slidesPerView: 1,
                     spaceBetween: 20,
-                    coverflowEffect: {
-                        rotate: 30,
-                        depth: 60,
-                    }
+                    centeredSlides: true
                 },
                 // Tablet
                 768: {
                     slidesPerView: 2,
                     spaceBetween: 20,
-                    coverflowEffect: {
-                        rotate: 40,
-                        depth: 80,
-                    }
+                    centeredSlides: false
                 },
                 // Desktop
                 1024: {
                     slidesPerView: 3,
                     spaceBetween: 30,
-                    coverflowEffect: {
-                        rotate: 50,
-                        depth: 100,
-                    }
+                    centeredSlides: false
                 }
             }
         });

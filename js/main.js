@@ -3,6 +3,14 @@
  * Handles core functionality like navigation, custom cursor, and page loading
  */
 
+// Handle Google Maps errors globally
+window.addEventListener('error', function(e) {
+    if (e.filename && (e.filename.includes('maps.googleapis.com') || e.filename.includes('google.com/maps'))) {
+        console.warn('Google Maps error handled:', e.message);
+        return true; // Prevent the error from propagating
+    }
+}, true);
+
 // Wait for the DOM to be fully loaded
 document.addEventListener('DOMContentLoaded', () => {
     console.log('Yasodha Residency V3 website scripts loaded. DOMContentLoaded fired.');
@@ -42,19 +50,30 @@ document.addEventListener('DOMContentLoaded', () => {
             const targetElement = document.querySelector(targetId);
             
             if (targetElement) {
-                const headerHeight = document.getElementById('main-header') ? document.getElementById('main-header').offsetHeight : 0;
+                // Get header and calculate offset with buffer
+                const header = document.getElementById('main-header');
+                const headerHeight = header ? header.offsetHeight : 0;
+                const buffer = 20; // Additional buffer for better alignment
+                
+                // Calculate target position
                 const elementPosition = targetElement.getBoundingClientRect().top;
-                const offsetPosition = elementPosition + window.pageYOffset - headerHeight;
+                const offsetPosition = elementPosition + window.pageYOffset - headerHeight - buffer;
 
                 window.scrollTo({
                     top: offsetPosition,
                     behavior: 'smooth'
                 });
 
+                // Close mobile menu if open
                 if (navLinks && navLinks.classList.contains('active') && navToggle && navToggle.classList.contains('active')){
                     navLinks.classList.remove('active');
                     navToggle.classList.remove('active');
                 }
+                
+                // Update active nav link after scroll completes
+                setTimeout(() => {
+                    updateActiveNavLink();
+                }, 500);
             } else {
                 console.warn(`Smooth scroll target ${targetId} not found.`);
             }
@@ -83,6 +102,31 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     } else {
         console.warn('.main-header element NOT found for scroll effect.');
+    }
+
+    // Function to update active navigation link
+    function updateActiveNavLink() {
+        const sections = document.querySelectorAll('main section[id]');
+        const navListItems = document.querySelectorAll('.nav-links li a');
+        const headerHeight = document.getElementById('main-header') ? document.getElementById('main-header').offsetHeight : 0;
+        const scrollPosition = window.pageYOffset + headerHeight + 50; // Add buffer
+
+        let current = '';
+        sections.forEach(section => {
+            const sectionTop = section.offsetTop;
+            const sectionHeight = section.clientHeight;
+            
+            if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+                current = section.getAttribute('id');
+            }
+        });
+
+        navListItems.forEach(link => {
+            link.classList.remove('active');
+            if (link.getAttribute('href') === `#${current}`) {
+                link.classList.add('active');
+            }
+        });
     }
 
     // Active navigation link highlighting on scroll

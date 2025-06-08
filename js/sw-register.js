@@ -3,6 +3,10 @@
  * Registers the service worker for offline functionality
  */
 
+// Service Worker temporarily disabled for debugging
+console.log('Service Worker registration disabled for debugging');
+
+/*
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
     navigator.serviceWorker.register('/service-worker.js')
@@ -14,3 +18,4 @@ if ('serviceWorker' in navigator) {
       });
   });
 }
+*/
