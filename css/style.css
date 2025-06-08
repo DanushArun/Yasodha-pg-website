@@ -557,9 +557,9 @@ img {
 }
 
 /* === ABOUT / THE EXPERIENCE SECTION === */
-/* .about-section { Keeping .about-section class for consistency if needed, content reflects "The Experience" 
-     General section styling already handled 
-} */
+.about-section {
+    padding-bottom: 40px; /* Reduce bottom padding to eliminate extra whitespace */
+}
 
 .experience-grid {
     display: grid;
@@ -754,6 +754,7 @@ img {
     grid-template-columns: repeat(3, 1fr);
     gap: 25px;
     margin-top: 2.5em;
+    min-height: 200px; /* Ensure minimum height */
 }
 
 .amenity-card {
@@ -765,6 +766,8 @@ img {
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
     border: 1px solid rgba(244, 181, 193, 0.2);
+    opacity: 1 !important; /* Ensure cards are always visible */
+    visibility: visible !important;
 }
 
 
@@ -806,7 +809,7 @@ img {
     font-size: 0.9rem;
     color: #666;
     line-height: 1.7;
-    margin: 0;
+    margin: 0 auto;
     max-width: 280px;
 }
 

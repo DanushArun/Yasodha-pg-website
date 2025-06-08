@@ -42,7 +42,7 @@ function initScrollRevealAnimations() {
     }, observerOptions);
 
     // Add reveal class to elements
-    const revealElements = document.querySelectorAll('.amenity-card, .experience-item, .contact-info-card, .testimonial-card, .section-title');
+    const revealElements = document.querySelectorAll('.experience-item, .contact-info-card, .testimonial-card, .section-title');
     revealElements.forEach(el => {
         el.classList.add('reveal-on-scroll');
         observer.observe(el);

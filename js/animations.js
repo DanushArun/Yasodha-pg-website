@@ -84,6 +84,12 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- Amenities Section: Staggered Card Fade-In ---
     const amenityCards = document.querySelectorAll('.amenity-card');
     if (amenityCards.length > 0) {
+        // Set initial state
+        gsap.set(amenityCards, {
+            opacity: 1,
+            y: 0
+        });
+        
         gsap.from(amenityCards, {
             opacity: 0,
             y: 40,
@@ -94,6 +100,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 trigger: '.amenities-grid',
                 start: 'top 85%',
                 toggleActions: 'play none none none',
+                onEnter: () => {
+                    // Force visibility on trigger
+                    amenityCards.forEach(card => {
+                        card.style.visibility = 'visible';
+                        card.style.opacity = '';
+                    });
+                }
             }
         });
     }
@@ -357,19 +370,8 @@ function initScrollBasedAnimations() {
  * Initialize staggered element animations
  */
 function initStaggeredAnimations() {
-    // Staggered animation for amenities
-    gsap.from('.amenity-card', {
-        y: 50,
-        opacity: 0,
-        duration: 0.8,
-        stagger: 0.15,
-        ease: 'power3.out',
-        scrollTrigger: {
-            trigger: '.amenities-grid',
-            start: 'top 80%',
-            toggleActions: 'play none none none'
-        }
-    });
+    // Amenity cards animation is already handled in the main DOMContentLoaded event
+    // Removed duplicate animation to prevent conflicts
     
     // Staggered animation for gallery items
     gsap.from('.gallery-item', {
