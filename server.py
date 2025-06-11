@@ -27,7 +27,7 @@ def after_request(response):
 # --- Google Sheets Configuration ---
 SERVICE_ACCOUNT_FILE = 'service-account.json'
 SPREADSHEET_ID = '1hvWPV9f9bvliF2OpAcSy1dHRkLQF84t_TDAHRa3xTuU'
-SHEET_NAME = 'Sheet1'
+SHEET_NAME = '2025'
 
 # Define the scope for Google Sheets and Drive API
 SCOPE = ['https://www.googleapis.com/auth/spreadsheets', 'https://www.googleapis.com/auth/drive']
@@ -201,6 +201,47 @@ def serve_js(filename):
 def serve_photos(filename):
     """Serves photo files."""
     return send_from_directory('pg-photos', filename)
+
+@app.route('/api/gallery-images', methods=['GET'])
+def get_gallery_images():
+    """Returns a list of all images in the pg-photos directory."""
+    try:
+        import os
+        import mimetypes
+        
+        images = []
+        photo_dir = 'pg-photos'
+        
+        # Supported image extensions
+        supported_extensions = {'.jpg', '.jpeg', '.png', '.gif', '.webp', '.bmp'}
+        
+        if os.path.exists(photo_dir):
+            for filename in sorted(os.listdir(photo_dir)):
+                # Get file extension
+                _, ext = os.path.splitext(filename.lower())
+                
+                # Check if it's an image file
+                if ext in supported_extensions:
+                    # Skip video files
+                    if not filename.lower().endswith(('.mp4', '.avi', '.mov', '.wmv', '.flv', '.webm')):
+                        images.append({
+                            'filename': filename,
+                            'url': f'/pg-photos/{filename}',
+                            'alt': f'Yasodha Residency - {filename.replace("-", " ").replace("_", " ").split(".")[0]}'
+                        })
+        
+        return jsonify({
+            'success': True,
+            'images': images,
+            'count': len(images)
+        })
+    except Exception as e:
+        print(f"Error loading gallery images: {e}")
+        return jsonify({
+            'success': False,
+            'error': str(e),
+            'images': []
+        }), 500
 
 @app.route('/submit_booking', methods=['POST', 'OPTIONS'])
 def handle_booking_submission():

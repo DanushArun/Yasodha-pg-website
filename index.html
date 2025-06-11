@@ -21,12 +21,28 @@
     
     <!-- FORCE BLACK LABELS IN CONTACT FORM -->
     <style>
-        #contact label,
+        /* Target all possible label selectors in contact section */
+        section#contact label,
+        section.contact-section label,
+        .contact-section.bg-dark label,
+        #contact.contact-section label,
+        #contact .form-group label,
         #contact .contact-form label,
-        #contact .form-group label {
+        #contact .contact-form-container label,
+        .bg-dark#contact label,
+        .bg-dark .contact-form label,
+        .bg-dark .form-group label {
             color: #000000 !important;
             -webkit-text-fill-color: #000000 !important;
             opacity: 1 !important;
+            filter: none !important;
+            mix-blend-mode: normal !important;
+        }
+        
+        /* Also target the specific date input label */
+        label[for="visitDate"] {
+            color: #000000 !important;
+            -webkit-text-fill-color: #000000 !important;
         }
     </style>
 </head>
@@ -181,15 +197,14 @@
                 <h2 class="section-title">Photo Gallery</h2>
                 <p class="section-subtitle">A visual tour of Yasodha Residency.</p>
                 <div class="swiper-container gallery-swiper">
-                    <div class="swiper-wrapper">
-                        <div class="swiper-slide"><img src="pg-photos/WhatsApp Image 2025-05-04 at 12.24.33 (1).jpeg" alt="Gallery Image: Spacious Common Area" loading="lazy"></div>
-                        <div class="swiper-slide"><img src="pg-photos/WhatsApp Image 2025-05-04 at 12.24.33.jpeg" alt="Gallery Image: Comfortable Seating" loading="lazy"></div>
-                        <div class="swiper-slide"><img src="pg-photos/WhatsApp Image 2025-05-04 at 10.37.33 (1).jpeg" alt="Gallery Image: Well-Lit Room" loading="lazy"></div>
-                        <div class="swiper-slide"><img src="pg-photos/WhatsApp Image 2025-05-04 at 10.35.31.jpeg" alt="Gallery Image: Modern Amenities" loading="lazy"></div>
-                        <div class="swiper-slide"><img src="pg-photos/WhatsApp Image 2025-05-04 at 10.35.30.jpeg" alt="Gallery Image: Relaxation Zone" loading="lazy"></div>
-                        <div class="swiper-slide"><img src="pg-photos/WhatsApp Image 2025-05-04 at 10.35.16 (1).jpeg" alt="Gallery Image: Study Friendly Environment" loading="lazy"></div>
-                        <div class="swiper-slide"><img src="pg-photos/WhatsApp Image 2025-05-04 at 10.35.14 (2).jpeg" alt="Gallery Image: Clean and Tidy Spaces" loading="lazy"></div>
-                        <div class="swiper-slide"><img src="pg-photos/WhatsApp Image 2025-05-04 at 10.35.12 (1).jpeg" alt="Gallery Image: Welcoming Atmosphere" loading="lazy"></div>
+                    <div class="swiper-wrapper" id="galleryWrapper">
+                        <!-- Images will be loaded dynamically -->
+                        <div class="swiper-slide gallery-loading">
+                            <div class="gallery-loader">
+                                <i class="fas fa-spinner fa-spin"></i>
+                                <p>Loading gallery...</p>
+                            </div>
+                        </div>
                     </div>
                     <div class="swiper-pagination gallery-pagination"></div>
                     <div class="swiper-button-next gallery-button-next"></div>
@@ -197,6 +212,19 @@
                 </div>
             </div>
         </section>
+
+        <!-- Gallery Lightbox -->
+        <div class="gallery-lightbox" id="galleryLightbox">
+            <div class="lightbox-close" id="lightboxClose"></div>
+            <div class="lightbox-nav prev" id="lightboxPrev"></div>
+            <div class="lightbox-nav next" id="lightboxNext"></div>
+            <div class="lightbox-content">
+                <img src="" alt="Gallery Image" class="lightbox-image" id="lightboxImage">
+            </div>
+            <div class="lightbox-counter" id="lightboxCounter">
+                <span id="currentImage">1</span> / <span id="totalImages">1</span>
+            </div>
+        </div>
 
         <section id="location" class="location-section section-padding bg-light">
             <div class="container">
@@ -390,7 +418,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="message" style="color: #000000 !important;">Message</label>
-                                <textarea id="message" name="message" rows="5" placeholder="Tell us about your requirements..." required></textarea>
+                                <textarea id="message" name="message" rows="1" placeholder="Tell us about your requirements..." required></textarea>
                             </div>
                             <button type="submit" class="btn btn-primary">Send Inquiry</button>
                         </form>
@@ -423,7 +451,7 @@
                             <div class="hours-grid">
                                 <div class="hours-item">
                                     <span class="day">Monday - Saturday</span>
-                                    <span class="time">9:00 AM - 7:00 PM</span>
+                                    <span class="time">9:00 AM - 8:30 PM</span>
                                 </div>
                                 <div class="hours-item">
                                     <span class="day">Sunday</span>
@@ -472,6 +500,8 @@
     <script src="js/main.js" defer></script>
     <script src="js/animations.js" defer></script>
     <script src="js/gallery-slider.js" defer></script>
+    <script src="js/gallery-dynamic-loader.js" defer></script>
+    <script src="js/gallery-lightbox.js" defer></script>
     <script src="js/testimonials-slider.js" defer></script>
     <script src="js/form-handler.js" defer></script>
     <script src="js/interactive.js" defer></script>

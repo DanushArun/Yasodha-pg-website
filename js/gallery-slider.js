@@ -1,16 +1,20 @@
 // js/gallery-slider.js - Initializes Swiper.js for the gallery carousel
 
 document.addEventListener('DOMContentLoaded', () => {
-    // Ensure Swiper is loaded
-    if (typeof Swiper === 'undefined') {
-        console.error('Swiper is not loaded!');
-        return;
-    }
+    let gallerySwiper = null;
+    
+    // Function to initialize gallery swiper
+    function initializeGallerySwiper() {
+        // Ensure Swiper is loaded
+        if (typeof Swiper === 'undefined') {
+            console.error('Swiper is not loaded!');
+            return;
+        }
 
-    const gallerySwiperContainer = document.querySelector('.gallery-swiper');
+        const gallerySwiperContainer = document.querySelector('.gallery-swiper');
 
-    if (gallerySwiperContainer) {
-        const gallerySwiper = new Swiper(gallerySwiperContainer, {
+        if (gallerySwiperContainer && !gallerySwiper) {
+            gallerySwiper = new Swiper(gallerySwiperContainer, {
             // Optional parameters
             loop: true,
             grabCursor: true,
@@ -67,9 +71,31 @@ document.addEventListener('DOMContentLoaded', () => {
                     spaceBetween: 30
                 }
             }
-        });
-        console.log('Gallery Swiper initialized.');
-    } else {
-        console.warn('Gallery Swiper container (.gallery-swiper) not found.');
+            });
+            console.log('Gallery Swiper initialized.');
+            return gallerySwiper;
+        } else if (gallerySwiper) {
+            // Update existing swiper
+            gallerySwiper.update();
+            return gallerySwiper;
+        } else {
+            console.warn('Gallery Swiper container (.gallery-swiper) not found.');
+            return null;
+        }
     }
+    
+    // Listen for custom event when images are loaded
+    document.addEventListener('galleryImagesLoaded', (event) => {
+        console.log('Gallery images loaded, initializing/updating Swiper...');
+        setTimeout(() => {
+            const swiper = initializeGallerySwiper();
+            if (swiper) {
+                swiper.update();
+                swiper.slideTo(0, 0); // Go to first slide
+            }
+        }, 100);
+    });
+    
+    // Try to initialize on load (in case images are already there)
+    initializeGallerySwiper();
 }); 

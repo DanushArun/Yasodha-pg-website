@@ -50,14 +50,13 @@ document.addEventListener('DOMContentLoaded', () => {
             const targetElement = document.querySelector(targetId);
             
             if (targetElement) {
-                // Get header and calculate offset with buffer
+                // Get header and calculate offset - NO BUFFER
                 const header = document.getElementById('main-header');
                 const headerHeight = header ? header.offsetHeight : 0;
-                const buffer = 20; // Additional buffer for better alignment
                 
-                // Calculate target position
+                // Calculate target position - just header height, no buffer
                 const elementPosition = targetElement.getBoundingClientRect().top;
-                const offsetPosition = elementPosition + window.pageYOffset - headerHeight - buffer;
+                const offsetPosition = elementPosition + window.pageYOffset - headerHeight;
 
                 window.scrollTo({
                     top: offsetPosition,

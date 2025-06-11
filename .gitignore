@@ -57,6 +57,19 @@ node_modules/
 # CSV data files (if sensitive)
 *.csv
 
+# Test files
+test_*.html
+test_*.py
+
+# Documentation drafts
+SERVER_SETUP.md
+
+# Gallery loader files
+js/gallery-loader.js
+
+# Media categories (if separate from main JS)
+js/media-categories.js
+
 # Backup files
 *.bak
 *~

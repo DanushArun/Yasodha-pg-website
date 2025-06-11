@@ -93,7 +93,12 @@ img {
 
 /* Ensure sections align properly when scrolled to */
 section[id] {
-    scroll-margin-top: calc(var(--header-height) + 40px);
+    scroll-margin-top: var(--header-height); /* Just the header height, no extra buffer */
+}
+
+/* Home section doesn't need offset */
+#home {
+    scroll-margin-top: 0;
 }
 
 .bg-light {
@@ -238,15 +243,21 @@ section[id] {
     width: 100%;
     z-index: 1000;
     background-color: rgba(255, 255, 255, 0.1); /* Very transparent for glassy effect */
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
     padding: 15px 0; /* Vertical padding for the header bar itself */
-    transition: background-color var(--transition-speed), padding var(--transition-speed), box-shadow var(--transition-speed), border-radius var(--transition-speed);
-    box-shadow: 0 2px 10px rgba(255, 255, 255, 0.1);
+    transition: all var(--transition-speed) cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 
+        0 4px 20px rgba(244, 181, 193, 0.25), /* Pink glow */
+        0 8px 32px rgba(192, 222, 220, 0.15), /* Duck egg shadow */
+        0 2px 8px rgba(0, 0, 0, 0.1), /* Subtle dark shadow for depth */
+        inset 0 1px 0 rgba(255, 255, 255, 0.3); /* Inner light edge */
     border-bottom: 1px solid rgba(255, 255, 255, 0.2);
     border-bottom-left-radius: 25px;
     border-bottom-right-radius: 25px;
     overflow: hidden; /* Ensure content respects the rounded corners */
+    transform: translateZ(0); /* Force GPU acceleration */
+    will-change: transform, box-shadow; /* Optimize for animations */
 }
 
 /* Override .container behavior specifically for the header's main nav bar */
@@ -262,9 +273,14 @@ section[id] {
 #main-header.scrolled {
     background-color: rgba(255, 255, 255, 0.98); /* More opaque white on scroll */
     padding: 10px 0;
-    box-shadow: 0 4px 20px rgba(228, 169, 133, 0.15), 
-                0 8px 32px rgba(244, 181, 193, 0.1); /* Enhanced shadow for depth */
+    box-shadow: 
+        0 6px 30px rgba(244, 181, 193, 0.35), /* Stronger pink glow */
+        0 12px 40px rgba(192, 222, 220, 0.25), /* Deeper duck egg shadow */
+        0 3px 12px rgba(0, 0, 0, 0.15), /* More pronounced depth shadow */
+        0 1px 0 rgba(255, 255, 255, 0.9) inset, /* Bright inner edge */
+        0 20px 60px -20px rgba(228, 169, 133, 0.5); /* Warm undertone glow */
     border-bottom: none; /* Remove the border when scrolled */
+    transform: translateY(0); /* Ensure smooth positioning */
 }
 
 .logo a {
@@ -896,6 +912,167 @@ section[id] {
     overflow: hidden; /* Ensures rounded corners are applied to slides */
 }
 
+/* Gallery Lightbox Styles */
+.gallery-lightbox {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.95);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 2000;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.gallery-lightbox.active {
+    display: flex;
+    opacity: 1;
+}
+
+.lightbox-content {
+    position: relative;
+    max-width: 90%;
+    max-height: 90%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.lightbox-image {
+    max-width: 100%;
+    max-height: 90vh;
+    object-fit: contain;
+    border-radius: var(--border-radius);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    animation: zoomIn 0.3s ease;
+}
+
+@keyframes zoomIn {
+    from {
+        transform: scale(0.8);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.lightbox-close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 40px;
+    height: 40px;
+    background-color: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    z-index: 2001;
+}
+
+.lightbox-close:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    transform: scale(1.1);
+}
+
+.lightbox-close::before,
+.lightbox-close::after {
+    content: '';
+    position: absolute;
+    width: 20px;
+    height: 2px;
+    background-color: #ffffff;
+    border-radius: 2px;
+}
+
+.lightbox-close::before {
+    transform: rotate(45deg);
+}
+
+.lightbox-close::after {
+    transform: rotate(-45deg);
+}
+
+/* Lightbox Navigation Arrows */
+.lightbox-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 50px;
+    height: 50px;
+    background-color: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    z-index: 2001;
+}
+
+.lightbox-nav:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    transform: translateY(-50%) scale(1.1);
+}
+
+.lightbox-nav.prev {
+    left: 20px;
+}
+
+.lightbox-nav.next {
+    right: 20px;
+}
+
+.lightbox-nav::after {
+    content: '';
+    width: 12px;
+    height: 12px;
+    border-top: 2px solid #ffffff;
+    border-right: 2px solid #ffffff;
+    position: absolute;
+}
+
+.lightbox-nav.prev::after {
+    transform: rotate(-135deg);
+    right: 16px;
+}
+
+.lightbox-nav.next::after {
+    transform: rotate(45deg);
+    left: 16px;
+}
+
+/* Image counter */
+.lightbox-counter {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #ffffff;
+    font-size: 0.9rem;
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 8px 16px;
+    border-radius: 20px;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
 .gallery-section .swiper-slide {
     text-align: center;
     font-size: 18px;
@@ -911,6 +1088,36 @@ section[id] {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.gallery-section .swiper-slide img:hover {
+    transform: scale(1.05);
+}
+
+/* Gallery loading state */
+.gallery-loading {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    min-height: 400px;
+}
+
+.gallery-loader {
+    text-align: center;
+    color: var(--primary-color);
+}
+
+.gallery-loader i {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    display: block;
+}
+
+.gallery-loader p {
+    font-size: 1.1rem;
+    color: var(--text-color);
 }
 
 .swiper-caption {
@@ -1375,9 +1582,6 @@ section[id] {
 
 
 /* === CONTACT & BOOKING INQUIRY SECTION === */
-#contact {
-    scroll-margin-top: calc(var(--header-height) + 60px) !important; /* Extra offset for contact section */
-}
 
 /* FORCE ALL LABELS IN CONTACT FORM TO BE BLACK */
 #contact label,
@@ -1429,7 +1633,7 @@ section[id] {
     background: linear-gradient(45deg, rgba(244, 181, 193, 0.3), rgba(192, 222, 220, 0.3), rgba(244, 181, 193, 0.3));
     border-radius: var(--border-radius);
     z-index: -1;
-    opacity: 0;
+    opacity: 1; /* Always visible, not just on hover */
     transition: opacity 0.3s ease;
 }
 
@@ -1476,6 +1680,9 @@ section[id] {
     transition: border-color var(--transition-speed);
     background-color: #fff; /* Explicit background for inputs */
     color: var(--text-color); /* Explicit text color for inputs */
+    resize: vertical; /* Allow vertical resize only */
+    min-height: 44px; /* Same as input fields */
+    height: 44px; /* Default to same height as other inputs */
 }
 .bg-dark .contact-form input[type="text"],
 .bg-dark .contact-form input[type="email"],
@@ -1498,49 +1705,42 @@ section[id] {
     box-shadow: 0 0 0 0.2rem rgba(var(--primary-color-rgb-val), 0.25);
 }
 
-/* Date input specific styles */
+/* Date input specific styles - FRESH START */
 .contact-form input[type="date"] {
     position: relative;
     cursor: pointer;
-    color: var(--text-color) !important;
+    color: #333333 !important;
+    background-color: #ffffff !important;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
 }
 
-.bg-dark .contact-form input[type="date"] {
-    color: var(--light-text-color) !important;
-}
-
-/* Style for WebKit browsers (Chrome, Safari) */
-.contact-form input[type="date"]::-webkit-calendar-picker-indicator {
-    cursor: pointer;
-    opacity: 0.7;
-    filter: invert(0);
-}
-
-.bg-dark .contact-form input[type="date"]::-webkit-calendar-picker-indicator {
-    filter: invert(1);
-}
-
-.contact-form input[type="date"]::-webkit-calendar-picker-indicator:hover {
-    opacity: 1;
-}
-
-/* Fix for date input value visibility */
+/* Ensure date text is always dark and readable */
 .contact-form input[type="date"]::-webkit-datetime-edit,
 .contact-form input[type="date"]::-webkit-datetime-edit-fields-wrapper,
 .contact-form input[type="date"]::-webkit-datetime-edit-text,
 .contact-form input[type="date"]::-webkit-datetime-edit-month-field,
 .contact-form input[type="date"]::-webkit-datetime-edit-day-field,
 .contact-form input[type="date"]::-webkit-datetime-edit-year-field {
-    color: var(--text-color);
+    color: #333333 !important;
 }
 
-.bg-dark .contact-form input[type="date"]::-webkit-datetime-edit,
-.bg-dark .contact-form input[type="date"]::-webkit-datetime-edit-fields-wrapper,
-.bg-dark .contact-form input[type="date"]::-webkit-datetime-edit-text,
-.bg-dark .contact-form input[type="date"]::-webkit-datetime-edit-month-field,
-.bg-dark .contact-form input[type="date"]::-webkit-datetime-edit-day-field,
-.bg-dark .contact-form input[type="date"]::-webkit-datetime-edit-year-field {
-    color: var(--light-text-color);
+/* Style the calendar icon */
+.contact-form input[type="date"]::-webkit-calendar-picker-indicator {
+    cursor: pointer;
+    opacity: 0.8;
+    filter: invert(0.8); /* Makes it darker */
+}
+
+.contact-form input[type="date"]::-webkit-calendar-picker-indicator:hover {
+    opacity: 1;
+}
+
+/* Firefox date input */
+.contact-form input[type="date"]::-moz-calendar-picker-indicator {
+    cursor: pointer;
+    opacity: 0.8;
 }
 
 .contact-form button[type="submit"] {
