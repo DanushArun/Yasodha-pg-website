@@ -1,6 +1,8 @@
 // js/form-handler.js - Handles the submission of the contact/booking inquiry form
 
 document.addEventListener('DOMContentLoaded', () => {
+    // Get API base URL from config or use relative path
+    const API_BASE_URL = window.appConfig?.API_BASE_URL || '';
     // Set min date for visit date field to today
     const visitDateInput = document.getElementById('visitDate');
     if (visitDateInput) {
@@ -92,12 +94,7 @@ document.addEventListener('DOMContentLoaded', () => {
             // Replace with actual fetch() or XMLHttpRequest to your Python backend
             // Example using fetch:
             
-            // Determine the correct URL based on current location
-            const baseUrl = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' 
-                ? 'http://127.0.0.1:5001' 
-                : ''; // Use relative URL in production
-            
-            fetch(`${baseUrl}/submit_booking`, {
+            fetch(`${API_BASE_URL}/submit_booking`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -184,12 +181,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const subData = { email: email };
             console.log('Subscription form data to be sent:', subData);
             
-            // Determine the correct URL based on current location
-            const baseUrl = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' 
-                ? 'http://127.0.0.1:5001' 
-                : ''; // Use relative URL in production
-            
-            fetch(`${baseUrl}/subscribe_email`, { // Endpoint in your server.py
+            fetch(`${API_BASE_URL}/subscribe_email`, { // Endpoint in your server.py
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

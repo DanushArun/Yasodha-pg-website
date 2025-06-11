@@ -8,8 +8,13 @@ import os
 import time
 import csv
 import json
+import logging
 
 app = Flask(__name__, static_folder='.', static_url_path='')
+
+# Configure logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
 # Helper function to add CORS headers
 def add_cors_headers(response):
@@ -26,8 +31,8 @@ def after_request(response):
 
 # --- Google Sheets Configuration ---
 SERVICE_ACCOUNT_FILE = 'service-account.json'
-SPREADSHEET_ID = '1hvWPV9f9bvliF2OpAcSy1dHRkLQF84t_TDAHRa3xTuU'
-SHEET_NAME = '2025'
+SPREADSHEET_ID = os.environ.get('SPREADSHEET_ID', '1hvWPV9f9bvliF2OpAcSy1dHRkLQF84t_TDAHRa3xTuU')
+SHEET_NAME = os.environ.get('SHEET_NAME', '2025')
 
 # Define the scope for Google Sheets and Drive API
 SCOPE = ['https://www.googleapis.com/auth/spreadsheets', 'https://www.googleapis.com/auth/drive']
@@ -426,11 +431,17 @@ def handle_subscription():
         return jsonify({"success": False, "message": "An error occurred. Please try again."}), 500
 
 if __name__ == '__main__':
-    # Ensure port 5001 is used consistently
+    # Get port from environment variable (Render sets this)
+    port = int(os.environ.get('PORT', 5001))
+    host = os.environ.get('HOST', '0.0.0.0')
+    debug = os.environ.get('FLASK_ENV', 'development') == 'development'
+    
     print("\n=== Starting Yasodha Residency Backend Server ===")
-    print(f"Server will run on: http://127.0.0.1:5001")
+    print(f"Server will run on: http://{host}:{port}")
     print(f"Service account file exists: {os.path.exists(SERVICE_ACCOUNT_FILE)}")
     print(f"Google Sheets connected: {worksheet is not None}")
     print(f"CSV fallback active: {use_csv_fallback}")
+    print(f"Environment: {os.environ.get('FLASK_ENV', 'development')}")
     print("\nPress Ctrl+C to stop the server\n")
-    app.run(debug=True, port=5001, host='127.0.0.1')
+    
+    app.run(debug=debug, port=port, host=host)

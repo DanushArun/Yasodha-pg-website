@@ -1,16 +1,13 @@
 // Dynamic Gallery Loader for Swiper
 document.addEventListener('DOMContentLoaded', () => {
+    // Get API base URL from config or use relative path
+    const API_BASE_URL = window.appConfig?.API_BASE_URL || '';
     let isGalleryInitialized = false;
     
     // Function to load gallery images from server
     async function loadGalleryImages() {
         try {
-            // Determine the correct URL based on current location
-            const baseUrl = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' 
-                ? 'http://127.0.0.1:5001' 
-                : '';
-            
-            const response = await fetch(`${baseUrl}/api/gallery-images`);
+            const response = await fetch(`${API_BASE_URL}/api/gallery-images`);
             
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
