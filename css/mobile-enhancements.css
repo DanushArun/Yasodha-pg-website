@@ -10,6 +10,35 @@ body.menu-open {
     width: 100%;
 }
 
+/* Fix for mobile hamburger visibility */
+.hamburger {
+    display: block !important;
+    width: 25px;
+    height: 3px;
+    background-color: var(--text-color);
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.hamburger::before,
+.hamburger::after {
+    content: '';
+    position: absolute;
+    width: 25px;
+    height: 3px;
+    background-color: var(--text-color);
+    left: 0;
+    transition: all 0.3s ease;
+}
+
+.hamburger::before {
+    top: -8px;
+}
+
+.hamburger::after {
+    bottom: -8px;
+}
+
 /* Mobile Navigation Enhancements */
 @media (max-width: 767px) {
     /* Add overlay when menu is open */
@@ -122,6 +151,21 @@ body.menu-open {
     
     .testimonial-quote-icon {
         font-size: 1.5rem;
+    }
+    
+    /* Contact cards mobile spacing */
+    .contact-info-card {
+        padding: 20px !important;
+        margin-bottom: 0;
+    }
+    
+    .contact-info-card h3 {
+        font-size: 1.3rem;
+        margin-bottom: 15px;
+    }
+    
+    .contact-details {
+        gap: 15px !important;
     }
     
     /* Footer mobile optimizations */

@@ -53,7 +53,7 @@ function initScrollRevealAnimations() {
  * Initialize card tilt effect
  */
 function initCardTiltEffect() {
-    const cards = document.querySelectorAll('.amenity-card, .experience-item, .stat-item, .contact-info-card');
+    const cards = document.querySelectorAll('.amenity-card, .experience-item, .contact-info-card');
     
     cards.forEach(card => {
         // Ensure initial state
@@ -179,61 +179,6 @@ function initMagneticButtons() {
  * Initialize counter animations for statistics
  */
 function initCounterAnimations() {
-    // Add some statistics to the about section
-    const statsHTML = `
-        <div class="stats-wrapper">
-            <div class="stats-section">
-                <div class="stat-item">
-                    <span class="stat-number" data-target="1000">0</span>
-                    <span class="stat-label">Happy Residents</span>
-                </div>
-                <div class="stat-item">
-                    <span class="stat-number" data-target="16">0</span>
-                    <span class="stat-label">Years of Service</span>
-                </div>
-                <div class="stat-item">
-                    <span class="stat-number" data-target="24">0</span>
-                    <span class="stat-label">Hour Security</span>
-                </div>
-                <div class="stat-item">
-                    <span class="stat-number" data-target="100">0</span>
-                    <span class="stat-label">% Satisfaction</span>
-                </div>
-            </div>
-        </div>
-    `;
-    
-    // Insert stats after experience details
-    const experienceSection = document.querySelector('.experience-details-grid');
-    if (experienceSection && !document.querySelector('.stats-section')) {
-        experienceSection.insertAdjacentHTML('afterend', statsHTML);
-    }
-    
-    // Animate counters
-    const counters = document.querySelectorAll('.stat-number');
-    const speed = 200;
-    
-    const animateCounter = (counter) => {
-        const target = +counter.getAttribute('data-target');
-        const count = +counter.innerText;
-        const increment = target / speed;
-        
-        if (count < target) {
-            counter.innerText = Math.ceil(count + increment);
-            setTimeout(() => animateCounter(counter), 10);
-        } else {
-            counter.innerText = target;
-        }
-    };
-    
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                animateCounter(entry.target);
-                observer.unobserve(entry.target);
-            }
-        });
-    }, { threshold: 0.5 });
-    
-    counters.forEach(counter => observer.observe(counter));
+    // Stats section removed as per user request
+    // This function is kept empty to avoid breaking any calls to it
 }

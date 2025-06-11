@@ -35,6 +35,11 @@
         padding: 40px 0;
     }
     
+    /* Contact section specific mobile padding */
+    .contact-section {
+        padding: 30px 0 !important;
+    }
+    
     /* Container */
     .container {
         padding-left: 20px;
@@ -54,7 +59,7 @@
     
     /* Mobile Navigation */
     .nav-links {
-        position: fixed;
+        position: fixed !important;
         top: 0;
         left: -100%;
         width: 85%;
@@ -67,6 +72,7 @@
         box-shadow: 2px 0 20px rgba(0,0,0,0.1);
         z-index: 1000;
         overflow-y: auto;
+        display: flex !important;
     }
     
     .nav-links.active {
@@ -89,13 +95,15 @@
     
     /* Mobile Menu Toggle */
     .nav-toggle {
-        display: flex;
+        display: flex !important;
         align-items: center;
         gap: 8px;
         padding: 10px;
         min-width: 80px;
         background: rgba(244, 181, 193, 0.1);
         border-radius: 25px;
+        cursor: pointer;
+        z-index: 1001;
     }
     
     .hamburger-text {
@@ -227,7 +235,7 @@
     /* Contact Form Mobile */
     .contact-grid {
         grid-template-columns: 1fr;
-        gap: 40px;
+        gap: 30px;
     }
     
     .contact-form .form-group {
@@ -252,7 +260,11 @@
     /* Contact Details Mobile */
     .contact-info-card {
         text-align: center;
-        margin-bottom: 30px;
+        margin-bottom: 20px;
+    }
+    
+    .contact-details {
+        gap: 0;
     }
     
     .phone-link {
