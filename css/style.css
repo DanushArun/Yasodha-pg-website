@@ -241,9 +241,12 @@ section[id] {
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
     padding: 15px 0; /* Vertical padding for the header bar itself */
-    transition: background-color var(--transition-speed), padding var(--transition-speed), box-shadow var(--transition-speed);
+    transition: background-color var(--transition-speed), padding var(--transition-speed), box-shadow var(--transition-speed), border-radius var(--transition-speed);
     box-shadow: 0 2px 10px rgba(255, 255, 255, 0.1);
     border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    border-bottom-left-radius: 25px;
+    border-bottom-right-radius: 25px;
+    overflow: hidden; /* Ensure content respects the rounded corners */
 }
 
 /* Override .container behavior specifically for the header's main nav bar */
@@ -259,7 +262,9 @@ section[id] {
 #main-header.scrolled {
     background-color: rgba(255, 255, 255, 0.98); /* More opaque white on scroll */
     padding: 10px 0;
-    box-shadow: 0 4px 20px rgba(228, 169, 133, 0.15);
+    box-shadow: 0 4px 20px rgba(228, 169, 133, 0.15), 
+                0 8px 32px rgba(244, 181, 193, 0.1); /* Enhanced shadow for depth */
+    border-bottom: none; /* Remove the border when scrolled */
 }
 
 .logo a {
@@ -1134,8 +1139,17 @@ section[id] {
     margin: 0 auto;
     padding: 20px 0 60px;
     position: relative;
-    left: 50%;
-    transform: translateX(-50%);
+    overflow: visible;
+}
+
+/* Fix initial positioning */
+.testimonials-swiper {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.testimonials-swiper.swiper-initialized {
+    opacity: 1;
 }
 
 .testimonials-section .swiper-wrapper {
