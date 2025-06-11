@@ -181,22 +181,24 @@ function initMagneticButtons() {
 function initCounterAnimations() {
     // Add some statistics to the about section
     const statsHTML = `
-        <div class="stats-section">
-            <div class="stat-item">
-                <span class="stat-number" data-target="1000">0</span>
-                <span class="stat-label">Happy Residents</span>
-            </div>
-            <div class="stat-item">
-                <span class="stat-number" data-target="16">0</span>
-                <span class="stat-label">Years of Service</span>
-            </div>
-            <div class="stat-item">
-                <span class="stat-number" data-target="24">0</span>
-                <span class="stat-label">Hour Security</span>
-            </div>
-            <div class="stat-item">
-                <span class="stat-number" data-target="100">0</span>
-                <span class="stat-label">% Satisfaction</span>
+        <div class="stats-wrapper">
+            <div class="stats-section">
+                <div class="stat-item">
+                    <span class="stat-number" data-target="1000">0</span>
+                    <span class="stat-label">Happy Residents</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number" data-target="16">0</span>
+                    <span class="stat-label">Years of Service</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number" data-target="24">0</span>
+                    <span class="stat-label">Hour Security</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number" data-target="100">0</span>
+                    <span class="stat-label">% Satisfaction</span>
+                </div>
             </div>
         </div>
     `;

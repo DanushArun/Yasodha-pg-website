@@ -385,4 +385,4 @@ def handle_subscription():
         return jsonify({"success": False, "message": "An error occurred. Please try again."}), 500
 
 if __name__ == '__main__':
-    app.run(debug=True, port=5000, host='127.0.0.1')
+    app.run(debug=True, port=5001, host='127.0.0.1')
