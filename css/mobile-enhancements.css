@@ -1,0 +1,231 @@
+/* 
+* Mobile-Specific Enhancements
+* Additional styles for optimal mobile experience
+*/
+
+/* Prevent body scroll when mobile menu is open */
+body.menu-open {
+    overflow: hidden;
+    position: fixed;
+    width: 100%;
+}
+
+/* Mobile Navigation Enhancements */
+@media (max-width: 767px) {
+    /* Add overlay when menu is open */
+    .nav-links.active::before {
+        content: '';
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: -1;
+    }
+    
+    /* Hamburger Menu Animation */
+    .nav-toggle.active .hamburger {
+        background-color: transparent;
+    }
+    
+    .nav-toggle.active .hamburger::before {
+        top: 0;
+        transform: rotate(45deg);
+    }
+    
+    .nav-toggle.active .hamburger::after {
+        bottom: 0;
+        transform: rotate(-45deg);
+    }
+    
+    /* Show menu text on mobile */
+    .nav-toggle .hamburger-text {
+        display: inline-block;
+    }
+    
+    /* Better touch targets for mobile */
+    .btn {
+        min-height: 48px;
+        padding: 12px 24px;
+    }
+    
+    /* Form enhancements for mobile */
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"],
+    input[type="date"],
+    textarea,
+    select {
+        font-size: 16px; /* Prevents zoom on iOS */
+        -webkit-appearance: none;
+        appearance: none;
+        border-radius: 10px;
+    }
+    
+    /* Better date picker for mobile */
+    input[type="date"]::-webkit-calendar-picker-indicator {
+        position: absolute;
+        right: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0;
+        cursor: pointer;
+    }
+    
+    input[type="date"] {
+        position: relative;
+        padding-right: 40px;
+    }
+    
+    input[type="date"]::after {
+        content: '\f073'; /* Font Awesome calendar icon */
+        font-family: 'Font Awesome 5 Free';
+        font-weight: 900;
+        position: absolute;
+        right: 15px;
+        top: 50%;
+        transform: translateY(-50%);
+        pointer-events: none;
+        color: var(--primary-color);
+    }
+    
+    /* Gallery lightbox mobile optimizations */
+    .gallery-lightbox {
+        padding: 20px;
+    }
+    
+    .lightbox-image {
+        max-height: 80vh;
+        max-width: 90vw;
+    }
+    
+    .lightbox-nav {
+        width: 50px;
+        height: 50px;
+        background: rgba(255, 255, 255, 0.95);
+    }
+    
+    .lightbox-nav.prev {
+        left: 10px;
+    }
+    
+    .lightbox-nav.next {
+        right: 10px;
+    }
+    
+    /* Testimonial cards mobile */
+    .testimonial-card {
+        padding: 20px;
+        font-size: 0.95rem;
+    }
+    
+    .testimonial-quote-icon {
+        font-size: 1.5rem;
+    }
+    
+    /* Footer mobile optimizations */
+    #main-footer {
+        text-align: center;
+    }
+    
+    .footer-col ul {
+        margin-top: 15px;
+    }
+    
+    .footer-col li {
+        padding: 5px 10px;
+    }
+    
+    /* Loading spinner for mobile */
+    .gallery-loader {
+        padding: 40px;
+    }
+    
+    .gallery-loader i {
+        font-size: 2rem;
+    }
+}
+
+/* Tablet Optimizations */
+@media (min-width: 768px) and (max-width: 991px) {
+    /* Adjust grid gaps for tablets */
+    .experience-details-grid,
+    .amenities-grid {
+        gap: 25px;
+    }
+    
+    /* Better button sizes for tablets */
+    .btn {
+        padding: 12px 30px;
+        font-size: 1rem;
+    }
+}
+
+/* Touch Device Enhancements */
+@media (hover: none) and (pointer: coarse) {
+    /* Remove hover effects on touch devices */
+    .amenity-card:hover,
+    .experience-detail-item:hover {
+        transform: none;
+    }
+    
+    /* Add active states for touch feedback */
+    .btn:active,
+    .nav-link:active {
+        transform: scale(0.98);
+        opacity: 0.9;
+    }
+    
+    /* Larger touch targets */
+    .swiper-button-next,
+    .swiper-button-prev {
+        width: 50px;
+        height: 50px;
+    }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+    .btn-primary {
+        border: 2px solid currentColor;
+    }
+    
+    input,
+    textarea {
+        border-width: 2px;
+    }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+/* Dark mode support (optional) */
+@media (prefers-color-scheme: dark) {
+    /* Add dark mode styles if needed in future */
+}
+
+/* Landscape mobile specific */
+@media (max-width: 767px) and (orientation: landscape) {
+    .hero-section {
+        min-height: auto;
+        padding: 60px 20px 40px;
+    }
+    
+    .hero-headline {
+        font-size: 1.8rem;
+    }
+    
+    .section-padding {
+        padding: 30px 0;
+    }
+}

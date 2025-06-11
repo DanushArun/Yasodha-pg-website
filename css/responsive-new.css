@@ -1,0 +1,504 @@
+/* 
+* Yasodha Residency - Mobile-First Responsive Design
+* This file uses a mobile-first approach for better mobile experience
+* while maintaining and enhancing desktop layouts
+*/
+
+/* =============================================
+   MOBILE FIRST BASE STYLES (0-767px)
+   Default styles for mobile devices
+   ============================================= */
+
+/* Reset and Base Mobile Styles */
+@media screen and (max-width: 767px) {
+    /* Typography for Mobile */
+    html {
+        font-size: 16px; /* Maintain readability */
+    }
+    
+    body {
+        font-size: 1rem;
+        line-height: 1.6;
+    }
+    
+    h1 { font-size: 2rem; }
+    h2, .section-title { font-size: 1.75rem; }
+    h3 { font-size: 1.25rem; }
+    
+    .section-subtitle {
+        font-size: 0.95rem;
+        padding: 0 10px;
+    }
+    
+    /* Section Spacing */
+    .section-padding {
+        padding: 40px 0;
+    }
+    
+    /* Container */
+    .container {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+    
+    /* Header Mobile Optimization */
+    #main-header {
+        padding: 15px 0;
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
+    }
+    
+    .logo a {
+        font-size: 1.4rem;
+    }
+    
+    /* Mobile Navigation */
+    .nav-links {
+        position: fixed;
+        top: 0;
+        left: -100%;
+        width: 85%;
+        max-width: 320px;
+        height: 100vh;
+        background-color: #FFFFFF;
+        flex-direction: column;
+        padding: 80px 30px 30px;
+        transition: left 0.3s ease;
+        box-shadow: 2px 0 20px rgba(0,0,0,0.1);
+        z-index: 1000;
+        overflow-y: auto;
+    }
+    
+    .nav-links.active {
+        left: 0;
+    }
+    
+    .nav-links li {
+        margin: 0;
+        padding: 15px 0;
+        border-bottom: 1px solid #f0f0f0;
+        width: 100%;
+    }
+    
+    .nav-links a {
+        font-size: 1.1rem;
+        color: var(--text-color);
+        display: block;
+        padding: 5px 0;
+    }
+    
+    /* Mobile Menu Toggle */
+    .nav-toggle {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 10px;
+        min-width: 80px;
+        background: rgba(244, 181, 193, 0.1);
+        border-radius: 25px;
+    }
+    
+    .hamburger-text {
+        font-size: 0.875rem;
+        color: var(--text-color);
+        font-weight: 500;
+    }
+    
+    .nav-cta {
+        display: none;
+    }
+    
+    /* Add mobile CTA in nav menu */
+    .nav-links::after {
+        content: '';
+        display: block;
+        margin-top: 30px;
+        padding-top: 30px;
+        border-top: 1px solid #f0f0f0;
+    }
+    
+    .nav-links li:last-child::after {
+        content: 'Book a Visit';
+        display: block;
+        background: var(--primary-color);
+        color: white;
+        padding: 15px 30px;
+        border-radius: 25px;
+        text-align: center;
+        margin-top: 20px;
+        font-weight: 600;
+    }
+    
+    /* Hero Section Mobile */
+    .hero-section {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        text-align: center;
+        padding: 80px 20px 60px;
+    }
+    
+    .hero-headline {
+        margin-bottom: 20px;
+        line-height: 1.2;
+    }
+    
+    .hero-subheadline {
+        margin-bottom: 30px;
+    }
+    
+    .hero-cta {
+        padding: 15px 40px;
+        font-size: 1rem;
+        min-height: 50px;
+        margin: 0 auto;
+    }
+    
+    /* Experience Section Mobile */
+    .experience-details-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 30px;
+        margin-bottom: 40px;
+    }
+    
+    .experience-detail-item {
+        text-align: center;
+        padding: 20px;
+    }
+    
+    .experience-detail-item i {
+        font-size: 2.5rem;
+        margin-bottom: 15px;
+    }
+    
+    .experience-grid {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+    
+    /* Amenities Mobile */
+    .amenities-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .amenity-card {
+        padding: 30px 25px;
+        text-align: center;
+    }
+    
+    .amenity-card i {
+        font-size: 2.5rem;
+        margin-bottom: 15px;
+    }
+    
+    /* Gallery Mobile */
+    .gallery-swiper {
+        height: 300px;
+    }
+    
+    .swiper-button-next,
+    .swiper-button-prev {
+        width: 40px;
+        height: 40px;
+        background: rgba(255, 255, 255, 0.9);
+        border-radius: 50%;
+    }
+    
+    .swiper-button-next::after,
+    .swiper-button-prev::after {
+        font-size: 1rem;
+    }
+    
+    /* Location Mobile */
+    .location-grid {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+    
+    .map-container {
+        height: 300px;
+        border-radius: 15px;
+        overflow: hidden;
+    }
+    
+    /* Contact Form Mobile */
+    .contact-grid {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+    
+    .contact-form .form-group {
+        margin-bottom: 20px;
+    }
+    
+    .contact-form input,
+    .contact-form textarea {
+        padding: 15px;
+        font-size: 1rem;
+        min-height: 50px;
+        border-radius: 10px;
+    }
+    
+    .contact-form button[type="submit"] {
+        width: 100%;
+        padding: 15px;
+        font-size: 1rem;
+        min-height: 50px;
+    }
+    
+    /* Contact Details Mobile */
+    .contact-info-card {
+        text-align: center;
+        margin-bottom: 30px;
+    }
+    
+    .phone-link {
+        display: inline-block;
+        padding: 15px 30px;
+        background: var(--primary-color);
+        color: white;
+        border-radius: 30px;
+        font-size: 1.1rem;
+        font-weight: 600;
+        margin-top: 10px;
+    }
+    
+    /* Footer Mobile */
+    .footer-grid {
+        grid-template-columns: 1fr;
+        gap: 30px;
+        text-align: center;
+    }
+    
+    .footer-col ul {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 15px;
+    }
+    
+    .footer-col li {
+        flex: 0 0 auto;
+    }
+}
+
+/* =============================================
+   SMALL TABLETS (768px-991px)
+   Enhancements for small tablets
+   ============================================= */
+@media screen and (min-width: 768px) {
+    /* Typography scaling */
+    h1 { font-size: 2.5rem; }
+    h2, .section-title { font-size: 2rem; }
+    h3 { font-size: 1.5rem; }
+    
+    /* Section padding */
+    .section-padding {
+        padding: 60px 0;
+    }
+    
+    /* Navigation shows inline */
+    .nav-toggle {
+        display: none;
+    }
+    
+    .nav-links {
+        position: static;
+        width: auto;
+        height: auto;
+        flex-direction: row;
+        padding: 0;
+        background: transparent;
+        box-shadow: none;
+    }
+    
+    .nav-links li {
+        margin: 0 20px;
+        padding: 0;
+        border: none;
+    }
+    
+    .nav-links li:last-child::after {
+        display: none;
+    }
+    
+    .nav-cta {
+        display: flex;
+    }
+    
+    /* Grid layouts - 2 columns */
+    .experience-details-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 30px;
+    }
+    
+    .amenities-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 30px;
+    }
+    
+    /* Gallery */
+    .gallery-swiper {
+        height: 400px;
+    }
+}
+
+/* =============================================
+   DESKTOP & LARGE TABLETS (992px+)
+   Full desktop experience enhancements
+   ============================================= */
+@media screen and (min-width: 992px) {
+    /* Typography for desktop */
+    h1 { font-size: 2.8rem; }
+    h2, .section-title { font-size: 2.2rem; }
+    
+    /* Section padding */
+    .section-padding {
+        padding: 80px 0;
+    }
+    
+    /* Header enhancements */
+    #main-header {
+        padding: 20px 0;
+    }
+    
+    .logo a {
+        font-size: 1.8rem;
+    }
+    
+    /* Navigation enhancements */
+    .nav-links li {
+        margin: 0 25px;
+    }
+    
+    /* Hero section */
+    .hero-section {
+        padding: 120px 20px 80px;
+    }
+    
+    .hero-headline {
+        font-size: 3.5rem;
+        margin-bottom: 30px;
+    }
+    
+    /* Grid layouts - 3 columns */
+    .experience-details-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 40px;
+    }
+    
+    .amenities-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 40px;
+    }
+    
+    .experience-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 40px;
+    }
+    
+    /* Gallery */
+    .gallery-swiper {
+        height: 500px;
+    }
+    
+    /* Location */
+    .location-grid {
+        grid-template-columns: 1.5fr 1fr;
+        gap: 50px;
+    }
+    
+    .map-container {
+        height: 450px;
+    }
+    
+    /* Contact */
+    .contact-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 60px;
+    }
+    
+    /* Hover effects for desktop */
+    .amenity-card {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    
+    .amenity-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    }
+    
+    .experience-detail-item {
+        transition: transform 0.3s ease;
+    }
+    
+    .experience-detail-item:hover {
+        transform: scale(1.05);
+    }
+}
+
+/* =============================================
+   LARGE DESKTOP (1200px+)
+   Maximum width constraints and luxury spacing
+   ============================================= */
+@media screen and (min-width: 1200px) {
+    /* Luxury spacing */
+    .section-padding {
+        padding: 100px 0;
+    }
+    
+    /* Hero adjustments */
+    .hero-headline {
+        font-size: 4rem;
+    }
+    
+    /* Maximum content width */
+    .container {
+        max-width: 1200px;
+    }
+}
+
+/* =============================================
+   UTILITY CLASSES
+   Helper classes for all breakpoints
+   ============================================= */
+
+/* Touch-friendly targets */
+.btn, 
+.nav-link, 
+button, 
+a {
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Smooth scrolling for all devices */
+@media (prefers-reduced-motion: no-preference) {
+    html {
+        scroll-behavior: smooth;
+    }
+}
+
+/* Print styles */
+@media print {
+    .nav-toggle,
+    .nav-cta,
+    .hero-cta,
+    .scroll-indicator,
+    .swiper-button-next,
+    .swiper-button-prev,
+    .contact-form,
+    #main-footer {
+        display: none !important;
+    }
+    
+    body {
+        font-size: 12pt;
+        line-height: 1.5;
+    }
+}

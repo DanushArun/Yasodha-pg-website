@@ -18,6 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Mobile navigation toggle
     const navToggle = document.querySelector('.nav-toggle');
     const navLinks = document.querySelector('.nav-links');
+    const body = document.body;
 
     if (navToggle && navLinks) {
         console.log('.nav-toggle and .nav-links elements found.');
@@ -25,6 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
             console.log('.nav-toggle clicked.');
             navLinks.classList.toggle('active');
             navToggle.classList.toggle('active'); // For styling the hamburger icon itself (e.g., to X)
+            body.classList.toggle('menu-open'); // Prevent body scroll when menu is open
         });
 
         // Close mobile menu when a link is clicked
@@ -33,8 +35,20 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (navLinks.classList.contains('active')) {
                     navLinks.classList.remove('active');
                     navToggle.classList.remove('active');
+                    body.classList.remove('menu-open');
                 }
             });
+        });
+        
+        // Close menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (navLinks.classList.contains('active') && 
+                !navLinks.contains(e.target) && 
+                !navToggle.contains(e.target)) {
+                navLinks.classList.remove('active');
+                navToggle.classList.remove('active');
+                body.classList.remove('menu-open');
+            }
         });
     } else {
         console.error('.nav-toggle or .nav-links element NOT found! This is likely the cause of the error.');

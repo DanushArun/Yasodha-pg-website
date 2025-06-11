@@ -53,22 +53,33 @@ document.addEventListener('DOMContentLoaded', () => {
                 paginationBulletMessage: 'Go to image {{index}}',
             },
 
-            // Responsive breakpoints
+            // Responsive breakpoints - Mobile First
             breakpoints: {
-                // when window width is >= 320px
-                320: {
+                // Mobile default: 1 slide
+                0: {
                     slidesPerView: 1,
-                    spaceBetween: 10
+                    spaceBetween: 15,
+                    pagination: {
+                        dynamicBullets: true,
+                        dynamicMainBullets: 3
+                    }
                 },
-                // when window width is >= 768px
+                // Tablets: 2 slides
                 768: {
                     slidesPerView: 2,
-                    spaceBetween: 20
+                    spaceBetween: 20,
+                    pagination: {
+                        dynamicBullets: true,
+                        dynamicMainBullets: 5
+                    }
                 },
-                // when window width is >= 1024px
+                // Desktop: 3 slides
                 1024: {
-                    slidesPerView: 3, // Or 'auto' if you want variable widths and number of slides
-                    spaceBetween: 30
+                    slidesPerView: 3,
+                    spaceBetween: 30,
+                    pagination: {
+                        dynamicBullets: false
+                    }
                 }
             }
             });
