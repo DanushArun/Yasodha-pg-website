@@ -22,18 +22,18 @@ document.addEventListener('DOMContentLoaded', () => {
             // Core functionality with dynamic loop setting
             loop: shouldLoop,
             loopedSlides: shouldLoop ? slideCount : null, // Loop all slides if looping
-            loopAdditionalSlides: shouldLoop ? 2 : 0, // Clone 2 additional slides for smooth transition
+            loopAdditionalSlides: shouldLoop ? 1 : 0, // Clone 1 additional slide for smooth transition
             watchSlidesProgress: true, // Watch slide progress for better loop handling
             watchSlidesVisibility: true, // Watch visibility for better performance
             loopFillGroupWithBlank: false, // Don't fill with blank slides
-            initialSlide: shouldLoop ? 1 : 0, // Start from second slide if looping to show previous slide
+            initialSlide: 0, // Always start from first slide
             
             grabCursor: true,
             centeredSlides: false, // Never center slides in multi-view mode
             slidesPerView: slidesPerViewDesktop,
             slidesPerGroup: 1, // Move one slide at a time
             spaceBetween: 30,
-            slideToClickedSlide: true,
+            slideToClickedSlide: false, // Disable to prevent issues
             
             autoplay: {
                 delay: 4000,
@@ -108,10 +108,8 @@ document.addEventListener('DOMContentLoaded', () => {
             on: {
                 init: function() {
                     console.log('Testimonials Swiper initialized with', slideCount, 'slides.');
-                    // Ensure proper initial positioning
-                    if (this.params.loop) {
-                        this.slideToLoop(0, 0, false); // Go to first real slide without animation
-                    }
+                    // Force update to ensure proper sizing
+                    this.update();
                 },
                 slideChangeTransitionEnd: function() {
                     // Ensure loop continues working
@@ -133,25 +131,20 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
         
-        // Additional fix for loop issues and initial positioning
-        if (shouldLoop) {
-            setTimeout(() => {
-                testimonialsSwiper.update();
-                testimonialsSwiper.loopDestroy();
-                testimonialsSwiper.loopCreate();
-                testimonialsSwiper.updateSlides();
-                testimonialsSwiper.slideTo(testimonialsSwiper.params.initialSlide, 0, false);
-                
-                // Force proper positioning
-                const wrapper = testimonialsSwiperContainer.querySelector('.swiper-wrapper');
-                if (wrapper) {
-                    wrapper.style.transition = 'none';
-                    setTimeout(() => {
-                        wrapper.style.transition = '';
-                    }, 50);
-                }
-            }, 100);
-        }
+        // Additional fix for proper display
+        setTimeout(() => {
+            testimonialsSwiper.update();
+            testimonialsSwiper.updateSlides();
+            testimonialsSwiper.updateProgress();
+            testimonialsSwiper.updateSlidesClasses();
+            
+            // Ensure navigation buttons are properly positioned
+            const nextButton = testimonialsSwiperContainer.querySelector('.swiper-button-next');
+            const prevButton = testimonialsSwiperContainer.querySelector('.swiper-button-prev');
+            if (nextButton && prevButton) {
+                testimonialsSwiper.navigation.update();
+            }
+        }, 300);
         
     } else {
         console.warn('Testimonials Swiper container (.testimonials-swiper) not found.');

@@ -385,4 +385,11 @@ def handle_subscription():
         return jsonify({"success": False, "message": "An error occurred. Please try again."}), 500
 
 if __name__ == '__main__':
+    # Ensure port 5001 is used consistently
+    print("\n=== Starting Yasodha Residency Backend Server ===")
+    print(f"Server will run on: http://127.0.0.1:5001")
+    print(f"Service account file exists: {os.path.exists(SERVICE_ACCOUNT_FILE)}")
+    print(f"Google Sheets connected: {worksheet is not None}")
+    print(f"CSV fallback active: {use_csv_fallback}")
+    print("\nPress Ctrl+C to stop the server\n")
     app.run(debug=True, port=5001, host='127.0.0.1')

@@ -94,7 +94,7 @@ document.addEventListener('DOMContentLoaded', () => {
             
             // Determine the correct URL based on current location
             const baseUrl = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' 
-                ? 'http://127.0.0.1:5000' 
+                ? 'http://127.0.0.1:5001' 
                 : ''; // Use relative URL in production
             
             fetch(`${baseUrl}/submit_booking`, {
@@ -106,8 +106,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 body: JSON.stringify(data),
             })
             .then(response => {
+                console.log('Response status:', response.status);
+                console.log('Response headers:', response.headers);
                 if (!response.ok) {
-                    throw new Error('Network response was not ok: ' + response.statusText);
+                    return response.text().then(text => {
+                        console.error('Error response body:', text);
+                        throw new Error(`Network response was not ok: ${response.status} ${response.statusText}`);
+                    });
                 }
                 return response.json(); 
             })
@@ -118,8 +123,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 bookingForm.reset(); // Reset form fields
             })
             .catch(error => {
-                console.error('Error:', error);
-                formStatus.textContent = 'An error occurred while submitting your inquiry. Please try again later.';
+                console.error('Error details:', error);
+                // More descriptive error messages
+                if (error.message.includes('Failed to fetch')) {
+                    formStatus.textContent = 'Unable to connect to the server. Please check if the server is running on port 5001.';
+                } else {
+                    formStatus.textContent = 'An error occurred while submitting your inquiry. Please try again later.';
+                }
                 formStatus.className = 'form-status error';
             })
             .finally(() => {
@@ -174,7 +184,12 @@ document.addEventListener('DOMContentLoaded', () => {
             const subData = { email: email };
             console.log('Subscription form data to be sent:', subData);
             
-            fetch('/subscribe_email', { // Endpoint in your server.py
+            // Determine the correct URL based on current location
+            const baseUrl = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' 
+                ? 'http://127.0.0.1:5001' 
+                : ''; // Use relative URL in production
+            
+            fetch(`${baseUrl}/subscribe_email`, { // Endpoint in your server.py
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
