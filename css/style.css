@@ -631,16 +631,16 @@ section[id] {
 
 /* === ABOUT / THE EXPERIENCE SECTION === */
 .about-section {
-    padding: 40px 0 0 0 !important; /* No bottom padding to eliminate gap */
-    overflow: hidden !important; /* Hide any overflow content */
+    padding: 80px 0 0 0 !important; /* Standard top padding, no bottom padding */
 }
 
 .experience-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 30px;
-    margin-top: 1.5em;
-    margin-bottom: 0; /* Remove bottom margin to prevent gap */
+    margin-top: 0.75em;
+    margin-bottom: 0;
+    padding-bottom: 0;
 }
 
 .experience-item {
@@ -720,8 +720,9 @@ section[id] {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 30px;
-    margin-top: 2em;
-    margin-bottom: 0; /* Remove bottom margin */
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-bottom: 0;
     text-align: center;
 }
 
@@ -776,21 +777,77 @@ section[id] {
 /* End of New styles for Experience Details Grid */
 
 /* === STATISTICS SECTION === */
-.stats-wrapper {
-    margin: 0;
-    padding: 0;
-    max-height: 150px; /* Limit height to prevent excessive spacing */
+.stats-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 0 0 40px 0 !important;
+    margin-top: 20px !important;
+    background: transparent;
+    position: relative;
 }
 
-/* Stats section styles removed as per user request */
+/* Optional: Add a subtle separator before statistics */
+.stats-container::before {
+    display: none; /* Disabled to reduce visual spacing */
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--primary-color), transparent);
+    opacity: 0.3;
+}
+
+.stat-item {
+    text-align: center;
+    flex: 1;
+    position: relative;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.6s ease;
+}
+
+.stat-item.animated {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.stat-number {
+    font-size: 3.5rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    font-family: var(--font-heading);
+    line-height: 1;
+    display: inline-block;
+}
+
+.stat-suffix {
+    font-size: 3.5rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    font-family: var(--font-heading);
+    line-height: 1;
+    display: inline-block;
+    margin-left: -5px;
+}
+
+.stat-label {
+    display: block;
+    font-size: 0.9rem;
+    color: #666;
+    font-weight: 500;
+    margin-top: 10px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
 }
 
 /* === AMENITIES SECTION === */
 .amenities-section {
     position: relative;
     overflow: hidden;
-    padding: 40px 0 !important; /* Override section-padding with consistent padding */
-    margin-top: -300px !important; /* Nuclear option - pull section up to eliminate gap */
 }
 
 .amenities-grid {
@@ -2296,4 +2353,50 @@ main > section::before {
 /* Smooth transitions for all interactive elements */
 * {
     transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+
+/* NUCLEAR SPACING FIX - OVERRIDE ALL */
+#about.about-section {
+    padding-bottom: 0 !important;
+    margin-bottom: 0 !important;
+}
+
+/* Fix the subtitle's huge margin */
+#about .section-subtitle {
+    margin-bottom: 30px !important; /* Reduce from 3em */
+}
+
+#about .experience-details-grid {
+    margin-bottom: 20px !important; /* Minimal space before image cards */
+    margin-top: 0 !important;
+    gap: 20px !important; /* Reduce grid gap */
+}
+
+#about .experience-grid {
+    margin-bottom: 0 !important;
+    margin-top: 0 !important;
+    gap: 20px !important; /* Reduce grid gap */
+}
+
+/* Remove transform animations that create visual space */
+#about .experience-item,
+#about .experience-detail-item {
+    transform: none !important;
+    opacity: 1 !important;
+}
+
+/* Reduce card padding */
+#about .experience-detail-item {
+    padding: 20px !important;
+}
+
+#about .stats-container {
+    margin-top: 30px !important;
+    padding-top: 0 !important;
+}
+
+/* Force no spacing after about section */
+#about + section {
+    margin-top: 0 !important;
 }

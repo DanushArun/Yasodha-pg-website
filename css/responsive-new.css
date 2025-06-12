@@ -168,7 +168,7 @@
         display: grid;
         grid-template-columns: 1fr;
         gap: 30px;
-        margin-bottom: 40px;
+        margin-bottom: 0;
     }
     
     .experience-detail-item {
@@ -184,6 +184,27 @@
     .experience-grid {
         grid-template-columns: 1fr;
         gap: 30px;
+    }
+    
+    /* Statistics Section Mobile */
+    .stats-container {
+        flex-direction: column;
+        gap: 25px;
+        padding: 0 20px 40px 20px;
+        margin-top: 30px;
+    }
+    
+    .stat-item {
+        width: 100%;
+    }
+    
+    .stat-number,
+    .stat-suffix {
+        font-size: 2.5rem;
+    }
+    
+    .stat-label {
+        font-size: 0.8rem;
     }
     
     /* Amenities Mobile */

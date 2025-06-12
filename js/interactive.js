@@ -179,6 +179,43 @@ function initMagneticButtons() {
  * Initialize counter animations for statistics
  */
 function initCounterAnimations() {
-    // Stats section removed as per user request
-    // This function is kept empty to avoid breaking any calls to it
+    const statNumbers = document.querySelectorAll('.stat-item');
+    
+    if (statNumbers.length === 0) return;
+    
+    const observerOptions = {
+        threshold: 0.5,
+        rootMargin: '0px'
+    };
+    
+    const animateCounter = (element) => {
+        const target = parseInt(element.dataset.target);
+        const numberSpan = element.querySelector('.stat-number');
+        const duration = 2000; // 2 seconds
+        const increment = target / (duration / 16); // 60fps
+        let current = 0;
+        
+        const timer = setInterval(() => {
+            current += increment;
+            if (current >= target) {
+                current = target;
+                clearInterval(timer);
+            }
+            numberSpan.textContent = Math.floor(current);
+        }, 16);
+    };
+    
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting && !entry.target.classList.contains('animated')) {
+                entry.target.classList.add('animated');
+                animateCounter(entry.target);
+                observer.unobserve(entry.target);
+            }
+        });
+    }, observerOptions);
+    
+    statNumbers.forEach(stat => {
+        observer.observe(stat);
+    });
 }
