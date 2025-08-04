@@ -14,29 +14,31 @@ body.menu-open {
 .hamburger {
     display: block !important;
     width: 25px;
-    height: 3px;
-    background-color: var(--text-color);
+    height: 20px;
     position: relative;
-    transition: all 0.3s ease;
 }
 
-.hamburger::before,
-.hamburger::after {
-    content: '';
+.hamburger span {
+    display: block;
     position: absolute;
-    width: 25px;
+    width: 100%;
     height: 3px;
     background-color: var(--text-color);
-    left: 0;
+    border-radius: 2px;
     transition: all 0.3s ease;
 }
 
-.hamburger::before {
-    top: -8px;
+.hamburger span:nth-child(1) {
+    top: 0;
 }
 
-.hamburger::after {
-    bottom: -8px;
+.hamburger span:nth-child(2) {
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.hamburger span:nth-child(3) {
+    bottom: 0;
 }
 
 /* Mobile Navigation Enhancements */
@@ -54,18 +56,18 @@ body.menu-open {
     }
     
     /* Hamburger Menu Animation */
-    .nav-toggle.active .hamburger {
-        background-color: transparent;
+    .nav-toggle.active .hamburger span:nth-child(1) {
+        top: 50%;
+        transform: translateY(-50%) rotate(45deg);
     }
     
-    .nav-toggle.active .hamburger::before {
-        top: 0;
-        transform: rotate(45deg);
+    .nav-toggle.active .hamburger span:nth-child(2) {
+        opacity: 0;
     }
     
-    .nav-toggle.active .hamburger::after {
-        bottom: 0;
-        transform: rotate(-45deg);
+    .nav-toggle.active .hamburger span:nth-child(3) {
+        bottom: 50%;
+        transform: translateY(50%) rotate(-45deg);
     }
     
     /* Show menu text on mobile */

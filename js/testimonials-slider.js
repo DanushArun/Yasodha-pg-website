@@ -59,8 +59,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // Navigation arrows
             navigation: {
-                nextEl: '.testimonials-section .swiper-button-next',
-                prevEl: '.testimonials-section .swiper-button-prev',
+                nextEl: '.testimonials-swiper .swiper-button-next',
+                prevEl: '.testimonials-swiper .swiper-button-prev',
             },
 
             keyboard: {

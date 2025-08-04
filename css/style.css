@@ -295,15 +295,11 @@ section[id] {
 }
 
 /* Ensure hamburger is dark on scrolled (light) background */
-#main-header.scrolled .nav-toggle .hamburger,
-#main-header.scrolled .nav-toggle .hamburger::before,
-#main-header.scrolled .nav-toggle .hamburger::after {
+#main-header.scrolled .nav-toggle .hamburger span {
     background-color: var(--text-color);
 }
-/* Hamburger is white on glassy header */
-#main-header .nav-toggle .hamburger,
-#main-header .nav-toggle .hamburger::before,
-#main-header .nav-toggle .hamburger::after {
+/* Hamburger spans are white on glassy header */
+#main-header .nav-toggle .hamburger span {
     background-color: #FFFFFF; 
 }
 
@@ -487,7 +483,7 @@ section[id] {
     left: 0;
     width: 100%;
     height: 100%;
-    background-image: url('../pg-photos/WhatsApp Image 2025-05-04 at 10.35.12 (1).jpeg');
+    background-image: url('../pg-photos/WhatsApp Image 2025-05-04 at 10.35.11.jpeg');
     background-position: center center;
     background-size: cover;
     background-repeat: no-repeat;
@@ -1102,11 +1098,15 @@ section[id] {
     height: 100%;
     object-fit: cover;
     cursor: pointer;
-    transition: transform 0.3s ease;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, filter 0.3s ease;
 }
 
 .gallery-section .swiper-slide img:hover {
     transform: scale(1.05);
+    box-shadow: 0 0 30px rgba(255, 182, 193, 0.5), 
+                0 0 50px rgba(255, 182, 193, 0.3),
+                0 0 70px rgba(255, 182, 193, 0.2);
+    filter: brightness(1.05);
 }
 
 /* Gallery loading state */
@@ -1603,11 +1603,11 @@ section[id] {
 }
 
 .testimonials-section .swiper-button-prev {
-    left: 10px;
+    left: -60px;
 }
 
 .testimonials-section .swiper-button-next {
-    right: 10px;
+    right: -60px;
 }
 
 .testimonials-section .swiper-button-next:hover,
@@ -1621,6 +1621,48 @@ section[id] {
 .testimonials-section .swiper-button-prev::after {
     font-size: 1rem;
     font-weight: bold;
+}
+
+/* Responsive testimonials navigation */
+@media (max-width: 1200px) {
+    .testimonials-section .swiper-button-prev {
+        left: -40px;
+    }
+    
+    .testimonials-section .swiper-button-next {
+        right: -40px;
+    }
+}
+
+@media (max-width: 992px) {
+    .testimonials-section .swiper-button-prev {
+        left: 10px;
+    }
+    
+    .testimonials-section .swiper-button-next {
+        right: 10px;
+    }
+}
+
+@media (max-width: 768px) {
+    .testimonials-section .swiper-button-next,
+    .testimonials-section .swiper-button-prev {
+        width: 35px;
+        height: 35px;
+    }
+    
+    .testimonials-section .swiper-button-prev {
+        left: 5px;
+    }
+    
+    .testimonials-section .swiper-button-next {
+        right: 5px;
+    }
+    
+    .testimonials-section .swiper-button-next::after,
+    .testimonials-section .swiper-button-prev::after {
+        font-size: 0.8rem;
+    }
 }
 
 
