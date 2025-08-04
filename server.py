@@ -9,8 +9,23 @@ import time
 import csv
 import json
 import logging
+import base64
+import tempfile
 
 app = Flask(__name__, static_folder='.', static_url_path='')
+
+# Check for Google credentials in environment
+if os.environ.get('GOOGLE_CREDENTIALS'):
+    # Decode and save credentials temporarily
+    credentials_base64 = os.environ.get('GOOGLE_CREDENTIALS')
+    credentials_json = base64.b64decode(credentials_base64)
+    
+    # Write to a temporary file
+    with tempfile.NamedTemporaryFile(mode='w', suffix='.json', delete=False) as f:
+        f.write(credentials_json.decode('utf-8'))
+        SERVICE_ACCOUNT_FILE = f.name
+else:
+    SERVICE_ACCOUNT_FILE = 'service-account.json'
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
@@ -30,7 +45,6 @@ def after_request(response):
     return add_cors_headers(response)
 
 # --- Google Sheets Configuration ---
-SERVICE_ACCOUNT_FILE = 'service-account.json'
 SPREADSHEET_ID = os.environ.get('SPREADSHEET_ID', '1PbwSgLYvDl_FN3oUfwsFFTidS12c68yu8yRAOiZHiNY')
 SHEET_NAME = os.environ.get('SHEET_NAME', '2025')
 
@@ -114,8 +128,12 @@ if os.path.exists(SERVICE_ACCOUNT_FILE):
 
         # Open the spreadsheet
         print(f"Attempting to open spreadsheet with ID: {SPREADSHEET_ID}")
-        spreadsheet = gc.open_by_key(SPREADSHEET_ID)
-        print(f"✓ Spreadsheet opened: '{spreadsheet.title}'")
+        try:
+            spreadsheet = gc.open_by_key(SPREADSHEET_ID)
+            print(f"✓ Spreadsheet opened: '{spreadsheet.title}'")
+        except Exception as e:
+            print(f"Failed to open spreadsheet: {e}")
+            raise  # Re-raise to be caught by outer exception handler
 
         # Get the worksheet
         try:
@@ -132,7 +150,8 @@ if os.path.exists(SERVICE_ACCOUNT_FILE):
         
     except (gspread.exceptions.APIError, gspread.exceptions.GSpreadException) as api_error:
         print(f"Google Sheets API Error: {api_error}")
-        if 'Invalid JWT Signature' in str(api_error) or 'invalid_grant' in str(api_error):
+        error_str = str(api_error)
+        if 'Invalid JWT Signature' in error_str or 'invalid_grant' in error_str:
             print("\n=== JWT Signature Error - Using CSV Fallback ===")
             print(f"Service account email: {service_account_email}")
             print("\nTo fix this issue:")
@@ -147,6 +166,19 @@ if os.path.exists(SERVICE_ACCOUNT_FILE):
             print("   Give it 'Editor' permissions")
             print("4. Check that the spreadsheet ID is correct:")
             print(f"   {SPREADSHEET_ID}")
+            print("\n=== Using CSV file for storing inquiries ===")
+        elif '404' in error_str or 'File not found' in error_str:
+            print("\n=== Spreadsheet Not Found (404) - Using CSV Fallback ===")
+            print("The Google Sheet cannot be accessed. This usually means:")
+            print("1. The spreadsheet ID is incorrect")
+            print("2. The service account doesn't have access to the spreadsheet")
+            print(f"3. Share the spreadsheet with: {service_account_email}")
+            print("   Give it 'Editor' permissions")
+            print(f"4. Spreadsheet ID: {SPREADSHEET_ID}")
+            print("\n=== Using CSV file for storing inquiries ===")
+        else:
+            print(f"\n=== Google Sheets Error - Using CSV Fallback ===")
+            print(f"Error details: {error_str}")
             print("\n=== Using CSV file for storing inquiries ===")
         use_csv_fallback = True
         worksheet = None

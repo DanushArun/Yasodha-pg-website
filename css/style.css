@@ -483,7 +483,7 @@ section[id] {
     left: 0;
     width: 100%;
     height: 100%;
-    background-image: url('../pg-photos/WhatsApp Image 2025-05-04 at 10.35.11.jpeg');
+    background-image: url('../pg-photos/WhatsApp Image 2025-08-04 at 09.48.10.jpeg');
     background-position: center center;
     background-size: cover;
     background-repeat: no-repeat;
@@ -1399,6 +1399,11 @@ section[id] {
 .testimonials-swiper {
     opacity: 0;
     transition: opacity 0.3s ease;
+    cursor: grab;
+}
+
+.testimonials-swiper:active {
+    cursor: grabbing;
 }
 
 .testimonials-swiper.swiper-initialized {
@@ -2146,7 +2151,7 @@ address {
 /* New styles for the header CTA button */
 .btn-cta-header {
     padding: 12px 30px;
-    color: #FFFFFF;
+    color: #000000;
     border: 2px solid var(--primary-color); 
     background-color: var(--primary-color);
     text-decoration: none;
@@ -2164,12 +2169,12 @@ address {
     transform: scale(1.05);
     background-color: #E89FAD; /* Darker pink on hover */
     border-color: #E89FAD;
-    color: #000000 !important; /* Black text on hover */
+    color: #FFFFFF !important; /* White text on hover */
 }
 
 .btn-cta-header:active,
 .btn-cta-header:focus {
-    color: #000000 !important; /* Black text when clicked/focused */
+    color: #FFFFFF !important; /* White text when clicked/focused */
     outline: none;
     box-shadow: 0 0 0 3px rgba(244, 181, 193, 0.3);
 }
