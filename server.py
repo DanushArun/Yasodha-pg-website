@@ -3,9 +3,9 @@ from flask import Flask, request, jsonify, send_from_directory, make_response
 import gspread
 from google.oauth2.service_account import Credentials
 from datetime import datetime
+import pytz
 import re
 import os
-import time
 import csv
 import json
 import logging
@@ -348,8 +348,9 @@ def handle_booking_submission():
                 return add_cors_headers(jsonify({"success": False, "message": "Invalid phone number. Please use 7-15 digits."})), 400
             phone = phone_digits  # Store only digits
 
-        # Generate Date and Time strings
-        current_datetime = datetime.now()
+        # Generate Date and Time strings using Indian Standard Time
+        ist = pytz.timezone('Asia/Kolkata')
+        current_datetime = datetime.now(ist)
         date_str = current_datetime.strftime("%d-%m-%Y")
         time_str = current_datetime.strftime("%I:%M:%S %p") # 12-hour format with AM/PM
 
@@ -430,8 +431,9 @@ def handle_subscription():
         except Exception as e:
             print(f"Error checking existing subscriptions: {e}")
 
-        # Generate Date and Time strings
-        current_datetime = datetime.now()
+        # Generate Date and Time strings using Indian Standard Time
+        ist = pytz.timezone('Asia/Kolkata')
+        current_datetime = datetime.now(ist)
         date_str = current_datetime.strftime("%d-%m-%Y")
         time_str = current_datetime.strftime("%I:%M:%S %p")
 

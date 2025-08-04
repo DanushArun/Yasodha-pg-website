@@ -46,6 +46,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 onlyInViewport: true,
             },
 
+            // Mousewheel/trackpad support for horizontal scrolling
+            mousewheel: {
+                enabled: true,
+                forceToAxis: true,
+                sensitivity: 1,
+                releaseOnEdges: true,
+            },
+
             // Accessibility
             a11y: {
                 prevSlideMessage: 'Previous image',
