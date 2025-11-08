@@ -2331,9 +2331,31 @@ body.loaded .loader {
 
 /* Card 3D tilt effect */
 .amenity-card,
-.experience-item {
+.experience-item,
+.contact-info-card {
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     will-change: transform;
+}
+
+.card-hover {
+    transform: translateY(-10px);
+}
+
+/* Form input enhancements */
+.form-input-focused {
+    border-color: var(--primary-color) !important;
+    box-shadow: 0 0 0 0.2rem rgba(244, 181, 193, 0.25) !important;
+}
+
+.form-input-filled {
+    background-color: #f8f9fa !important;
+}
+
+/* Button positioning for ripple effect */
+.btn,
+.phone-link {
+    position: relative;
+    overflow: hidden;
 }
 
 /* Smooth page transitions */

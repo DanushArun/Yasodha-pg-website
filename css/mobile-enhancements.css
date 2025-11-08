@@ -1,6 +1,11 @@
-/* 
+/*
 * Mobile-Specific Enhancements
-* Additional styles for optimal mobile experience
+*
+* PURPOSE: Handles mobile navigation interactions and mobile-only features
+* SCOPE: Hamburger menu, mobile navigation overlay, touch interactions
+* COMPLEMENTS: responsive-new.css (handles layout, this handles interactions)
+*
+* NOTE: This file focuses on mobile UX enhancements, not general responsive layout
 */
 
 /* Prevent body scroll when mobile menu is open */

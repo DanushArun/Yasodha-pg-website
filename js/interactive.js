@@ -54,18 +54,14 @@ function initScrollRevealAnimations() {
  */
 function initCardTiltEffect() {
     const cards = document.querySelectorAll('.amenity-card, .experience-item, .contact-info-card');
-    
+
     cards.forEach(card => {
-        // Ensure initial state
-        card.style.transform = 'translateY(0)';
-        card.style.transition = 'all 0.3s ease';
-        
         card.addEventListener('mouseenter', () => {
-            card.style.transform = 'translateY(-10px)';
+            card.classList.add('card-hover');
         });
-        
+
         card.addEventListener('mouseleave', () => {
-            card.style.transform = 'translateY(0)';
+            card.classList.remove('card-hover');
         });
     });
 }
@@ -75,26 +71,24 @@ function initCardTiltEffect() {
  */
 function initRippleEffect() {
     const buttons = document.querySelectorAll('.btn, .phone-link');
-    
+
     buttons.forEach(button => {
-        button.style.position = 'relative';
-        button.style.overflow = 'hidden';
-        
         button.addEventListener('click', function(e) {
             const ripple = document.createElement('span');
             ripple.className = 'ripple';
-            
+
             const rect = this.getBoundingClientRect();
             const size = Math.max(rect.width, rect.height);
             const x = e.clientX - rect.left - size / 2;
             const y = e.clientY - rect.top - size / 2;
-            
+
+            // Only set position and size as inline styles (necessary for dynamic positioning)
             ripple.style.width = ripple.style.height = size + 'px';
             ripple.style.left = x + 'px';
             ripple.style.top = y + 'px';
-            
+
             this.appendChild(ripple);
-            
+
             setTimeout(() => ripple.remove(), 600);
         });
     });
@@ -105,27 +99,25 @@ function initRippleEffect() {
  */
 function initFormEnhancements() {
     const formInputs = document.querySelectorAll('.contact-form input, .contact-form textarea');
-    
+
     formInputs.forEach(input => {
         // Enhanced focus effects without floating labels
         input.addEventListener('focus', () => {
             input.parentElement.classList.add('focused');
-            input.style.borderColor = 'var(--primary-color)';
-            input.style.boxShadow = '0 0 0 0.2rem rgba(244, 181, 193, 0.25)';
+            input.classList.add('form-input-focused');
         });
-        
+
         input.addEventListener('blur', () => {
             input.parentElement.classList.remove('focused');
-            input.style.borderColor = '#ccc';
-            input.style.boxShadow = 'none';
+            input.classList.remove('form-input-focused');
         });
-        
+
         // Enhanced input styling
         input.addEventListener('input', () => {
             if (input.value.length > 0) {
-                input.style.backgroundColor = '#f8f9fa';
+                input.classList.add('form-input-filled');
             } else {
-                input.style.backgroundColor = '#fff';
+                input.classList.remove('form-input-filled');
             }
         });
     });

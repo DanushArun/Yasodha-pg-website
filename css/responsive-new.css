@@ -1,7 +1,11 @@
-/* 
+/*
 * Yasodha Residency - Mobile-First Responsive Design
-* This file uses a mobile-first approach for better mobile experience
-* while maintaining and enhancing desktop layouts
+*
+* PURPOSE: Handles responsive breakpoints and layout adjustments across all devices
+* SCOPE: Typography, spacing, grids, sections, and component layouts
+* APPROACH: Mobile-first with progressive enhancement for tablets and desktops
+*
+* NOTE: For mobile navigation-specific enhancements, see mobile-enhancements.css
 */
 
 /* =============================================

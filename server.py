@@ -339,13 +339,14 @@ def handle_booking_submission():
             return add_cors_headers(jsonify({"success": False, "message": "Email is required."})), 400
         if not message:
             return add_cors_headers(jsonify({"success": False, "message": "Message is required."})), 400
-        if not re.match(r"[^@]+@[^@]+\.[^@]+", email):
+        # Improved email validation (RFC 5322 compliant)
+        if not re.match(r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$", email):
             return add_cors_headers(jsonify({"success": False, "message": "Invalid email format."})), 400
-        # More flexible phone validation - allow spaces, dashes, and parentheses
+        # Improved phone validation - allow spaces, dashes, and parentheses
         if phone:
             phone_digits = re.sub(r'[^\d]', '', phone)  # Extract only digits
-            if not phone_digits or not (7 <= len(phone_digits) <= 15):
-                return add_cors_headers(jsonify({"success": False, "message": "Invalid phone number. Please use 7-15 digits."})), 400
+            if not phone_digits or not (10 <= len(phone_digits) <= 15):
+                return add_cors_headers(jsonify({"success": False, "message": "Invalid phone number. Please use 10-15 digits."})), 400
             phone = phone_digits  # Store only digits
 
         # Generate Date and Time strings using Indian Standard Time
@@ -416,7 +417,8 @@ def handle_subscription():
         # Validation
         if not email:
             return jsonify({"success": False, "message": "Email is required."}), 400
-        if not re.match(r"[^@]+@[^@]+\.[^@]+", email):
+        # Improved email validation (RFC 5322 compliant)
+        if not re.match(r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$", email):
             return jsonify({"success": False, "message": "Invalid email format."}), 400
 
         # Check if already subscribed (simple check - could be improved)

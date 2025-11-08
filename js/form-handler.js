@@ -1,5 +1,15 @@
 // js/form-handler.js - Handles the submission of the contact/booking inquiry form
 
+// Debug mode - set to false for production
+const DEBUG_MODE = false;
+
+// Debug logger utility
+const debug = {
+    log: (...args) => DEBUG_MODE && console.log(...args),
+    warn: (...args) => DEBUG_MODE && console.warn(...args),
+    error: (...args) => console.error(...args) // Always log errors
+};
+
 document.addEventListener('DOMContentLoaded', () => {
     // Get API base URL from config or use relative path
     const API_BASE_URL = window.appConfig?.API_BASE_URL || '';
@@ -36,17 +46,17 @@ document.addEventListener('DOMContentLoaded', () => {
                 isValid = false;
             }
 
-            // Basic email validation regex
-            const emailRegex = /^\S+@\S+\.\S+$/;
+            // Improved email validation regex (RFC 5322 compliant)
+            const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
             if (email !== '' && !emailRegex.test(email)) {
                 statusMessage = 'Please enter a valid email address for booking.';
                 isValid = false;
             }
-            
-            // Basic phone validation - extract digits and check count
+
+            // Improved phone validation - extract digits and check count
             const phoneDigits = phone.replace(/[^\d]/g, ''); // Remove non-digits
-            if (phone !== '' && (phoneDigits.length < 7 || phoneDigits.length > 15)) {
-                statusMessage = 'Please enter a valid phone number (7-15 digits).';
+            if (phone !== '' && (phoneDigits.length < 10 || phoneDigits.length > 15)) {
+                statusMessage = 'Please enter a valid phone number (10-15 digits).';
                 isValid = false;
             }
 
@@ -74,23 +84,23 @@ document.addEventListener('DOMContentLoaded', () => {
             });
             
             // Ensure we have the data we expect
-            console.log('Form data object:', data);
-            console.log('Form data keys:', Object.keys(data));
-            
+            debug.log('Form data object:', data);
+            debug.log('Form data keys:', Object.keys(data));
+
             // Double-check that we have data
             if (Object.keys(data).length === 0) {
-                console.error('FormData conversion resulted in empty object');
+                debug.error('FormData conversion resulted in empty object');
                 // Manually get form values as fallback
                 data.name = document.getElementById('name').value.trim();
                 data.email = document.getElementById('email').value.trim();
                 data.phone = document.getElementById('phone').value.trim();
                 data.visitDate = document.getElementById('visitDate').value || '';
                 data.message = document.getElementById('message').value.trim();
-                console.log('Manually collected data:', data);
+                debug.log('Manually collected data:', data);
             }
 
-            // --- AJAX Submission to server.py (Placeholder) ---
-            console.log('Booking form data to be sent:', data);
+            // --- AJAX Submission to server.py ---
+            debug.log('Booking form data to be sent:', data);
             // Replace with actual fetch() or XMLHttpRequest to your Python backend
             // Example using fetch:
             
@@ -103,24 +113,24 @@ document.addEventListener('DOMContentLoaded', () => {
                 body: JSON.stringify(data),
             })
             .then(response => {
-                console.log('Response status:', response.status);
-                console.log('Response headers:', response.headers);
+                debug.log('Response status:', response.status);
+                debug.log('Response headers:', response.headers);
                 if (!response.ok) {
                     return response.text().then(text => {
-                        console.error('Error response body:', text);
+                        debug.error('Error response body:', text);
                         throw new Error(`Network response was not ok: ${response.status} ${response.statusText}`);
                     });
                 }
-                return response.json(); 
+                return response.json();
             })
             .then(result => {
-                console.log('Success:', result);
+                debug.log('Success:', result);
                 formStatus.textContent = result.message || 'Thank you! Your inquiry has been submitted successfully.';
                 formStatus.className = 'form-status success';
                 bookingForm.reset(); // Reset form fields
             })
             .catch(error => {
-                console.error('Error details:', error);
+                debug.error('Error details:', error);
                 // More descriptive error messages
                 if (error.message.includes('Failed to fetch')) {
                     formStatus.textContent = 'Unable to connect to the server. Please check if the server is running on port 5001.';
@@ -164,7 +174,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 statusMessage = 'Please enter your email address to subscribe.';
                 isValid = false;
             }
-            const emailRegex = /^\S+@\S+\.\S+$/;
+            // Improved email validation regex (RFC 5322 compliant)
+            const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
             if (email !== '' && !emailRegex.test(email)) {
                 statusMessage = 'Please enter a valid email address for subscription.';
                 isValid = false;
@@ -179,8 +190,8 @@ document.addEventListener('DOMContentLoaded', () => {
             subscriptionFormStatus.textContent = 'Subscribing...';
             subscriptionFormStatus.className = 'form-status info';
             const subData = { email: email };
-            console.log('Subscription form data to be sent:', subData);
-            
+            debug.log('Subscription form data to be sent:', subData);
+
             fetch(`${API_BASE_URL}/subscribe_email`, { // Endpoint in your server.py
                 method: 'POST',
                 headers: {
@@ -195,13 +206,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 return response.json();
             })
             .then(result => {
-                console.log('Success:', result);
+                debug.log('Success:', result);
                 subscriptionFormStatus.textContent = result.message || 'Thank you for subscribing!';
                 subscriptionFormStatus.className = 'form-status success';
                 subscriptionForm.reset(); // Reset form fields
             })
             .catch(error => {
-                console.error('Error:', error);
+                debug.error('Error:', error);
                 subscriptionFormStatus.textContent = 'An error occurred during subscription. Please try again later.';
                 subscriptionFormStatus.className = 'form-status error';
             });
