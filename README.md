@@ -1,7 +1,65 @@
-# Yasodha PG Website
+![Yasodha PG workflow](docs/assets/project-overview.svg)
+
+# Yasodha PG
+
+**From property discovery to a recorded enquiry.**
 
 A property website with gallery content, booking enquiries and email subscriptions.
 Flask serves the site and writes submissions to Google Sheets, with a local CSV fallback.
+
+
+![Flask](https://img.shields.io/badge/Flask-181f28)
+![JavaScript](https://img.shields.io/badge/JavaScript-181f28)
+![Google Sheets](https://img.shields.io/badge/Google%20Sheets-181f28)
+
+[Architecture](docs/ARCHITECTURE.md) · [Evaluation guide](docs/EVALUATION.md)
+
+**Contents:** [The challenge](#the-challenge) · [Walkthrough](#walk-through-the-project) ·
+[Implementation](#implementation-state) · [Design choices](#engineering-choices) ·
+[Next evidence](#next-evidence-to-collect)
+
+---
+
+## The challenge
+
+Property discovery needs photos and clear contact information, but an enquiry is only useful if it
+reaches storage. This website couples a property presentation with Flask submission routes, Google
+Sheets persistence and a local fallback path.
+
+## System at a glance
+
+```mermaid
+flowchart LR
+    N0["Property site"]
+    N1["Flask submission"]
+    N2["Google Sheets"]
+    N3["CSV fallback"]
+    N0 --> N1
+    N1 --> N2
+    N2 --> N3
+```
+
+## Walk through the project
+
+### 1. Explore the property
+
+Open the site and gallery. Images and amenities are supplied content; verify them with the
+property operator.
+
+### 2. Submit synthetic enquiries
+
+Use the booking or email-subscription controls in an authorized test environment. Avoid real
+prospective-tenant data during evaluation.
+
+### 3. Verify the storage destination
+
+Check whether a submission reached the configured sheet or the CSV fallback. Startup can create or
+initialize worksheet headers.
+
+### 4. Check deployment persistence
+
+Inspect the hosting configuration and fallback file durability. A success response without a
+durable record is not evidence of reliable enquiry delivery.
 
 ## Data flow
 
@@ -56,3 +114,32 @@ Source, routes and dependency paths were inspected. No real enquiry, Google Shee
 live deployment check was performed for this update. There is no automated test suite.
 Confirm form delivery, fallback storage and credential handling with synthetic enquiries before
 release.
+
+## Engineering choices
+
+**Server routes define the contract.** The booking path is /submit_booking, not the old
+documentation route.
+
+**Fallback is visible.** A CSV fallback is a distinct operational mode with its own durability
+requirements.
+
+**Startup has side effects.** Use a dedicated test sheet because initialization can alter headers.
+
+## Implementation state
+
+| State | Current evidence |
+| --- | --- |
+| Present | Property site and gallery assets |
+| Present | Booking/subscription routes and storage fallback |
+| Configuration required | Authorized Google sheet and service account |
+| Not verified | Live hosting, delivered enquiries and durable fallback |
+
+The [architecture guide](docs/ARCHITECTURE.md) maps these statements to source entry points.
+The [evaluation guide](docs/EVALUATION.md) separates inspection, executable checks and
+domain validation, with the next evidence needed for each project.
+
+## Next evidence to collect
+
+- Test sheet and fallback paths with synthetic enquiries.
+- Review durable storage and credential handling.
+- Capture published-site delivery and gallery acceptance evidence.
